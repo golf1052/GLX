@@ -29,8 +29,7 @@ namespace GLX
         public int frameCount;
         public int frameTime;
         public bool loop;
-        public Action action;
-        public int actionFrame;
+        internal List<List<Action>> frameActions;
 
         public SpriteSheet(Texture2D loadedTex,
             SpriteSheetInfo info,
@@ -45,27 +44,11 @@ namespace GLX
             this.frameTime = frameTime;
             this.loop = loop;
 
-            frameColorData = new Dictionary<Rectangle, ColorData>();
-            GenerateFrameColorData();
-        }
-
-        public SpriteSheet(Texture2D loadedTex,
-            SpriteSheetInfo info,
-            int frameCount,
-            int frameTime,
-            bool loop,
-            Action action,
-            int actionFrame)
-        {
-            tex = loadedTex;
-            colorData = new ColorData(tex);
-            this.info = info;
-            this.frameCount = frameCount;
-            this.frameTime = frameTime;
-            this.loop = loop;
-            this.action = action;
-            this.actionFrame = actionFrame;
-
+            frameActions = new List<List<Action>>();
+            for (int i = 0; i < frameCount; i++)
+            {
+                frameActions.Add(new List<Action>());
+            }
             frameColorData = new Dictionary<Rectangle, ColorData>();
             GenerateFrameColorData();
         }

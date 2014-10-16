@@ -102,10 +102,6 @@ namespace GLX
                 if (animations.elapsedTime > animations.currentSpriteSheet.frameTime)
                 {
                     animations.currentFrame++;
-                    if (animations.currentFrame == animations.currentSpriteSheet.actionFrame)
-                    {
-                        animations.currentSpriteSheet.action.Invoke();
-                    }
                     if (animations.currentFrame == animations.currentSpriteSheet.frameCount)
                     {
                         animations.currentFrame = 0;
@@ -113,6 +109,10 @@ namespace GLX
                         {
                             animations.active = false;
                         }
+                    }
+                    foreach (Action action in animations.currentSpriteSheet.frameActions[animations.currentFrame])
+                    {
+                        action.Invoke();
                     }
                     animations.elapsedTime = 0;
                 }
@@ -127,6 +127,11 @@ namespace GLX
         public virtual void Draw(SpriteBatch spriteBatch)
         {
             spriteBatch.Draw(tex, pos, null, color, MathHelper.ToRadians(rotation), origin, scale, SpriteEffects.None, 0);
+        }
+
+        public void DrawRect(SpriteBatch spriteBatch)
+        {
+            spriteBatch.Draw(tex, drawRect, null, color, MathHelper.ToRadians(rotation), origin, SpriteEffects.None, 0);
         }
 
         public enum MovementDirection

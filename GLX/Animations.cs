@@ -73,10 +73,16 @@ namespace GLX
             return new SpriteSheet(spriteSheet, spriteSheetInfo, frameCount, frameTime, loop);
         }
 
-        public SpriteSheet AddSpriteSheet(Texture2D spriteSheet, int frameCount, int frameTime, bool loop, Action action, int actionFrame)
+        public void SetFrameAction(string animation, int frameNumber, Action action)
         {
-            return new SpriteSheet(spriteSheet, spriteSheetInfo, frameCount, frameTime, loop, action, actionFrame);
+            if (spriteSheets.ContainsKey(animation))
+            {
+                spriteSheets[animation].frameActions[frameNumber].Add(action);
+            }
+            else
+            {
+                throw new Exception("That animation does not exist.");
+            }
         }
-
     }
 }
