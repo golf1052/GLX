@@ -29,6 +29,7 @@ namespace GLX
                 if (spriteSheets.ContainsKey(value))
                 {
                     _currentAnimation = value;
+                    ResetAnimation();
                     currentSpriteSheet = spriteSheets[_currentAnimation];
                 }
                 else
@@ -56,15 +57,26 @@ namespace GLX
         {
             this.spriteSheetInfo = spriteSheetInfo;
             spriteSheets = new Dictionary<string, SpriteSheet>();
-            this.active = true;
-            this.sourceRect = new Rectangle(0, 0, spriteSheetInfo.frameWidth, spriteSheetInfo.frameHeight);
-            this.elapsedTime = 0;
-            this.currentFrame = 0;
+            ResetAnimation();
+        }
+
+        void ResetAnimation()
+        {
+            active = true;
+            sourceRect = new Rectangle(0, 0, spriteSheetInfo.frameWidth, spriteSheetInfo.frameHeight);
+            elapsedTime = 0;
+            currentFrame = 0;
         }
 
         public SpriteSheet AddSpriteSheet(Texture2D spriteSheet, int frameCount, int frameTime, bool loop)
         {
             return new SpriteSheet(spriteSheet, spriteSheetInfo, frameCount, frameTime, loop);
         }
+
+        public SpriteSheet AddSpriteSheet(Texture2D spriteSheet, int frameCount, int frameTime, bool loop, Action action, int actionFrame)
+        {
+            return new SpriteSheet(spriteSheet, spriteSheetInfo, frameCount, frameTime, loop, action, actionFrame);
+        }
+
     }
 }

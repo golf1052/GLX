@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
+using Microsoft.Xna.Framework.Input;
 
 namespace GLX
 {
@@ -17,7 +18,7 @@ namespace GLX
         public Rectangle drawRect;
         public Color color;
         public float alpha;
-        public Color[] colorData;
+        public ColorData colorData;
         public Vector2 origin;
         /// <summary>
         /// Rotation of Sprite in degrees
@@ -35,8 +36,7 @@ namespace GLX
             tex = loadedTex;
             SpriteBase();
             rect = new Rectangle((int)pos.X, (int)pos.Y, tex.Width, tex.Height);
-            colorData = new Color[tex.Width * tex.Height];
-            tex.GetData(colorData);
+            colorData = new ColorData(tex);
             origin = new Vector2(tex.Width / 2, tex.Height / 2);
             isAnimated = false;
             ready = true;
@@ -72,17 +72,17 @@ namespace GLX
         {
             tex = new Texture2D(graphicsDevice, animations.spriteSheetInfo.frameWidth, animations.spriteSheetInfo.frameHeight);
             animations.currentSpriteSheet = animations.spriteSheets.First().Value;
-            UpdateTexAndColorData(animations.currentSpriteSheet);
+            UpdateTexAndColorData(animations.currentSpriteSheet, graphicsDevice);
             rect = new Rectangle((int)pos.X, (int)pos.Y, tex.Width, tex.Height);
             origin = new Vector2(tex.Width / 2, tex.Height / 2);
             ready = true;
         }
 
-        public void Update(GameTime gameTime)
+        public virtual void Update(GameTime gameTime, GraphicsDevice graphicsDevice)
         {
             if (isAnimated)
             {
-                UpdateAnimation(gameTime);
+                UpdateAnimation(gameTime, graphicsDevice);
             }
             pos += vel;
             drawRect.X = (int)pos.X;
@@ -94,7 +94,7 @@ namespace GLX
             rect = CalculateBoundingRectangle(new Rectangle(0, 0, tex.Width, tex.Height), spriteTransform);
         }
 
-        void UpdateAnimation(GameTime gameTime)
+        void UpdateAnimation(GameTime gameTime, GraphicsDevice graphicsDevice)
         {
             if (animations.active)
             {
@@ -102,6 +102,10 @@ namespace GLX
                 if (animations.elapsedTime > animations.currentSpriteSheet.frameTime)
                 {
                     animations.currentFrame++;
+                    if (animations.currentFrame == animations.currentSpriteSheet.actionFrame)
+                    {
+                        animations.currentSpriteSheet.action.Invoke();
+                    }
                     if (animations.currentFrame == animations.currentSpriteSheet.frameCount)
                     {
                         animations.currentFrame = 0;
@@ -117,17 +121,66 @@ namespace GLX
                 0,
                 animations.spriteSheetInfo.frameWidth,
                 animations.spriteSheetInfo.frameHeight);
-            UpdateTexAndColorData(animations.currentSpriteSheet);
+            UpdateTexAndColorData(animations.currentSpriteSheet, graphicsDevice);
         }
 
-        public void Draw(SpriteBatch spriteBatch)
+        public virtual void Draw(SpriteBatch spriteBatch)
         {
             spriteBatch.Draw(tex, pos, null, color, MathHelper.ToRadians(rotation), origin, scale, SpriteEffects.None, 0);
         }
 
-        void UpdateTexAndColorData(SpriteSheet spriteSheet)
+        public enum MovementDirection
         {
-            tex.SetData(spriteSheet.GetFrameColorData(animations.sourceRect));
+            Up,
+            Down,
+            Left,
+            Right
+        }
+
+        /// <summary>
+        /// Handles basic sprite movement
+        /// </summary>
+        /// <param name="keyboardState">Current keyboard state</param>
+        /// <param name="speed">Speed you want the sprite to move at</param>
+        /// <param name="movementDirection">Direction you want the sprite to move in</param>
+        /// <param name="key">Key you want to associate with that direction</param>
+        public void Move(KeyboardState keyboardState, float speed, MovementDirection movementDirection, Keys key)
+        {
+            if (movementDirection == MovementDirection.Up)
+            {
+                if (keyboardState.IsKeyDown(key))
+                {
+                    pos.Y -= speed;
+                }
+            }
+            if (movementDirection == MovementDirection.Down)
+            {
+                if (keyboardState.IsKeyDown(key))
+                {
+                    pos.Y += speed;
+                }
+            }
+            if (movementDirection == MovementDirection.Left)
+            {
+                if (keyboardState.IsKeyDown(key))
+                {
+                    pos.X -= speed;
+                }
+            }
+            if (movementDirection == MovementDirection.Right)
+            {
+                if (keyboardState.IsKeyDown(key))
+                {
+                    pos.X += speed;
+                }
+            }
+        }
+
+        void UpdateTexAndColorData(SpriteSheet spriteSheet, GraphicsDevice graphicsDevice)
+        {
+            // Unset the graphics device before setting new graphics data
+            graphicsDevice.Textures[0] = null;
+            tex.SetData<Color>(spriteSheet.GetFrameColorData(animations.sourceRect).colorData1D);
             colorData = spriteSheet.GetFrameColorData(animations.sourceRect);
         }
 
