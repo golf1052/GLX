@@ -1,4 +1,4 @@
 GLX
 ===
 
-An XNA library
+An XNA/MonoGame library
