@@ -27,14 +27,26 @@ namespace GLX
         Dictionary<Rectangle, ColorData> frameColorData;
         public SpriteSheetInfo info;
         public int frameCount;
-        public int frameTime;
+        internal long frameTimeTicks;
+        public long frameTime
+        {
+            get
+            {
+                return frameTimeTicks / 10000;
+            }
+            set
+            {
+                frameTimeTicks = value * 10000;
+            }
+        }
         public bool loop;
         internal List<List<Action>> frameActions;
+        internal List<List<Action>> reverseFrameActions;
 
         public SpriteSheet(Texture2D loadedTex,
             SpriteSheetInfo info,
             int frameCount,
-            int frameTime,
+            long frameTime,
             bool loop)
         {
             tex = loadedTex;
@@ -45,9 +57,11 @@ namespace GLX
             this.loop = loop;
 
             frameActions = new List<List<Action>>();
+            reverseFrameActions = new List<List<Action>>();
             for (int i = 0; i < frameCount; i++)
             {
                 frameActions.Add(new List<Action>());
+                reverseFrameActions.Add(new List<Action>());
             }
             frameColorData = new Dictionary<Rectangle, ColorData>();
             GenerateFrameColorData();

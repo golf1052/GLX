@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using Microsoft.Xna.Framework;
@@ -48,12 +49,16 @@ namespace GLX
         /// Then call Ready
         /// </summary>
         /// <param name="spriteSheetInfo"></param>
-        public Sprite(SpriteSheetInfo spriteSheetInfo)
+        public Sprite(SpriteSheetInfo spriteSheetInfo, GameTimeWrapper gameTime)
         {
             SpriteBase();
             isAnimated = true;
-            animations = new Animations(spriteSheetInfo);
+            animations = new Animations(spriteSheetInfo, gameTime);
             ready = false;
+        }
+
+        public Sprite(SpriteFont loadedFont)
+        {
         }
 
         void SpriteBase()
@@ -78,7 +83,7 @@ namespace GLX
             ready = true;
         }
 
-        public virtual void Update(GameTime gameTime, GraphicsDevice graphicsDevice)
+        public virtual void Update(GameTimeWrapper gameTime, GraphicsDevice graphicsDevice)
         {
             if (isAnimated)
             {
@@ -94,27 +99,52 @@ namespace GLX
             rect = CalculateBoundingRectangle(new Rectangle(0, 0, tex.Width, tex.Height), spriteTransform);
         }
 
-        void UpdateAnimation(GameTime gameTime, GraphicsDevice graphicsDevice)
+        void UpdateAnimation(GameTimeWrapper gameTime, GraphicsDevice graphicsDevice)
         {
             if (animations.active)
             {
-                animations.elapsedTime += (int)gameTime.ElapsedGameTime.TotalMilliseconds;
-                if (animations.elapsedTime > animations.currentSpriteSheet.frameTime)
+                animations.elapsedTime += gameTime.ElapsedGameTime.Ticks;
+                if (gameTime.GameSpeed > 0)
                 {
-                    animations.currentFrame++;
-                    if (animations.currentFrame == animations.currentSpriteSheet.frameCount)
+                    if (animations.elapsedTime > animations.currentSpriteSheet.frameTimeTicks / gameTime.GameSpeed)
                     {
-                        animations.currentFrame = 0;
-                        if (!animations.currentSpriteSheet.loop)
+                        long framesMoved = animations.elapsedTime / (long)(animations.currentSpriteSheet.frameTimeTicks / gameTime.GameSpeed);
+                        animations.elapsedTime = animations.elapsedTime % (long)(animations.currentSpriteSheet.frameTimeTicks / gameTime.GameSpeed);
+                        animations.currentFrame = (int)((framesMoved + animations.currentFrame) % animations.currentSpriteSheet.frameCount);
+                        if (animations.currentFrame >= animations.currentSpriteSheet.frameCount)
                         {
-                            animations.active = false;
+                            animations.currentFrame = 0;
+                            if (!animations.currentSpriteSheet.loop)
+                            {
+                                animations.active = false;
+                            }
+                        }
+                        foreach (Action action in animations.currentSpriteSheet.frameActions[animations.currentFrame])
+                        {
+                            action.Invoke();
                         }
                     }
-                    foreach (Action action in animations.currentSpriteSheet.frameActions[animations.currentFrame])
+                }
+                else if (gameTime.GameSpeed < 0)
+                {
+                    if (animations.elapsedTime < animations.currentSpriteSheet.frameTimeTicks / gameTime.GameSpeed)
                     {
-                        action.Invoke();
+                        long framesMoved = animations.elapsedTime / (long)(animations.currentSpriteSheet.frameTimeTicks / gameTime.GameSpeed);
+                        animations.elapsedTime = animations.elapsedTime % (long)(animations.currentSpriteSheet.frameTimeTicks / gameTime.GameSpeed);
+                        animations.currentFrame = (int)((framesMoved + animations.currentFrame) % animations.currentSpriteSheet.frameCount);
+                        if (animations.currentFrame <= -1)
+                        {
+                            animations.currentFrame = animations.currentSpriteSheet.frameCount - 1;
+                            if (!animations.currentSpriteSheet.loop)
+                            {
+                                animations.active = false;
+                            }
+                        }
+                        foreach (Action action in animations.currentSpriteSheet.reverseFrameActions[animations.currentFrame])
+                        {
+                            action.Invoke();
+                        }
                     }
-                    animations.elapsedTime = 0;
                 }
             }
             animations.sourceRect = new Rectangle(animations.currentFrame * animations.spriteSheetInfo.frameWidth,
