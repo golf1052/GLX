@@ -9,18 +9,6 @@ namespace GLX
 {
     public class World
     {
-        static float _gameSpeed;
-        public static float gameSpeed
-        {
-            get
-            {
-                return _gameSpeed;
-            }
-            set
-            {
-                _gameSpeed = value;
-            }
-        }
         GraphicsDeviceManager graphics;
         public static int windowWidth;
         public static int windowHeight;
@@ -29,7 +17,6 @@ namespace GLX
 
         public World(GraphicsDeviceManager graphics)
         {
-            gameSpeed = 1.0f;
             this.graphics = graphics;
             windowWidth = graphics.PreferredBackBufferWidth;
             windowHeight = graphics.PreferredBackBufferHeight;

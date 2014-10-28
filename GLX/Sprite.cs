@@ -29,7 +29,6 @@ namespace GLX
         public Matrix spriteTransform;
         public bool isAnimated;
         public Animations animations;
-        Action<GameTimeWrapper> originalUpdate;
 
         private bool ready;
 
@@ -110,9 +109,9 @@ namespace GLX
                     if (animations.elapsedTime > animations.currentSpriteSheet.frameTimeTicks / gameTime.GameSpeed)
                     {
                         long framesMoved = animations.elapsedTime / (long)(animations.currentSpriteSheet.frameTimeTicks / gameTime.GameSpeed);
-                        animations.currentFrame++;
                         for (int i = 0; i < framesMoved; i++)
                         {
+                            animations.currentFrame++;
                             if (animations.currentFrame == animations.currentSpriteSheet.frameCount)
                             {
                                 if (!animations.currentSpriteSheet.loop)
@@ -131,26 +130,8 @@ namespace GLX
                             {
                                 action.Invoke();
                             }
-                            if (framesMoved > 1)
-                            {
-                                isAnimated = false;
-                                originalUpdate.Invoke(gameTime);
-                            }
                         }
                         animations.elapsedTime = animations.elapsedTime % (long)(animations.currentSpriteSheet.frameTimeTicks / gameTime.GameSpeed);
-                        animations.currentFrame = (int)((framesMoved + animations.currentFrame) % animations.currentSpriteSheet.frameCount);
-                        if (animations.currentFrame >= animations.currentSpriteSheet.frameCount)
-                        {
-                            animations.currentFrame = 0;
-                            if (!animations.currentSpriteSheet.loop)
-                            {
-                                animations.active = false;
-                            }
-                        }
-                        foreach (Action action in animations.currentSpriteSheet.frameActions[animations.currentFrame])
-                        {
-                            action.Invoke();
-                        }
                     }
                 }
                 else if (gameTime.GameSpeed < 0)
@@ -158,20 +139,29 @@ namespace GLX
                     if (animations.elapsedTime < animations.currentSpriteSheet.frameTimeTicks / gameTime.GameSpeed)
                     {
                         long framesMoved = animations.elapsedTime / (long)(animations.currentSpriteSheet.frameTimeTicks / gameTime.GameSpeed);
-                        animations.elapsedTime = animations.elapsedTime % (long)(animations.currentSpriteSheet.frameTimeTicks / gameTime.GameSpeed);
-                        animations.currentFrame = (int)((framesMoved + animations.currentFrame) % animations.currentSpriteSheet.frameCount);
-                        if (animations.currentFrame <= -1)
+                        for (int i = 0; i < framesMoved; i++)
                         {
-                            animations.currentFrame = animations.currentSpriteSheet.frameCount - 1;
-                            if (!animations.currentSpriteSheet.loop)
+                            animations.currentFrame--;
+                            if (animations.currentFrame == 0)
                             {
-                                animations.active = false;
+                                if (!animations.currentSpriteSheet.loop)
+                                {
+                                    animations.active = false;
+                                    animations.elapsedTime = 0;
+                                    animations.currentFrame = 0;
+                                    break;
+                                }
+                                else
+                                {
+                                    animations.currentFrame = animations.currentSpriteSheet.frameCount - 1;
+                                }
+                            }
+                            foreach (Action action in animations.currentSpriteSheet.reverseFrameActions[animations.currentFrame])
+                            {
+                                action.Invoke();
                             }
                         }
-                        foreach (Action action in animations.currentSpriteSheet.reverseFrameActions[animations.currentFrame])
-                        {
-                            action.Invoke();
-                        }
+                        animations.elapsedTime = animations.elapsedTime % (long)(animations.currentSpriteSheet.frameTimeTicks / gameTime.GameSpeed);
                     }
                 }
             }
