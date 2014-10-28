@@ -18,6 +18,9 @@ namespace GLX
         {
             pixel = new Texture2D(graphics.GraphicsDevice, 1, 1, false, SurfaceFormat.Color);
             pixel.SetData(new[] {Color.White});
+            point1 = Vector2.Zero;
+            point2 = Vector2.Zero;
+            width = 1;
         }
 
         public Line(GraphicsDeviceManager graphics, Vector2 p1, Vector2 p2, float width)

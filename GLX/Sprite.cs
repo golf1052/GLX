@@ -12,16 +12,18 @@ namespace GLX
     public class Sprite : SpriteBase
     {
         public Texture2D tex;
+        public Rectangle drawRect;
         public ColorData colorData;
         public Matrix spriteTransform;
-        public bool isAnimated;
         public Animations animations;
 
-        private bool ready;
+        bool isAnimated;
+        bool ready;
 
         public Sprite(Texture2D loadedTex)
         {
             tex = loadedTex;
+            drawRect = new Rectangle((int)pos.X, (int)pos.Y, 0, 0);
             rect = new Rectangle((int)pos.X, (int)pos.Y, tex.Width, tex.Height);
             colorData = new ColorData(tex);
             origin = new Vector2(tex.Width / 2, tex.Height / 2);
@@ -38,6 +40,7 @@ namespace GLX
         public Sprite(SpriteSheetInfo spriteSheetInfo, GameTimeWrapper gameTime)
         {
             isAnimated = true;
+            drawRect = new Rectangle((int)pos.X, (int)pos.Y, 0, 0);
             animations = new Animations(spriteSheetInfo, gameTime);
             ready = false;
         }
@@ -155,53 +158,6 @@ namespace GLX
         public void DrawRect(SpriteBatch spriteBatch)
         {
             spriteBatch.Draw(tex, drawRect, null, color, MathHelper.ToRadians(rotation), origin, SpriteEffects.None, 0);
-        }
-
-        public enum MovementDirection
-        {
-            Up,
-            Down,
-            Left,
-            Right
-        }
-
-        /// <summary>
-        /// Handles basic sprite movement
-        /// </summary>
-        /// <param name="keyboardState">Current keyboard state</param>
-        /// <param name="speed">Speed you want the sprite to move at</param>
-        /// <param name="movementDirection">Direction you want the sprite to move in</param>
-        /// <param name="key">Key you want to associate with that direction</param>
-        public void Move(KeyboardState keyboardState, float speed, MovementDirection movementDirection, Keys key)
-        {
-            if (movementDirection == MovementDirection.Up)
-            {
-                if (keyboardState.IsKeyDown(key))
-                {
-                    pos.Y -= speed;
-                }
-            }
-            if (movementDirection == MovementDirection.Down)
-            {
-                if (keyboardState.IsKeyDown(key))
-                {
-                    pos.Y += speed;
-                }
-            }
-            if (movementDirection == MovementDirection.Left)
-            {
-                if (keyboardState.IsKeyDown(key))
-                {
-                    pos.X -= speed;
-                }
-            }
-            if (movementDirection == MovementDirection.Right)
-            {
-                if (keyboardState.IsKeyDown(key))
-                {
-                    pos.X += speed;
-                }
-            }
         }
 
         void UpdateTexAndColorData(SpriteSheet spriteSheet, GraphicsDevice graphicsDevice)

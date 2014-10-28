@@ -40,7 +40,7 @@ namespace GLX
             origin = new Vector2(textSize.X / 2, textSize.Y / 2);
         }
 
-        public void Update(GameTimeWrapper gameTime, GraphicsDevice graphicsDevice)
+        public override void Update()
         {
             pos += vel;
             rect = new Rectangle((int)pos.X, (int)pos.Y, (int)textSize.X, (int)textSize.Y);

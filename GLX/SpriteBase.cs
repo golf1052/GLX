@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
+using Microsoft.Xna.Framework.Input;
 
 namespace GLX
 {
@@ -13,7 +14,6 @@ namespace GLX
         public Vector2 vel;
         public bool visible;
         public Rectangle rect;
-        public Rectangle drawRect;
         public Color color;
         public Vector2 origin;
         public float alpha;
@@ -34,7 +34,6 @@ namespace GLX
             vel = Vector2.Zero;
             visible = true;
             rect = new Rectangle(0, 0, 0, 0);
-            drawRect = new Rectangle((int)pos.X, (int)pos.Y, 0, 0);
             color = Color.White;
             origin = new Vector2(0, 0);
             alpha = 1.0f;
@@ -45,10 +44,98 @@ namespace GLX
         public virtual void Update()
         {
             pos += vel;
-            drawRect.X = (int)pos.X;
-            drawRect.Y = (int)pos.Y;
         }
 
         public abstract void Draw(SpriteBatch spriteBatch);
+
+        public enum MovementDirection
+        {
+            Up,
+            Down,
+            Left,
+            Right
+        }
+
+        /// <summary>
+        /// Handles basic sprite movement
+        /// </summary>
+        /// <param name="keyboardState">Current keyboard state</param>
+        /// <param name="speed">Speed you want the sprite to move at</param>
+        /// <param name="movementDirection">Direction you want the sprite to move in</param>
+        /// <param name="key">Key you want to associate with that direction</param>
+        public void Move(KeyboardState keyboardState, float speed, MovementDirection movementDirection, Keys key)
+        {
+            if (movementDirection == MovementDirection.Up)
+            {
+                if (keyboardState.IsKeyDown(key))
+                {
+                    pos.Y -= speed;
+                }
+            }
+            if (movementDirection == MovementDirection.Down)
+            {
+                if (keyboardState.IsKeyDown(key))
+                {
+                    pos.Y += speed;
+                }
+            }
+            if (movementDirection == MovementDirection.Left)
+            {
+                if (keyboardState.IsKeyDown(key))
+                {
+                    pos.X -= speed;
+                }
+            }
+            if (movementDirection == MovementDirection.Right)
+            {
+                if (keyboardState.IsKeyDown(key))
+                {
+                    pos.X += speed;
+                }
+            }
+        }
+
+        public void Aim(Vector2 targetPosition)
+        {
+            float XDistance = targetPosition.X - pos.X;
+            float YDistance = targetPosition.Y - pos.Y;
+            float angle = (float)Math.Atan2(YDistance, XDistance);
+            rotation = angle;
+        }
+
+        public void Aim(MouseState mouseState)
+        {
+            float XDistance = mouseState.X - pos.X;
+            float YDistance = mouseState.Y - pos.Y;
+            float angle = (float)Math.Atan2(YDistance, XDistance);
+            rotation = angle;
+        }
+
+        public enum ThumbStick
+        {
+            Left,
+            Right
+        }
+
+        public void Aim(GamePadState gamePadState, ThumbStick thumbStick)
+        {
+            Vector2 stick = Vector2.Zero;
+            if (thumbStick == ThumbStick.Left)
+            {
+                stick = gamePadState.ThumbSticks.Left;
+            }
+            else if (thumbStick == ThumbStick.Right)
+            {
+                stick = gamePadState.ThumbSticks.Right;
+            }
+
+            float x = (stick.X + 1);
+            float y = (stick.Y + 1);
+
+            if (gamePadState.ThumbSticks.Right != Vector2.Zero)
+            {
+                rotation = MathHelper.ToDegrees((float)Math.Atan2(-stick.Y, stick.X));
+            }
+        }
     }
 }
