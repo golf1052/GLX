@@ -9,23 +9,10 @@ using Microsoft.Xna.Framework.Input;
 
 namespace GLX
 {
-    public class Sprite
+    public class Sprite : SpriteBase
     {
         public Texture2D tex;
-        public Vector2 pos;
-        public Vector2 vel;
-        public bool visible;
-        public Rectangle rect;
-        public Rectangle drawRect;
-        public Color color;
-        public float alpha;
         public ColorData colorData;
-        public Vector2 origin;
-        /// <summary>
-        /// Rotation of Sprite in degrees
-        /// </summary>
-        public float rotation;
-        public float scale;
         public Matrix spriteTransform;
         public bool isAnimated;
         public Animations animations;
@@ -35,7 +22,6 @@ namespace GLX
         public Sprite(Texture2D loadedTex)
         {
             tex = loadedTex;
-            SpriteBase();
             rect = new Rectangle((int)pos.X, (int)pos.Y, tex.Width, tex.Height);
             colorData = new ColorData(tex);
             origin = new Vector2(tex.Width / 2, tex.Height / 2);
@@ -51,26 +37,9 @@ namespace GLX
         /// <param name="spriteSheetInfo"></param>
         public Sprite(SpriteSheetInfo spriteSheetInfo, GameTimeWrapper gameTime)
         {
-            SpriteBase();
             isAnimated = true;
             animations = new Animations(spriteSheetInfo, gameTime);
             ready = false;
-        }
-
-        public Sprite(SpriteFont loadedFont)
-        {
-        }
-
-        void SpriteBase()
-        {
-            pos = Vector2.Zero;
-            vel = Vector2.Zero;
-            visible = true;
-            drawRect = new Rectangle((int)pos.X, (int)pos.Y, 0, 0);
-            color = Color.White;
-            alpha = 1.0f;
-            rotation = 0.0f;
-            scale = 1.0f;
         }
 
         public void Ready(GraphicsDevice graphicsDevice)
@@ -178,7 +147,7 @@ namespace GLX
             UpdateTexAndColorData(animations.currentSpriteSheet, graphicsDevice);
         }
 
-        public virtual void Draw(SpriteBatch spriteBatch)
+        public override void Draw(SpriteBatch spriteBatch)
         {
             spriteBatch.Draw(tex, pos, null, color, MathHelper.ToRadians(rotation), origin, scale, SpriteEffects.None, 0);
         }

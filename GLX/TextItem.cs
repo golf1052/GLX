@@ -7,7 +7,7 @@ using Microsoft.Xna.Framework.Graphics;
 
 namespace GLX
 {
-    public class TextItem : Sprite
+    public class TextItem : SpriteBase
     {
         public SpriteFont font;
         string _text;
@@ -25,7 +25,7 @@ namespace GLX
         }
         public Vector2 textSize { get; private set; }
 
-        public TextItem(SpriteFont loadedFont, string spriteText) : base(loadedFont)
+        public TextItem(SpriteFont loadedFont, string spriteText)
         {
             font = loadedFont;
             text = spriteText;
@@ -38,10 +38,9 @@ namespace GLX
             rotation = 0.0f;
             scale = 1.0f;
             origin = new Vector2(textSize.X / 2, textSize.Y / 2);
-            isAnimated = false;
         }
 
-        public override void Update(GameTimeWrapper gameTime, GraphicsDevice graphicsDevice)
+        public void Update(GameTimeWrapper gameTime, GraphicsDevice graphicsDevice)
         {
             pos += vel;
             rect = new Rectangle((int)pos.X, (int)pos.Y, (int)textSize.X, (int)textSize.Y);
