@@ -126,9 +126,12 @@ namespace GLX
                                     animations.currentFrame = 0;
                                 }
                             }
-                            foreach (Action action in animations.currentSpriteSheet.frameActions[animations.currentFrame])
+                            if (animations.currentFrame >= 0 && animations.currentFrame < animations.currentSpriteSheet.frameActions.Count)
                             {
-                                action.Invoke();
+                                foreach (Action action in animations.currentSpriteSheet.frameActions[animations.currentFrame])
+                                {
+                                    action.Invoke();
+                                }
                             }
                         }
                         animations.elapsedTime = animations.elapsedTime % (long)(animations.currentSpriteSheet.frameTimeTicks / gameTime.GameSpeed);
@@ -156,9 +159,12 @@ namespace GLX
                                     animations.currentFrame = animations.currentSpriteSheet.frameCount - 1;
                                 }
                             }
-                            foreach (Action action in animations.currentSpriteSheet.reverseFrameActions[animations.currentFrame])
+                            if (animations.currentFrame >= 0 && animations.currentFrame < animations.currentSpriteSheet.reverseFrameActions.Count)
                             {
-                                action.Invoke();
+                                foreach (Action action in animations.currentSpriteSheet.reverseFrameActions[animations.currentFrame])
+                                {
+                                    action.Invoke();
+                                }
                             }
                         }
                         animations.elapsedTime = animations.elapsedTime % (long)(animations.currentSpriteSheet.frameTimeTicks / gameTime.GameSpeed);
