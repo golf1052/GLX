@@ -46,7 +46,6 @@ namespace GLX
             foreach (GameTimeWrapper time in gameTimes)
             {
                 time.Update(gameTime);
-                time.time.Invoke(time);
             }
         }
     }

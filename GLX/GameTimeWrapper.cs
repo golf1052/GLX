@@ -24,7 +24,7 @@ namespace GLX
                 _gameSpeed =  (decimal)gameSpeed / (decimal)systemSpeed;
             }
         }
-        internal Action<GameTimeWrapper> time;
+        internal Action<GameTimeWrapper> UpdateMethod;
 
         TimeSpan totalGameTime;
         public new TimeSpan TotalGameTime
@@ -67,7 +67,7 @@ namespace GLX
 
         public GameTimeWrapper(Action<GameTimeWrapper> time, Game game, decimal gameSpeed)
         {
-            this.time = time;
+            this.UpdateMethod = time;
             this.systemSpeed = game.TargetElapsedTime.Ticks;
             this.gameSpeed = game.TargetElapsedTime.Ticks;
             this.GameSpeed = gameSpeed;
@@ -85,6 +85,7 @@ namespace GLX
             TotalGameTime += TimeSpan.FromTicks(gameSpeed);
             ElapsedGameTime = TimeSpan.FromTicks(gameSpeed);
             IsRunningSlowly = gameTime.IsRunningSlowly;
+            UpdateMethod.Invoke(this);
         }
 
         public void Draw(GameTime gameTime)

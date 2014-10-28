@@ -29,6 +29,7 @@ namespace GLX
         public Matrix spriteTransform;
         public bool isAnimated;
         public Animations animations;
+        Action<GameTimeWrapper> originalUpdate;
 
         private bool ready;
 
@@ -109,6 +110,33 @@ namespace GLX
                     if (animations.elapsedTime > animations.currentSpriteSheet.frameTimeTicks / gameTime.GameSpeed)
                     {
                         long framesMoved = animations.elapsedTime / (long)(animations.currentSpriteSheet.frameTimeTicks / gameTime.GameSpeed);
+                        animations.currentFrame++;
+                        for (int i = 0; i < framesMoved; i++)
+                        {
+                            if (animations.currentFrame == animations.currentSpriteSheet.frameCount)
+                            {
+                                if (!animations.currentSpriteSheet.loop)
+                                {
+                                    animations.active = false;
+                                    animations.elapsedTime = 0;
+                                    animations.currentFrame = 0;
+                                    break;
+                                }
+                                else
+                                {
+                                    animations.currentFrame = 0;
+                                }
+                            }
+                            foreach (Action action in animations.currentSpriteSheet.frameActions[animations.currentFrame])
+                            {
+                                action.Invoke();
+                            }
+                            if (framesMoved > 1)
+                            {
+                                isAnimated = false;
+                                originalUpdate.Invoke(gameTime);
+                            }
+                        }
                         animations.elapsedTime = animations.elapsedTime % (long)(animations.currentSpriteSheet.frameTimeTicks / gameTime.GameSpeed);
                         animations.currentFrame = (int)((framesMoved + animations.currentFrame) % animations.currentSpriteSheet.frameCount);
                         if (animations.currentFrame >= animations.currentSpriteSheet.frameCount)
