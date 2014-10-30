@@ -117,7 +117,7 @@ namespace GLX
                         for (int i = 0; i < framesMoved; i++)
                         {
                             animations.currentFrame--;
-                            if (animations.currentFrame == 0)
+                            if (animations.currentFrame == -1)
                             {
                                 if (!animations.currentSpriteSheet.loop)
                                 {
