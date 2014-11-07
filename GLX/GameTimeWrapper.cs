@@ -36,6 +36,8 @@ namespace GLX
         }
         internal Action<GameTimeWrapper> UpdateMethod;
 
+        public decimal ActualGameSpeed { get; private set; }
+
         TimeSpan totalGameTime;
         public new TimeSpan TotalGameTime
         {
@@ -96,6 +98,7 @@ namespace GLX
             long timeLeftOver = gameSpeed % systemSpeed;
             long realGameSpeed = gameSpeed;
             decimal realGameSpeedDecimal = gameSpeedDecimal;
+            ActualGameSpeed = realGameSpeedDecimal;
             if (updateLoops > 0)
             {
                 if (gameSpeedDecimal >= 0)

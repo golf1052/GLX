@@ -100,7 +100,7 @@ namespace GLX
             float XDistance = targetPosition.X - pos.X;
             float YDistance = targetPosition.Y - pos.Y;
             float angle = (float)Math.Atan2(YDistance, XDistance);
-            rotation = angle;
+            rotation = MathHelper.ToDegrees(angle);
         }
 
         public void Aim(MouseState mouseState)
@@ -108,7 +108,7 @@ namespace GLX
             float XDistance = mouseState.X - pos.X;
             float YDistance = mouseState.Y - pos.Y;
             float angle = (float)Math.Atan2(YDistance, XDistance);
-            rotation = angle;
+            rotation = MathHelper.ToDegrees(angle);
         }
 
         public enum ThumbStick

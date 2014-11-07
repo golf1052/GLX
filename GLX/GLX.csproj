@@ -46,6 +46,7 @@
   <ItemGroup>
     <Compile Include="Animations.cs" />
     <Compile Include="ColorData.cs" />
+    <Compile Include="DebugText.cs" />
     <Compile Include="GameTimeWrapper.cs" />
     <Compile Include="Line.cs" />
     <Compile Include="Polygon.cs" />
