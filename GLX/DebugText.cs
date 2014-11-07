@@ -40,6 +40,7 @@ namespace GLX
                 {
                     textItem.pos = startPosition;
                     startPosition.Y += textItem.textSize.Y + spacing;
+                    textItem.origin = Vector2.Zero;
                     textItem.Draw(spriteBatch);
                 }
             }
@@ -50,6 +51,7 @@ namespace GLX
                     textItem.pos.X = startPosition.X - textItem.textSize.X;
                     textItem.pos.Y = startPosition.Y;
                     startPosition.Y += textItem.textSize.Y + spacing;
+                    textItem.origin = Vector2.Zero;
                     textItem.Draw(spriteBatch);
                 }
             }
@@ -60,6 +62,7 @@ namespace GLX
                     textItem.pos.X = startPosition.X;
                     textItem.pos.Y = startPosition.Y - textItem.textSize.Y;
                     startPosition.Y = textItem.pos.Y - spacing;
+                    textItem.origin = Vector2.Zero;
                     textItem.Draw(spriteBatch);
                 }
             }
@@ -70,6 +73,7 @@ namespace GLX
                     textItem.pos.X = startPosition.X - textItem.textSize.X;
                     textItem.pos.Y = startPosition.Y - textItem.textSize.Y;
                     startPosition.Y = textItem.pos.Y - spacing;
+                    textItem.origin = Vector2.Zero;
                     textItem.Draw(spriteBatch);
                 }
             }
