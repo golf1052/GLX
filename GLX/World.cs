@@ -12,6 +12,7 @@ namespace GLX
         GraphicsDeviceManager graphics;
         public static int windowWidth;
         public static int windowHeight;
+        public static Random random = new Random();
 
         List<GameTimeWrapper> gameTimes;
 

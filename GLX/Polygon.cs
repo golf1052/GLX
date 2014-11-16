@@ -41,7 +41,7 @@ namespace GLX
         /// <param name="p2">Position 2</param>
         public void AddSide(Vector2 p1, Vector2 p2)
         {
-            Line tmp = new Line(graphics, p1, p2, 1);
+            Line tmp = new Line(graphics, Line.Type.Point, p1, p2, 1);
             _pos = p1;
             sides.Add(tmp);
         }
@@ -54,7 +54,7 @@ namespace GLX
         {
             if (sides.Count != 0)
             {
-                Line tmp = new Line(graphics, sides[sides.Count - 1].point2, pos, 1);
+                Line tmp = new Line(graphics, Line.Type.Point, sides[sides.Count - 1].point2, pos, 1);
                 sides.Add(tmp);
             }
             else
@@ -70,7 +70,7 @@ namespace GLX
         {
             if (sides.Count != 0)
             {
-                Line tmp = new Line(graphics, sides[sides.Count - 1].point2, sides[0].point1, 1);
+                Line tmp = new Line(graphics, Line.Type.Point, sides[sides.Count - 1].point2, sides[0].point1, 1);
                 sides.Add(tmp);
             }
             else

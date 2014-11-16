@@ -13,6 +13,11 @@ namespace GLX
         public Vector2 point1;
         public Vector2 point2;
         public float width;
+        public enum Type
+        {
+            Point,
+            Vector
+        }
 
         public Line(GraphicsDeviceManager graphics)
         {
@@ -23,12 +28,20 @@ namespace GLX
             width = 1;
         }
 
-        public Line(GraphicsDeviceManager graphics, Vector2 p1, Vector2 p2, float width)
+        public Line(GraphicsDeviceManager graphics, Type type, Vector2 p1, Vector2 p2, float width)
         {
             pixel = new Texture2D(graphics.GraphicsDevice, 1, 1, false, SurfaceFormat.Color);
             pixel.SetData(new[] { Color.White });
             point1 = p1;
-            point2 = p2;
+            if (type == Type.Point)
+            {
+                point2 = p2;
+            }
+            else if (type == Type.Vector)
+            {
+                p2 *= 2000;
+                point2 = point1 + p2;
+            }
             this.width = width;
         }
 

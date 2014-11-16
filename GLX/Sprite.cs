@@ -31,6 +31,18 @@ namespace GLX
             ready = true;
         }
 
+        public Sprite(GraphicsDeviceManager graphics)
+        {
+            tex = new Texture2D(graphics.GraphicsDevice, 1, 1, false, SurfaceFormat.Color);
+            tex.SetData(new[] { color });
+            drawRect = new Rectangle((int)pos.X, (int)pos.Y, 0, 0);
+            rect = new Rectangle((int)pos.X, (int)pos.Y, tex.Width, tex.Height);
+            colorData = new ColorData(tex);
+            origin = new Vector2(tex.Width / 2, tex.Height / 2);
+            isAnimated = false;
+            ready = true;
+        }
+
         /// <summary>
         /// Creates an animatable Sprite that is not ready to use
         /// In order to use this sprite you need to add sprite sheets
@@ -55,11 +67,11 @@ namespace GLX
             ready = true;
         }
 
-        public virtual void Update(GameTimeWrapper gameTime, GraphicsDevice graphicsDevice)
+        public virtual void Update(GameTimeWrapper gameTime, GraphicsDeviceManager graphics)
         {
             if (isAnimated)
             {
-                UpdateAnimation(gameTime, graphicsDevice);
+                UpdateAnimation(gameTime, graphics);
             }
             pos += vel;
             drawRect.X = (int)pos.X;
@@ -71,7 +83,7 @@ namespace GLX
             rect = CalculateBoundingRectangle(new Rectangle(0, 0, tex.Width, tex.Height), spriteTransform);
         }
 
-        void UpdateAnimation(GameTimeWrapper gameTime, GraphicsDevice graphicsDevice)
+        void UpdateAnimation(GameTimeWrapper gameTime, GraphicsDeviceManager graphics)
         {
             if (animations.active)
             {
@@ -147,7 +159,7 @@ namespace GLX
                 0,
                 animations.spriteSheetInfo.frameWidth,
                 animations.spriteSheetInfo.frameHeight);
-            UpdateTexAndColorData(animations.currentSpriteSheet, graphicsDevice);
+            UpdateTexAndColorData(animations.currentSpriteSheet, graphics.GraphicsDevice);
         }
 
         public override void Draw(SpriteBatch spriteBatch)
