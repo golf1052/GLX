@@ -45,6 +45,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Animations.cs" />
+    <Compile Include="Camera.cs" />
     <Compile Include="ColorData.cs" />
     <Compile Include="DebugText.cs" />
     <Compile Include="HelperMethods.cs" />
