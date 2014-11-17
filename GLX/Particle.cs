@@ -199,13 +199,16 @@ namespace GLX
 
         public override void Draw(SpriteBatch spriteBatch)
         {
-            if (!useDrawRect)
+            if (visible)
             {
-                base.Draw(spriteBatch);
-            }
-            else
-            {
-                base.DrawRect(spriteBatch);
+                if (!useDrawRect)
+                {
+                    base.Draw(spriteBatch);
+                }
+                else
+                {
+                    base.DrawRect(spriteBatch);
+                }
             }
         }
 
