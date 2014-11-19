@@ -48,6 +48,7 @@
     <Compile Include="Camera.cs" />
     <Compile Include="ColorData.cs" />
     <Compile Include="DebugText.cs" />
+    <Compile Include="FloatTweener.cs" />
     <Compile Include="HelperMethods.cs" />
     <Compile Include="GameTimeWrapper.cs" />
     <Compile Include="Line.cs" />
@@ -58,6 +59,8 @@
     <Compile Include="SpriteBase.cs" />
     <Compile Include="SpriteSheet.cs" />
     <Compile Include="TextItem.cs" />
+    <Compile Include="TweenerBase.cs" />
+    <Compile Include="Vector2Tweener.cs" />
     <Compile Include="World.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

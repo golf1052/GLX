@@ -28,46 +28,8 @@ namespace GLX
                 return _inverseTransform;
             }
         }
-
-        public enum SmoothingType
-        {
-            Linear,
-            Smoothstep,
-            RecursiveLinear,
-            RecursiveSmoothstep,
-        }
-
-        public bool smoothPan;
-        public SmoothingType panSmoothingType;
-        public float panSmoothingRate;
-        private float panSmoothingValue;
-
-        private Vector2 _focalPoint;
-        public Vector2 focalPoint
-        {
-            get
-            {
-                return _focalPoint;
-            }
-            set
-            {
-                panSmoothingValue = 0;
-                if (smoothPan)
-                {
-                    startingFocalPoint = _focalPoint;
-                    targetFocalPoint = value;
-                }
-                else
-                {
-                    startingFocalPoint = value;
-                    _focalPoint = value;
-                    targetFocalPoint = value;
-                }
-            }
-        }
-        private Vector2 startingFocalPoint;
-        private Vector2 targetFocalPoint;
-        public float zoom;
+        public Vector2Tweener pan { get; private set; }
+        public FloatTweener zoom { get; private set; }
         public float rot;
         private Viewport viewport;
         public bool smoothZoom;
@@ -80,90 +42,75 @@ namespace GLX
             Center
         }
 
-        public Focus focus;
+        private Focus _focus;
+        public Focus focus
+        {
+            get
+            {
+                return _focus;
+            }
+            set
+            {
+                if (_focus == Focus.TopLeft)
+                {
+                    if (value == Focus.Center)
+                    {
+                        _focus = value;
+                        pan.startingValue = new Vector2(pan.Value.X + viewport.Width / 2,
+                            pan.Value.Y + viewport.Height / 2);
+                        pan._value = pan.startingValue;
+                        pan.targetValue = Vector2.Zero;
+                    }
+                }
+                else if (_focus == Focus.Center)
+                {
+                    if (value == Focus.TopLeft)
+                    {
+                        _focus = value;
+                        pan.startingValue = new Vector2(pan.Value.X - viewport.Width / 2,
+                            pan.Value.Y - viewport.Height / 2);
+                        pan._value = pan.startingValue;
+                        pan.targetValue = Vector2.Zero;
+                    }
+                }
+            }
+        }
 
         public Camera(Viewport viewport, Focus focus)
         {
-            smoothPan = false;
-            panSmoothingType = SmoothingType.Linear;
-            panSmoothingRate = 0.1f;
-            panSmoothingValue = 0;
+            pan = new Vector2Tweener();
             this.viewport = viewport;
-            focalPoint = Vector2.Zero;
-            startingFocalPoint = Vector2.Zero;
-            targetFocalPoint = Vector2.Zero;
             smoothZoom = false;
-            zoom = 1;
+            zoom = new FloatTweener();
+            zoom.Value = 1;
             targetZoom = 1;
             zoomValue = 0;
             rot = 0;
-            this.focus = focus;
+            this._focus = focus;
         }
 
         void UpdateTransform()
         {
             if (focus == Focus.Center)
             {
-                _transform = Matrix.CreateTranslation(new Vector3(-focalPoint.X, -focalPoint.Y, 0)) *
+                _transform = Matrix.CreateTranslation(new Vector3(-pan.Value.X, -pan.Value.Y, 0)) *
                     Matrix.CreateRotationZ(MathHelper.ToRadians(rot)) *
-                    Matrix.CreateScale(new Vector3(zoom, zoom, 1)) *
+                    Matrix.CreateScale(new Vector3(zoom.Value, zoom.Value, 1)) *
                     Matrix.CreateTranslation(new Vector3(viewport.Width * 0.5f, viewport.Height * 0.5f, 0));
             }
             else if (focus == Focus.TopLeft)
             {
-                _transform = Matrix.CreateTranslation(new Vector3(-focalPoint.X, -focalPoint.Y, 0)) *
+                _transform = Matrix.CreateTranslation(new Vector3(-pan.Value.X, -pan.Value.Y, 0)) *
                     Matrix.CreateRotationZ(MathHelper.ToRadians(rot)) *
-                    Matrix.CreateScale(new Vector3(zoom, zoom, 0));
+                    Matrix.CreateScale(new Vector3(zoom.Value, zoom.Value, 0));
             }
             _inverseTransform = Matrix.Invert(_transform);
         }
 
-        public void Update()
+        public void Update(GameTimeWrapper gameTime)
         {
-            if (smoothPan)
-            {
-                if (_focalPoint != targetFocalPoint)
-                {
-                    if (panSmoothingType != SmoothingType.RecursiveLinear &&
-                        panSmoothingType != SmoothingType.RecursiveSmoothstep)
-                    {
-                        panSmoothingValue += panSmoothingRate;
-                        if (panSmoothingType == SmoothingType.Linear)
-                        {
-                            _focalPoint = Vector2.Lerp(startingFocalPoint, targetFocalPoint, panSmoothingValue);
-                        }
-                        else if (panSmoothingType == SmoothingType.Smoothstep)
-                        {
-                            _focalPoint = Vector2.SmoothStep(startingFocalPoint, targetFocalPoint, panSmoothingValue);
-                        }
-
-                        if (panSmoothingValue >= 1)
-                        {
-                            _focalPoint = targetFocalPoint;
-                            panSmoothingValue = 0;
-                        }
-                    }
-                    else
-                    {
-                        if (panSmoothingType == SmoothingType.RecursiveLinear)
-                        {
-                            _focalPoint = Vector2.Lerp(_focalPoint, targetFocalPoint, panSmoothingRate);
-                        }
-                        else if (panSmoothingType == SmoothingType.RecursiveSmoothstep)
-                        {
-                            _focalPoint = Vector2.SmoothStep(_focalPoint, targetFocalPoint, panSmoothingRate);
-                        }
-                    }
-                }
-                else
-                {
-                    panSmoothingValue = 0;
-                }
-            }
-            if (smoothZoom)
-            {
-                zoom = MathHelper.Lerp(zoom, targetZoom, zoomValue);
-            }
+            pan.Update(gameTime);
+            zoom.Update(gameTime);
             UpdateTransform();
         }
 

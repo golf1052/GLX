@@ -105,9 +105,13 @@ namespace GLX
             }
         }
 
+        public void UpdateCurrentCamera(GameTimeWrapper gameTime)
+        {
+            cameras[currentCamera].Update(gameTime);
+        }
+
         public void Update(GameTime gameTime)
         {
-            cameras[currentCamera].Update();
             foreach (GameTimeWrapper time in gameTimes)
             {
                 time.Update(gameTime);
