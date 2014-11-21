@@ -155,11 +155,22 @@ namespace GLX
                     }
                 }
             }
-            animations.sourceRect = new Rectangle(animations.currentFrame * animations.spriteSheetInfo.frameWidth,
-                0,
-                animations.spriteSheetInfo.frameWidth,
-                animations.spriteSheetInfo.frameHeight);
-            UpdateTexAndColorData(animations.currentSpriteSheet, graphics.GraphicsDevice);
+            if (animations.currentSpriteSheet.direction == SpriteSheet.Direction.LeftToRight)
+            {
+                animations.sourceRect = new Rectangle((animations.currentFrame % animations.currentSpriteSheet.columns) * animations.spriteSheetInfo.frameWidth,
+                    (animations.currentFrame / animations.currentSpriteSheet.columns) * animations.spriteSheetInfo.frameHeight,
+                    animations.spriteSheetInfo.frameWidth,
+                    animations.spriteSheetInfo.frameHeight);
+                UpdateTexAndColorData(animations.currentSpriteSheet, graphics.GraphicsDevice);
+            }
+            else if (animations.currentSpriteSheet.direction == SpriteSheet.Direction.TopToBottom)
+            {
+                animations.sourceRect = new Rectangle((animations.currentFrame / animations.currentSpriteSheet.rows) * animations.spriteSheetInfo.frameWidth,
+                    (animations.currentFrame % animations.currentSpriteSheet.rows) * animations.spriteSheetInfo.frameHeight,
+                    animations.spriteSheetInfo.frameWidth,
+                    animations.spriteSheetInfo.frameHeight);
+                UpdateTexAndColorData(animations.currentSpriteSheet, graphics.GraphicsDevice);
+            }
         }
 
         public override void Draw(SpriteBatch spriteBatch)

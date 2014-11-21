@@ -27,6 +27,9 @@ namespace GLX
         Dictionary<Rectangle, ColorData> frameColorData;
         public SpriteSheetInfo info;
         public int frameCount;
+        public int columns;
+        public int rows;
+        public Direction direction;
         internal long frameTimeTicks;
         public long frameTime
         {
@@ -42,10 +45,18 @@ namespace GLX
         public bool loop;
         internal List<List<Action>> frameActions;
         internal List<List<Action>> reverseFrameActions;
+        public enum Direction
+        {
+            LeftToRight,
+            TopToBottom
+        }
 
         public SpriteSheet(Texture2D loadedTex,
             SpriteSheetInfo info,
             int frameCount,
+            int columns,
+            int rows,
+            Direction direction,
             long frameTime,
             bool loop)
         {
@@ -53,6 +64,9 @@ namespace GLX
             colorData = new ColorData(tex);
             this.info = info;
             this.frameCount = frameCount;
+            this.columns = columns;
+            this.rows = rows;
+            this.direction = direction;
             this.frameTime = frameTime;
             this.loop = loop;
 
@@ -64,7 +78,7 @@ namespace GLX
                 reverseFrameActions.Add(new List<Action>());
             }
             frameColorData = new Dictionary<Rectangle, ColorData>();
-            GenerateFrameColorData();
+            GenerateFrameColorData(columns, rows, direction);
         }
 
         public ColorData GetFrameColorData(Rectangle sourceRect)
@@ -72,14 +86,47 @@ namespace GLX
             return frameColorData[sourceRect];
         }
 
-        void GenerateFrameColorData()
+        void GenerateFrameColorData(int columns, int rows, Direction direction)
         {
-            for (int i = 0; i < frameCount; i++)
+            int framesCollected = 0;
+            while (framesCollected < frameCount)
             {
-                Rectangle rect = new Rectangle(i * info.frameWidth, 0, info.frameWidth, info.frameHeight);
-                ColorData tmpColorData = new ColorData(info.frameWidth, info.frameHeight);
-                tex.GetData(0, rect, tmpColorData.colorData1D, 0, tmpColorData.colorData1D.Length);
-                frameColorData.Add(rect, tmpColorData);
+                if (direction == Direction.LeftToRight)
+                {
+                    for (int i = 0; i < rows; i++)
+                    {
+                        for (int j = 0; j < columns; j++)
+                        {
+                            Rectangle rect = new Rectangle(j * info.frameWidth, i * info.frameHeight, info.frameWidth, info.frameHeight);
+                            ColorData tmpColorData = new ColorData(info.frameWidth, info.frameHeight);
+                            tex.GetData(0, rect, tmpColorData.colorData1D, 0, tmpColorData.colorData1D.Length);
+                            frameColorData.Add(rect, tmpColorData);
+                            framesCollected++;
+                            if (framesCollected == frameCount)
+                            {
+                                break;
+                            }
+                        }
+                    }
+                }
+                else if (direction == Direction.TopToBottom)
+                {
+                    for (int i = 0; i < columns; i++)
+                    {
+                        for (int j = 0; j < rows; j++)
+                        {
+                            Rectangle rect = new Rectangle(i * info.frameWidth, j * info.frameHeight, info.frameWidth, info.frameHeight);
+                            ColorData tmpColorData = new ColorData(info.frameWidth, info.frameHeight);
+                            tex.GetData(0, rect, tmpColorData.colorData1D, 0, tmpColorData.colorData1D.Length);
+                            frameColorData.Add(rect, tmpColorData);
+                            framesCollected++;
+                            if (framesCollected == frameCount)
+                            {
+                                break;
+                            }
+                        }
+                    }
+                }
             }
         }
     }

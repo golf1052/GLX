@@ -84,9 +84,22 @@ namespace GLX
             }
         }
 
-        public SpriteSheet AddSpriteSheet(Texture2D spriteSheet, int frameCount, long frameTime, bool loop)
+        public SpriteSheet AddSpriteSheet(Texture2D spriteSheet,
+            int frameCount,
+            int columns,
+            int rows,
+            SpriteSheet.Direction direction,
+            long frameTime,
+            bool loop)
         {
-            return new SpriteSheet(spriteSheet, spriteSheetInfo, frameCount, frameTime, loop);
+            return new SpriteSheet(spriteSheet,
+                spriteSheetInfo,
+                frameCount,
+                columns,
+                rows,
+                direction,
+                frameTime,
+                loop);
         }
 
         public void SetFrameAction(string animation, int frameNumber, Action action)

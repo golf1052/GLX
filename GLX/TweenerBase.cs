@@ -41,6 +41,14 @@ namespace GLX
                 tweenerFunction.Invoke(startingValue.Y, targetValue.Y, amount));
         }
 
+        public Color TweenerWrapper(Color startingValue, Color targetValue, float amount, Func<float, float, float, float> tweenerFunction)
+        {
+            return new Color(tweenerFunction.Invoke(startingValue.ToVector4().X, targetValue.ToVector4().X, amount),
+                tweenerFunction.Invoke(startingValue.ToVector4().Y, targetValue.ToVector4().Y, amount),
+                tweenerFunction.Invoke(startingValue.ToVector4().Z, targetValue.ToVector4().Z, amount),
+                tweenerFunction.Invoke(startingValue.ToVector4().W, targetValue.ToVector4().W, amount));
+        }
+
         public float Linear(float startingValue, float targetValue, float amount)
         {
             return MathHelper.Lerp(startingValue, targetValue, amount);
