@@ -49,4 +49,4 @@ world.BeginDraw();
 world.Draw(sprite.Draw);
 world.EndDraw();
 ```
-This starts our sprite batch and also uses the camera for the world. GLX.World starts out with a default camera so you don't need to worry about it. Then we draw the sprite using its draw method. Then we end the sprite batch. If you did everything correctly you should see the center of your sprite at position 100, 100. If you press the right arrow key the sprite will move towards the right side of the screen.
+This starts our sprite batch and also uses the camera for the world. GLX.World starts out with a default camera so you don't need to worry about it. Then we draw the sprite using its draw method. Then we end the sprite batch. If you did everything correctly you should see the center of your sprite at position 100, 100. If you press the right arrow key the sprite will move towards the right side of the screen. If you set the update method to update at 0.5 speed the sprite will move slower. If you set the update method to update at 2.0 speed the sprite will move faster.
