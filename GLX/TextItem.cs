@@ -25,7 +25,7 @@ namespace GLX
         }
         public Vector2 textSize { get; private set; }
 
-        public TextItem(SpriteFont loadedFont, string spriteText)
+        public TextItem(SpriteFont loadedFont, string spriteText = "")
         {
             font = loadedFont;
             text = spriteText;

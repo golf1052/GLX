@@ -7,18 +7,61 @@ using Microsoft.Xna.Framework.Graphics;
 
 namespace GLX
 {
+    /// <summary>
+    /// Animation class. Holds all the animation data for a sprite.
+    /// </summary>
     public class Animations
     {
+        /// <summary>
+        /// The sprite sheet info
+        /// </summary>
         public SpriteSheetInfo spriteSheetInfo;
-        internal Dictionary<string, SpriteSheet> spriteSheets;
-        public bool active;
-        public long elapsedTime;
-        public int currentFrame;
-        public Rectangle sourceRect;
-        GameTimeWrapper gameTime;
 
+        /// <summary>
+        /// The dictionary of sprite sheets keyed by the name given to the sheet
+        /// </summary>
+        internal Dictionary<string, SpriteSheet> spriteSheets;
+
+        /// <summary>
+        /// Is the animation active
+        /// </summary>
+        public bool active;
+
+        /// <summary>
+        /// The time elapsed since we last changed frames. In ticks.
+        /// </summary>
+        public long elapsedTime;
+
+        /// <summary>
+        /// The current frame we are on. Zero based.
+        /// </summary>
+        public int currentFrame;
+
+        /// <summary>
+        /// The sprite sheet source rectangle
+        /// </summary>
+        public Rectangle sourceRect;
+
+        /// <summary>
+        /// The game time the sprite exists in
+        /// </summary>
+        private GameTimeWrapper gameTime;
+
+        /// <summary>
+        /// The current sprite sheet
+        /// </summary>
         internal SpriteSheet currentSpriteSheet;
+        
+        /// <summary>
+        /// The current animation
+        /// </summary>
         private string _currentAnimation;
+
+        /// <summary>
+        /// The current animation.
+        /// </summary>
+        /// <remarks>When set we first check if the animation exists. If it does set it up.
+        /// If it does not throw an exception.</remarks>
         public string currentAnimation
         {
             get
@@ -39,6 +82,12 @@ namespace GLX
                 }
             }
         }
+
+        /// <summary>
+        /// Indexer for adding new sprite sheets
+        /// </summary>
+        /// <param name="key">The name of the sprite sheet</param>
+        /// <returns></returns>
         public SpriteSheet this[string key]
         {
             set
@@ -54,6 +103,11 @@ namespace GLX
             }
         }
 
+        /// <summary>
+        /// Create new animation storage
+        /// </summary>
+        /// <param name="spriteSheetInfo">The sprite sheet info for the animations</param>
+        /// <param name="gameTime">The game time the sprite exists in</param>
         public Animations(SpriteSheetInfo spriteSheetInfo, GameTimeWrapper gameTime)
         {
             this.gameTime = gameTime;
@@ -62,9 +116,16 @@ namespace GLX
             ResetAnimation();
         }
 
-        void ResetAnimation()
+        /// <summary>
+        /// Reset the animation to the beginning
+        /// </summary>
+        private void ResetAnimation()
         {
             active = true;
+            if (spriteSheets.Count != 0)
+            {
+                spriteSheetInfo = spriteSheets[currentAnimation].info;
+            }
             sourceRect = new Rectangle(0, 0, spriteSheetInfo.frameWidth, spriteSheetInfo.frameHeight);
             elapsedTime = 0;
             if (gameTime.GameSpeed > 0)
@@ -86,6 +147,21 @@ namespace GLX
 
         public SpriteSheet AddSpriteSheet(Texture2D spriteSheet,
             int frameCount,
+            long frameTime,
+            bool loop)
+        {
+            return new SpriteSheet(spriteSheet,
+                spriteSheetInfo,
+                frameCount,
+                frameCount,
+                1,
+                SpriteSheet.Direction.LeftToRight,
+                frameTime,
+                loop);
+        }
+
+        public SpriteSheet AddSpriteSheet(Texture2D spriteSheet,
+            int frameCount,
             int columns,
             int rows,
             SpriteSheet.Direction direction,
@@ -94,6 +170,25 @@ namespace GLX
         {
             return new SpriteSheet(spriteSheet,
                 spriteSheetInfo,
+                frameCount,
+                columns,
+                rows,
+                direction,
+                frameTime,
+                loop);
+        }
+
+        public SpriteSheet AddSpriteSheet(Texture2D spriteSheet,
+            SpriteSheetInfo info,
+            int frameCount,
+            int columns,
+            int rows,
+            SpriteSheet.Direction direction,
+            long frameTime,
+            bool loop)
+        {
+            return new SpriteSheet(spriteSheet,
+                info,
                 frameCount,
                 columns,
                 rows,

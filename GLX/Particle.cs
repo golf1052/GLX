@@ -9,7 +9,6 @@ namespace GLX
 {
     public class Particle : Sprite
     {
-        Texture2D pixel;
         public TimeSpan aliveTime;
         public Color startingColor;
         public Color endingColor;
@@ -20,7 +19,7 @@ namespace GLX
         public float gravity;
         public bool hasGravity;
         public float bounce;
-        bool useDrawRect;
+        private bool useDrawRect;
 
         public Particle(Texture2D loadedTex) : base(loadedTex)
         {
@@ -34,7 +33,7 @@ namespace GLX
             useDrawRect = true;
         }
 
-        bool SpawnParticleBase(Vector2 position,
+        private bool SpawnParticleBase(Vector2 position,
             Color color,
             Tuple<int, int> aliveTime,
             Tuple<float, float> velocity,
@@ -218,7 +217,7 @@ namespace GLX
         /// <param name="min">The smallest number you could get</param>
         /// <param name="max">The largest number you could get, not inclusive</param>
         /// <returns>Returns a random number of type float.</returns>
-        public float RandomBetween(float min, float max)
+        private float RandomBetween(float min, float max)
         {
             return min + (float)World.random.NextDouble() * (max - min);
         }

@@ -10,13 +10,13 @@ namespace GLX
     public class GameTimeWrapper : GameTime
     {
         // The Game.cs time between frames. Unit = Ticks. Usually set to 166667 AKA 60 FPS.
-        long systemSpeed;
+        private long systemSpeed;
 
         // This time world's time between frames. Unit = Ticks.
-        long gameSpeed;
+        private long gameSpeed;
 
         // This time world's time specified as a ratio. gameSpeed / systemSpeed.
-        decimal gameSpeedDecimal;
+        private decimal gameSpeedDecimal;
 
         // This time world's time specified as a ratio.
         // After setting a ratio we recalculate the _gameSpeed value
@@ -88,10 +88,6 @@ namespace GLX
             this.IsRunningSlowly = false;
         }
 
-        void Loop(GameTime gameTime)
-        {
-        }
-
         public void Update(GameTime gameTime)
         {
             long updateLoops = Math.Abs(gameSpeed / systemSpeed);
@@ -117,7 +113,6 @@ namespace GLX
                     TotalGameTime += TimeSpan.FromTicks(gameSpeed);
                     ElapsedGameTime = TimeSpan.FromTicks(gameSpeed);
                     IsRunningSlowly = gameTime.IsRunningSlowly;
-                    //Debug.WriteLine("Running Update method at " + gameSpeedDecimal.ToString("#.0000"));
                     UpdateMethod.Invoke(this);
                 }
             }
@@ -128,17 +123,10 @@ namespace GLX
                 TotalGameTime += TimeSpan.FromTicks(gameSpeed);
                 ElapsedGameTime = TimeSpan.FromTicks(gameSpeed);
                 IsRunningSlowly = gameTime.IsRunningSlowly;
-                //Debug.WriteLine("Running Update method at " + gameSpeedDecimal.ToString("#.0000"));
-                //Debug.WriteLine("");
                 UpdateMethod.Invoke(this);
             }
             gameSpeed = realGameSpeed;
             gameSpeedDecimal = realGameSpeedDecimal;
-        }
-
-        public void Draw(GameTime gameTime)
-        {
-
         }
     }
 }

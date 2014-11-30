@@ -7,7 +7,7 @@ using Microsoft.Xna.Framework.Graphics;
 
 namespace GLX
 {
-    public class World
+    public sealed class World
     {
         GraphicsDeviceManager graphics;
         SpriteBatch spriteBatch;
@@ -16,7 +16,7 @@ namespace GLX
 
         List<GameTimeWrapper> gameTimes;
 
-        Dictionary<string, Camera> cameras;
+        internal Dictionary<string, Camera> cameras;
         private string _currentCamera;
         public string currentCamera
         {
@@ -45,7 +45,44 @@ namespace GLX
                 return _camera1;
             }
         }
-        public Vector2 cameraFocalPoint;
+
+        private List<GameState> gameStates;
+        private string _gameState;
+        public string gameState
+        {
+            get
+            {
+                return _gameState;
+            }
+            set
+            {
+                bool foundGameState = false;
+                foreach (GameState gameState in gameStates)
+                {
+                    if (gameState.name == value)
+                    {
+                        _gameState = value;
+                        gameState.LoadGameSpeeds();
+                        foundGameState = true;
+                    }
+                }
+
+                if (foundGameState)
+                {
+                    foreach (GameState gameState in gameStates)
+                    {
+                        if (gameState.name != value)
+                        {
+                            gameState.SaveGameSpeeds();
+                        }
+                    }
+                }
+                else
+                {
+                    throw new Exception("That game state does not exist");
+                }
+            }
+        }
 
         public World(GraphicsDeviceManager graphics)
         {
@@ -54,8 +91,40 @@ namespace GLX
 
             cameras = new Dictionary<string, Camera>();
             _camera1 = new Camera(graphics.GraphicsDevice.Viewport, Camera.Focus.TopLeft);
-            AddCamera("camera1", camera1);
+            cameras.Add("camera1", camera1);
             _currentCamera = "camera1";
+
+            gameStates = new List<GameState>();
+        }
+
+        public void AddGameStateUpdate(string name, GameTimeWrapper gameTime)
+        {
+            foreach (GameState gameState in gameStates)
+            {
+                if (gameState.name == name)
+                {
+                    gameState.gameTimes.Add(gameTime);
+                    return;
+                }
+            }
+
+            gameStates.Add(new GameState(name));
+            gameStates.Last().gameTimes.Add(gameTime);
+        }
+
+        public void AddGameStateDraw(string name, Action<GameTime> drawMethod)
+        {
+            foreach (GameState gameState in gameStates)
+            {
+                if (gameState.name == name)
+                {
+                    gameState.drawMethods.Add(drawMethod);
+                    return;
+                }
+            }
+
+            gameStates.Add(new GameState(name));
+            gameStates.Last().drawMethods.Add(drawMethod);
         }
 
         public void LoadSpriteBatch()
@@ -70,7 +139,7 @@ namespace GLX
 
         public bool AddCamera(string name, Camera camera)
         {
-            if (cameras.ContainsKey(name))
+            if (cameras.ContainsKey(name) || name == "camera1")
             {
                 return false;
             }
@@ -132,7 +201,7 @@ namespace GLX
                 cameras[currentCamera].transform);
         }
 
-        void BeginDraw(SpriteSortMode sortMode, BlendState blendState,
+        public void BeginDraw(SpriteSortMode sortMode, BlendState blendState,
             SamplerState samplerState, DepthStencilState depthStencilState,
             RasterizerState rasterizerState, Effect effect, Matrix transformMatrix)
         {

@@ -30,11 +30,8 @@ namespace GLX
         }
         public Vector2Tweener pan { get; private set; }
         public FloatTweener zoom { get; private set; }
-        public float rot;
+        public FloatTweener rot { get; private set; }
         private Viewport viewport;
-        public bool smoothZoom;
-        public float targetZoom;
-        public float zoomValue;
 
         public enum Focus
         {
@@ -80,28 +77,26 @@ namespace GLX
         {
             pan = new Vector2Tweener();
             this.viewport = viewport;
-            smoothZoom = false;
             zoom = new FloatTweener();
+            rot = new FloatTweener();
             zoom.Value = 1;
-            targetZoom = 1;
-            zoomValue = 0;
-            rot = 0;
+            rot.Value = 0;
             this._focus = focus;
         }
 
-        void UpdateTransform()
+        private void UpdateTransform()
         {
             if (focus == Focus.Center)
             {
                 _transform = Matrix.CreateTranslation(new Vector3(-pan.Value.X, -pan.Value.Y, 0)) *
-                    Matrix.CreateRotationZ(MathHelper.ToRadians(rot)) *
+                    Matrix.CreateRotationZ(MathHelper.ToRadians(rot.Value)) *
                     Matrix.CreateScale(new Vector3(zoom.Value, zoom.Value, 1)) *
                     Matrix.CreateTranslation(new Vector3(viewport.Width * 0.5f, viewport.Height * 0.5f, 0));
             }
             else if (focus == Focus.TopLeft)
             {
                 _transform = Matrix.CreateTranslation(new Vector3(-pan.Value.X, -pan.Value.Y, 0)) *
-                    Matrix.CreateRotationZ(MathHelper.ToRadians(rot)) *
+                    Matrix.CreateRotationZ(MathHelper.ToRadians(rot.Value)) *
                     Matrix.CreateScale(new Vector3(zoom.Value, zoom.Value, 0));
             }
             _inverseTransform = Matrix.Invert(_transform);
@@ -111,14 +106,8 @@ namespace GLX
         {
             pan.Update(gameTime);
             zoom.Update(gameTime);
+            rot.Update(gameTime);
             UpdateTransform();
-        }
-
-        public void CameraBeginSpriteBatch(SpriteBatch spriteBatch)
-        {
-            spriteBatch.Begin(SpriteSortMode.Deferred, BlendState.AlphaBlend,
-                null, null, null, null,
-                transform);
         }
     }
 }

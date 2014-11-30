@@ -10,8 +10,8 @@ namespace GLX
 {
     public struct SpriteSheetInfo
     {
-        public int frameWidth;
-        public int frameHeight;
+        public readonly int frameWidth;
+        public readonly int frameHeight;
 
         public SpriteSheetInfo(int frameWidth, int frameHeight)
         {
@@ -24,7 +24,7 @@ namespace GLX
     {
         public Texture2D tex;
         public ColorData colorData;
-        Dictionary<Rectangle, ColorData> frameColorData;
+        private Dictionary<Rectangle, ColorData> frameColorData;
         public SpriteSheetInfo info;
         public int frameCount;
         public int columns;
@@ -86,7 +86,7 @@ namespace GLX
             return frameColorData[sourceRect];
         }
 
-        void GenerateFrameColorData(int columns, int rows, Direction direction)
+        private void GenerateFrameColorData(int columns, int rows, Direction direction)
         {
             int framesCollected = 0;
             while (framesCollected < frameCount)

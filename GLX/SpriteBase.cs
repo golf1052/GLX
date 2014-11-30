@@ -1,34 +1,74 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 
 namespace GLX
 {
+    /// <summary>
+    /// The SpriteBase class is the base class for all 2D drawable objects (sprites)
+    /// This is an abstract class that contains a bunch of fields common to 2D drawable
+    /// objects.
+    /// </summary>
     public abstract class SpriteBase
     {
-        public Vector2 pos;
-        public Vector2 vel;
-        public bool visible;
-        public Rectangle rect;
-        public Color color;
-        public Vector2 origin;
-        public float alpha;
         /// <summary>
-        /// Rotation of Sprite in degrees
+        /// Stores the position of the sprite.
+        /// </summary>
+        public Vector2 pos;
+
+        /// <summary>
+        /// Stores the velocity of the sprite.
+        /// </summary>
+        public Vector2 vel;
+
+        /// <summary>
+        /// Stores whether or not the sprite is visible.
+        /// </summary>
+        public bool visible;
+
+        /// <summary>
+        /// Stores the bounding rectangle of the sprite.
+        /// </summary>
+        public Rectangle rect;
+
+        /// <summary>
+        /// Stores the color of the sprite.
+        /// </summary>
+        public Color color;
+
+        /// <summary>
+        /// Stores the origin of the sprite.
+        /// </summary>
+        public Vector2 origin;
+
+        /// <summary>
+        /// Stores the sprite's transparancy value.
+        /// </summary>
+        public float alpha;
+
+        /// <summary>
+        /// Stores the totation of Sprite in degrees.
         /// </summary>
         public float rotation;
+
+        /// <summary>
+        /// Stores the scale of the sprite.
+        /// </summary>
         public float scale;
 
+        /// <summary>
+        /// Creates a new instance of a sprite.
+        /// </summary>
         public SpriteBase()
         {
             SpriteInit();
         }
 
-        void SpriteInit()
+        /// <summary>
+        /// Base sprite instantiation. Sets fields to default values.
+        /// </summary>
+        private void SpriteInit()
         {
             pos = Vector2.Zero;
             vel = Vector2.Zero;
@@ -41,13 +81,23 @@ namespace GLX
             scale = 1.0f;
         }
 
+        /// <summary>
+        /// Base Update method. Should be overridden in almost all situations.
+        /// </summary>
         public virtual void Update()
         {
             pos += vel;
         }
 
+        /// <summary>
+        /// Abstract Draw method.
+        /// </summary>
+        /// <param name="spriteBatch">SpriteBatch for Game</param>
         public abstract void Draw(SpriteBatch spriteBatch);
 
+        /// <summary>
+        /// A movement direction, used for basic key inputs
+        /// </summary>
         public enum MovementDirection
         {
             Up,
@@ -95,6 +145,10 @@ namespace GLX
             }
         }
 
+        /// <summary>
+        /// Rotates a sprite so that it is facing a certain position
+        /// </summary>
+        /// <param name="targetPosition">The position the sprite should point to</param>
         public void Aim(Vector2 targetPosition)
         {
             float XDistance = targetPosition.X - pos.X;
@@ -103,10 +157,18 @@ namespace GLX
             rotation = MathHelper.ToDegrees(angle);
         }
 
-        public void Aim(MouseState mouseState)
+        /// <summary>
+        /// Rotates a sprite so that it faces the cursor
+        /// </summary>
+        /// <param name="mouseState">The mouse state</param>
+        /// <param name="world">The current world</param>
+        /// <remarks>We use the current world's camera to transform the mouse to the
+        /// correct position on the screen.</remarks>
+        public void Aim(MouseState mouseState, World world)
         {
-            float XDistance = mouseState.X - pos.X;
-            float YDistance = mouseState.Y - pos.Y;
+            Vector2 transformedMouseState = Vector2.Transform(mouseState.Position.ToVector2(), world.cameras[world.currentCamera].inverseTransform);
+            float XDistance = transformedMouseState.X - pos.X;
+            float YDistance = transformedMouseState.Y - pos.Y;
             float angle = (float)Math.Atan2(YDistance, XDistance);
             rotation = MathHelper.ToDegrees(angle);
         }
@@ -117,6 +179,12 @@ namespace GLX
             Right
         }
 
+        /// <summary>
+        /// Rotates a sprite so that it points in the direction the player is pointing
+        /// their thumbstick
+        /// </summary>
+        /// <param name="gamePadState">The game pad state</param>
+        /// <param name="thumbStick">The thumbstick the player is using for aiming</param>
         public void Aim(GamePadState gamePadState, ThumbStick thumbStick)
         {
             Vector2 stick = Vector2.Zero;

@@ -9,10 +9,10 @@ namespace GLX
 {
     public class Line : SpriteBase
     {
-        Texture2D pixel;
+        private Texture2D pixel;
         public Vector2 point1;
         public Vector2 point2;
-        public float width;
+        public float thickness;
         public enum Type
         {
             Point,
@@ -25,10 +25,19 @@ namespace GLX
             pixel.SetData(new[] {Color.White});
             point1 = Vector2.Zero;
             point2 = Vector2.Zero;
-            width = 1;
+            thickness = 1;
         }
 
-        public Line(GraphicsDeviceManager graphics, Type type, Vector2 p1, Vector2 p2, float width)
+        /// <summary>
+        /// Define a line
+        /// </summary>
+        /// <param name="graphics">The graphics device manager</param>
+        /// <param name="type">How you are defining the second point, point or vector</param>
+        /// <param name="p1">The starting point</param>
+        /// <param name="p2">The ending point if using Point or the direction the line should
+        /// go in if using Vector.</param>
+        /// <param name="thickness">The thickness of the line</param>
+        public Line(GraphicsDeviceManager graphics, Type type, Vector2 p1, Vector2 p2, float thickness)
         {
             pixel = new Texture2D(graphics.GraphicsDevice, 1, 1, false, SurfaceFormat.Color);
             pixel.SetData(new[] { Color.White });
@@ -39,17 +48,18 @@ namespace GLX
             }
             else if (type == Type.Vector)
             {
+                p2 = Vector2.Normalize(p2);
                 p2 *= 2000;
                 point2 = point1 + p2;
             }
-            this.width = width;
+            this.thickness = thickness;
         }
 
         public override void Draw(SpriteBatch spriteBatch)
         {
             rotation = (float)Math.Atan2(point2.Y - point1.Y, point2.X - point1.X);
             float length = Vector2.Distance(point1, point2);
-            spriteBatch.Draw(pixel, point1, null, color, rotation, Vector2.Zero, new Vector2(length, width), SpriteEffects.None, 0);
+            spriteBatch.Draw(pixel, point1, null, color, rotation, Vector2.Zero, new Vector2(length, thickness), SpriteEffects.None, 0);
         }
     }
 }
