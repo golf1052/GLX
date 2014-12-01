@@ -252,7 +252,7 @@ namespace GLX
         /// <param name="spriteBatch">The sprite batch</param>
         public override void Draw(SpriteBatch spriteBatch)
         {
-            spriteBatch.Draw(tex, pos, null, color, MathHelper.ToRadians(rotation), origin, scale, SpriteEffects.None, 0);
+            spriteBatch.Draw(tex, pos, null, color * alpha, MathHelper.ToRadians(rotation), origin, scale, SpriteEffects.None, 0);
         }
 
         /// <summary>
@@ -261,7 +261,7 @@ namespace GLX
         /// <param name="spriteBatch">The sprite batch</param>
         public void DrawRect(SpriteBatch spriteBatch)
         {
-            spriteBatch.Draw(tex, drawRect, null, color, MathHelper.ToRadians(rotation), origin, SpriteEffects.None, 0);
+            spriteBatch.Draw(tex, drawRect, null, color * alpha, MathHelper.ToRadians(rotation), origin, SpriteEffects.None, 0);
         }
 
         /// <summary>

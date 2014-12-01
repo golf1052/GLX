@@ -21,6 +21,7 @@ namespace GLX
         public static Corner corner;
         public static Vector2 pos;
         public static float spacing;
+        public static SpriteFont spriteFont;
 
         public static void Initialize(Vector2 pos, Corner corner, float spacing)
         {
