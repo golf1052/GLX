@@ -19,6 +19,8 @@ namespace GLX
             Vector
         }
 
+        Sprite middlePoint;
+
         public Line(GraphicsDeviceManager graphics)
         {
             pixel = new Texture2D(graphics.GraphicsDevice, 1, 1, false, SurfaceFormat.Color);
@@ -26,6 +28,8 @@ namespace GLX
             point1 = Vector2.Zero;
             point2 = Vector2.Zero;
             thickness = 1;
+            middlePoint = new Sprite(graphics);
+            middlePoint.drawRect = new Rectangle(0, 0, 5, 5);
         }
 
         /// <summary>
@@ -60,6 +64,11 @@ namespace GLX
             rotation = (float)Math.Atan2(point2.Y - point1.Y, point2.X - point1.X);
             float length = Vector2.Distance(point1, point2);
             spriteBatch.Draw(pixel, point1, null, color, rotation, Vector2.Zero, new Vector2(length, thickness), SpriteEffects.None, 0);
+            middlePoint.pos = new Vector2(point1.X - point2.X - 2.5f, point1.Y - point2.Y - 2.5f);
+            middlePoint.pos -= point1;
+            middlePoint.drawRect.X = (int)middlePoint.pos.X;
+            middlePoint.drawRect.Y = (int)middlePoint.pos.Y;
+            middlePoint.DrawRect(spriteBatch);
         }
     }
 }
