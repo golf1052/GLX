@@ -227,6 +227,7 @@ namespace GLX
                     }
                 }
             }
+            Rectangle oldSourceRect = animations.sourceRect;
             // Then move our source rectangle to the right spot and update our texture and color data
             if (animations.currentSpriteSheet.direction == SpriteSheet.Direction.LeftToRight)
             {
@@ -234,7 +235,6 @@ namespace GLX
                     (animations.currentFrame / animations.currentSpriteSheet.columns) * animations.spriteSheetInfo.frameHeight,
                     animations.spriteSheetInfo.frameWidth,
                     animations.spriteSheetInfo.frameHeight);
-                UpdateTexAndColorData(animations.currentSpriteSheet, graphics.GraphicsDevice);
             }
             else if (animations.currentSpriteSheet.direction == SpriteSheet.Direction.TopToBottom)
             {
@@ -242,6 +242,9 @@ namespace GLX
                     (animations.currentFrame % animations.currentSpriteSheet.rows) * animations.spriteSheetInfo.frameHeight,
                     animations.spriteSheetInfo.frameWidth,
                     animations.spriteSheetInfo.frameHeight);
+            }
+            if (animations.sourceRect != oldSourceRect)
+            {
                 UpdateTexAndColorData(animations.currentSpriteSheet, graphics.GraphicsDevice);
             }
         }
@@ -273,6 +276,8 @@ namespace GLX
         {
             // Unset the graphics device before setting new graphics data
             graphicsDevice.Textures[0] = null;
+            // Setting color data is super taxing
+            tex = new Texture2D(graphicsDevice, animations.spriteSheetInfo.frameWidth, animations.spriteSheetInfo.frameHeight);
             tex.SetData<Color>(spriteSheet.GetFrameColorData(animations.sourceRect).colorData1D);
             colorData = spriteSheet.GetFrameColorData(animations.sourceRect);
         }
