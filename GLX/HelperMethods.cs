@@ -44,18 +44,15 @@ namespace GLX
 
         public static bool ContainsLine(this Rectangle rectangle, Line line)
         {
-            if (rectangle.Contains(line.point1) || rectangle.Contains(line.point2))
+            Vector2 along = new Vector2(line.point1.X - line.point2.X, line.point1.Y -line.point2.Y);
+            along.Normalize();
+            for (int i = 0; i < Vector2.Distance(line.point1, line.point2); i++)
             {
-                return true;
+                if (rectangle.Contains(line.point1 + (along * i)))
+                {
+                    return true;
+                }
             }
-            
-            Vector2 middlePoint = new Vector2(line.point1.X - line.point2.X, line.point1.Y -line.point2.Y);
-            middlePoint += line.point1;
-            if (rectangle.Contains(middlePoint))
-            {
-                return true;
-            }
-
             return false;
         }
 
