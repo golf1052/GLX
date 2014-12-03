@@ -147,16 +147,16 @@ namespace GLX
                 vel *= velocityDecayRate;
                 if (hasGravity)
                 {
-                    vel.Y += gravity;
+                    vel.Y += gravity * (float)gameTime.GameSpeed;
                 }
 
                 aliveTime -= gameTime.ElapsedGameTime;
 
-                if (pos.Y > graphics.GraphicsDevice.Viewport.Height)
-                {
-                    pos.Y = graphics.GraphicsDevice.Viewport.Height - tex.Height / 2;
-                    vel.Y *= -bounce;
-                }
+                //if (pos.Y > graphics.GraphicsDevice.Viewport.Height)
+                //{
+                //    pos.Y = graphics.GraphicsDevice.Viewport.Height - tex.Height / 2;
+                //    vel.Y *= -bounce;
+                //}
 
                 if (aliveTime <= TimeSpan.Zero)
                 {
@@ -179,7 +179,6 @@ namespace GLX
                     if (fadeRate != 0)
                     {
                         alpha -= fadeRate * (float)gameTime.GameSpeed;
-                        color *= alpha;
                     }
                     else
                     {

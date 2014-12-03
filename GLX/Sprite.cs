@@ -126,7 +126,7 @@ namespace GLX
             {
                 UpdateAnimation(gameTime, graphics);
             }
-            pos += vel;
+            pos += vel * (float)gameTime.GameSpeed;
             drawRect.X = (int)pos.X;
             drawRect.Y = (int)pos.Y;
             rect = new Rectangle((int)pos.X, (int)pos.Y, tex.Width, tex.Height);

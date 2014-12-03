@@ -56,6 +56,20 @@ namespace GLX
             return false;
         }
 
+        public static Vector2 PointOnLine(this Rectangle rectangle, Line line)
+        {
+            Vector2 along = new Vector2(line.point1.X - line.point2.X, line.point1.Y - line.point2.Y);
+            along.Normalize();
+            for (int i = 0; i < Vector2.Distance(line.point1, line.point2); i++)
+            {
+                if (rectangle.Contains(line.point1 + (along * i)))
+                {
+                    return line.point1 + (along * i);
+                }
+            }
+            return new Vector2(float.NaN, float.NaN);
+        }
+
         /// <summary>
         /// Determines if there is overlap of the non-transparent pixels between two
         /// sprites.
