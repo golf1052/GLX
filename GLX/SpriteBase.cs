@@ -166,11 +166,11 @@ namespace GLX
         /// correct position on the screen.</remarks>
         public void Aim(MouseState mouseState, World world)
         {
-            Vector2 transformedMouseState = Vector2.Transform(mouseState.Position.ToVector2(), world.cameras[world.currentCamera].inverseTransform);
-            float XDistance = transformedMouseState.X - pos.X;
-            float YDistance = transformedMouseState.Y - pos.Y;
-            float angle = (float)Math.Atan2(YDistance, XDistance);
-            rotation = MathHelper.ToDegrees(angle);
+            //Vector2 transformedMouseState = Vector2.Transform(mouseState.Position.ToVector2(), world.cameras[world.currentCamera].inverseTransform);
+            //float XDistance = transformedMouseState.X - pos.X;
+            //float YDistance = transformedMouseState.Y - pos.Y;
+            //float angle = (float)Math.Atan2(YDistance, XDistance);
+            //rotation = MathHelper.ToDegrees(angle);
         }
 
         public enum ThumbStick

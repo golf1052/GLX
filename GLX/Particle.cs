@@ -1,32 +1,83 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 
 namespace GLX
 {
+    /// <summary>
+    /// Particles!
+    /// </summary>
     public class Particle : Sprite
     {
+        /// <summary>
+        /// How long the particle will stay alive before despawning
+        /// </summary>
         public TimeSpan aliveTime;
+
+        /// <summary>
+        /// The initial color of the particle
+        /// </summary>
         public Color startingColor;
+
+        /// <summary>
+        /// The color the particle should change to from the starting color
+        /// </summary>
         public Color endingColor;
+
+        /// <summary>
+        /// The rate at which the particle will change from the starting color to the ending color
+        /// </summary>
         public float colorShiftRate;
-        public float colorShiftValue;
+
+        /// <summary>
+        /// How far along the particle is in shifting colors
+        /// </summary>
+        private float colorShiftValue;
+
+        /// <summary>
+        /// The rate at which the particle should slow down
+        /// </summary>
         public float velocityDecayRate;
+
+        /// <summary>
+        /// The rate at which the particle should fade and then despawn
+        /// </summary>
         public float fadeRate;
+
+        /// <summary>
+        /// The rate of gravity on the particle
+        /// </summary>
         public float gravity;
+
+        /// <summary>
+        /// If the particle has gravity
+        /// </summary>
         public bool hasGravity;
+
+        /// <summary>
+        /// The amount the particle should bounce
+        /// </summary>
         public float bounce;
+
+        /// <summary>
+        /// If the particle was loaded from a texture or just a pixel
+        /// </summary>
         private bool useDrawRect;
 
+        /// <summary>
+        /// Create a particle using a texture
+        /// </summary>
+        /// <param name="loadedTex">The particle texture</param>
         public Particle(Texture2D loadedTex) : base(loadedTex)
         {
             visible = false;
             useDrawRect = false;
         }
 
+        /// <summary>
+        /// Create a particle using a pixel
+        /// </summary>
+        /// <param name="graphics">The graphics device manager</param>
         public Particle(GraphicsDeviceManager graphics) : base(graphics)
         {
             visible = false;
@@ -79,6 +130,23 @@ namespace GLX
             }
         }
 
+        /// <summary>
+        /// Spawn a new particle, use if particle was loaded with a texture
+        /// </summary>
+        /// <param name="position">The initial position of the particle</param>
+        /// <param name="color">The initial color of the particle</param>
+        /// <param name="aliveTime">The minimum and maximum alive time of the particle, in milliseconds</param>
+        /// <param name="velocity">The minimum and maximum initial velocity of the particle</param>
+        /// <param name="velocityDecayRate">The minimum and maximum velocity decay rate. 0 = instant velocity decay. 1 = no velocity decay</param>
+        /// <param name="fadeRate">The minimum and maximum fade to despawn rate. 0 = no fade. 1 = instant fade.</param>
+        /// <param name="colorShiftRate">The minimum and maximum color shift rate. 0 = no shift. 1 = instant shift</param>
+        /// <param name="rotation">The initial direction the particle should fire in. In degrees.</param>
+        /// <param name="spread">The deviation in either direction from the rotation. In degrees.</param>
+        /// <param name="fadeTo">The ending color of the particle</param>
+        /// <param name="hasGravity">If the particle has gravity applied to it</param>
+        /// <param name="bounce">How much the particle bounces</param>
+        /// <param name="gravity">If the particle has gravity how much force should be applied</param>
+        /// <returns>If the particle was spawned returns true</returns>
         public bool SpawnParticle(Vector2 position,
             Color color,
             Tuple<int, int> aliveTime,
@@ -108,6 +176,24 @@ namespace GLX
                 gravity);
         }
 
+        /// <summary>
+        /// Spawn a particle, use if particle was loaded with a pixel
+        /// </summary>
+        /// <param name="position">The initial position of the particle</param>
+        /// <param name="color">The initial color of the particle</param>
+        /// <param name="aliveTime">The minimum and maximum alive time of the particle, in milliseconds</param>
+        /// <param name="size">The width and height of the particle</param>
+        /// <param name="velocity">The minimum and maximum initial velocity of the particle</param>
+        /// <param name="velocityDecayRate">The minimum and maximum velocity decay rate. 0 = instant velocity decay. 1 = no velocity decay</param>
+        /// <param name="fadeRate">The minimum and maximum fade to despawn rate. 0 = no fade. 1 = instant fade.</param>
+        /// <param name="colorShiftRate">The minimum and maximum color shift rate. 0 = no shift. 1 = instant shift</param>
+        /// <param name="rotation">The initial direction the particle should fire in. In degrees.</param>
+        /// <param name="spread">The deviation in either direction from the rotation. In degrees.</param>
+        /// <param name="fadeTo">The ending color of the particle</param>
+        /// <param name="hasGravity">If the particle has gravity applied to it</param>
+        /// <param name="bounce">How much the particle bounces</param>
+        /// <param name="gravity">If the particle has gravity how much force should be applied</param>
+        /// <returns>If the particle was spawned returns true</returns>
         public bool SpawnParticle(Vector2 position,
             Color color,
             Tuple<int, int> aliveTime,
@@ -139,6 +225,11 @@ namespace GLX
                 gravity);
         }
 
+        /// <summary>
+        /// Updates the particle
+        /// </summary>
+        /// <param name="gameTime">The game time the particle exists in</param>
+        /// <param name="graphics">The graphics device manager</param>
         public override void Update(GameTimeWrapper gameTime,
             GraphicsDeviceManager graphics)
         {
@@ -195,6 +286,10 @@ namespace GLX
             }
         }
 
+        /// <summary>
+        /// Draw the particle
+        /// </summary>
+        /// <param name="spriteBatch">The sprite batch</param>
         public override void Draw(SpriteBatch spriteBatch)
         {
             if (visible)

@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
+using Microsoft.Xna.Framework.Input;
 
 namespace GLX
 {
@@ -14,117 +15,55 @@ namespace GLX
 
         public static Random random = new Random();
 
-        List<GameTimeWrapper> gameTimes;
+        public static KeyboardState previousKeyboardState;
+        public static GamePadState[] previousGamePadStates = new GamePadState[4];
+        public static MouseState previousMouseState;
 
-        internal Dictionary<string, Camera> cameras;
-        private string _currentCamera;
-        public string currentCamera
-        {
-            get
-            {
-                return _currentCamera;
-            }
-            set
-            {
-                if (cameras.ContainsKey(value))
-                {
-                    _currentCamera = value;
-                }
-                else
-                {
-                    throw new Exception("That camera doesn't exist");
-                }
-            }
-        }
+        public static KeyboardState keyboardState;
+        public static GamePadState[] gamePadStates = new GamePadState[4];
+        public static MouseState mouseState;
 
-        private Camera _camera1;
-        public Camera camera1
-        {
-            get
-            {
-                return _camera1;
-            }
-        }
+        public Dictionary<string, GameState> gameStates;
+        public List<KeyValuePair<string, GameState>> activeGameStates;
 
-        private List<GameState> gameStates;
-        private string _gameState;
-        public string gameState
-        {
-            get
-            {
-                return _gameState;
-            }
-            set
-            {
-                bool foundGameState = false;
-                foreach (GameState gameState in gameStates)
-                {
-                    if (gameState.name == value)
-                    {
-                        _gameState = value;
-                        gameState.LoadGameSpeeds();
-                        foundGameState = true;
-                    }
-                }
+        public Dictionary<string, MenuState> menuStates;
+        public List<KeyValuePair<string, MenuState>> activeMenuStates;
 
-                if (foundGameState)
-                {
-                    foreach (GameState gameState in gameStates)
-                    {
-                        if (gameState.name != value)
-                        {
-                            gameState.SaveGameSpeeds();
-                        }
-                    }
-                }
-                else
-                {
-                    throw new Exception("That game state does not exist");
-                }
-            }
-        }
+        private GameState currentGameState;
 
         public World(GraphicsDeviceManager graphics)
         {
             this.graphics = graphics;
-            gameTimes = new List<GameTimeWrapper>();
-
-            cameras = new Dictionary<string, Camera>();
-            _camera1 = new Camera(graphics.GraphicsDevice.Viewport, Camera.Focus.TopLeft);
-            cameras.Add("camera1", camera1);
-            _currentCamera = "camera1";
-
-            gameStates = new List<GameState>();
+            gameStates = new Dictionary<string, GameState>();
+            activeGameStates = new List<KeyValuePair<string, GameState>>();
+            menuStates = new Dictionary<string, MenuState>();
+            activeMenuStates = new List<KeyValuePair<string, MenuState>>();
         }
 
-        public void AddGameStateUpdate(string name, GameTimeWrapper gameTime)
+        public void AddGameState(string name, GraphicsDeviceManager graphics)
         {
-            foreach (GameState gameState in gameStates)
-            {
-                if (gameState.name == name)
-                {
-                    gameState.gameTimes.Add(gameTime);
-                    return;
-                }
-            }
-
-            gameStates.Add(new GameState(name));
-            gameStates.Last().gameTimes.Add(gameTime);
+            gameStates.Add(name, new GameState(name, graphics));
         }
 
-        public void AddGameStateDraw(string name, Action<GameTime> drawMethod)
+        public void AddMenuState(string name, GraphicsDeviceManager graphics, Game game)
         {
-            foreach (GameState gameState in gameStates)
-            {
-                if (gameState.name == name)
-                {
-                    gameState.drawMethods.Add(drawMethod);
-                    return;
-                }
-            }
+            menuStates.Add(name, new MenuState(name, graphics, game, this));
+        }
 
-            gameStates.Add(new GameState(name));
-            gameStates.Last().drawMethods.Add(drawMethod);
+        public void ActivateGameState(string name)
+        {
+            activeGameStates.Add(new KeyValuePair<string, GameState>(name, gameStates[name]));
+        }
+
+        public void ActivateMenuState(string name)
+        {
+            activeMenuStates.Add(new KeyValuePair<string, MenuState>(name, menuStates[name]));
+        }
+
+        public void ClearStates()
+        {
+            activeGameStates.Clear();
+            activeMenuStates.Clear();
         }
 
         public void LoadSpriteBatch()
@@ -132,73 +71,39 @@ namespace GLX
             spriteBatch = new SpriteBatch(graphics.GraphicsDevice);
         }
 
-        public void AddTime(GameTimeWrapper time)
-        {
-            gameTimes.Add(time);
-        }
-
-        public bool AddCamera(string name, Camera camera)
-        {
-            if (cameras.ContainsKey(name) || name == "camera1")
-            {
-                return false;
-            }
-            else
-            {
-                cameras.Add(name, camera);
-                return true;
-            }
-        }
-
-        public bool RemoveCamera(string name)
-        {
-            if (name == "camera1")
-            {
-                throw new Exception("You cannot remove camera1");
-            }
-            else
-            {
-                if (cameras.ContainsKey(name))
-                {
-                    if (_currentCamera == name)
-                    {
-                        _currentCamera = "camera1";
-                    }
-                    cameras.Remove(name);
-                    return true;
-                }
-                else
-                {
-                    return false;
-                }
-            }
-        }
-
-        public void UpdateCurrentCamera(GameTimeWrapper gameTime)
-        {
-            cameras[currentCamera].Update(gameTime);
-        }
-
         public void Update(GameTime gameTime)
         {
-            foreach (GameTimeWrapper time in gameTimes)
+            keyboardState = Keyboard.GetState();
+            gamePadStates[0] = GamePad.GetState(PlayerIndex.One);
+            gamePadStates[1] = GamePad.GetState(PlayerIndex.Two);
+            gamePadStates[2] = GamePad.GetState(PlayerIndex.Three);
+            gamePadStates[3] = GamePad.GetState(PlayerIndex.Four);
+            mouseState = Mouse.GetState();
+            foreach (KeyValuePair<string, GameState> gameState in activeGameStates)
             {
-                time.Update(gameTime);
+                gameState.Value.Update(gameTime);
             }
+            foreach (KeyValuePair<string, MenuState> menuState in activeMenuStates)
+            {
+                menuState.Value.Update(gameTime);
+            }
+            previousKeyboardState = keyboardState;
+            previousGamePadStates = gamePadStates;
+            previousMouseState = mouseState;
         }
 
         public void BeginDraw()
         {
             BeginDraw(SpriteSortMode.Deferred, BlendState.AlphaBlend,
                 null, null, null, null,
-                cameras[currentCamera].transform);
+                currentGameState.cameras[currentGameState.currentCamera].transform);
         }
 
         public void BeginDraw(SpriteSortMode spriteSortMode, BlendState blendState)
         {
             BeginDraw(spriteSortMode, blendState,
                 null, null, null, null,
-                cameras[currentCamera].transform);
+                currentGameState.cameras[currentGameState.currentCamera].transform);
         }
 
         public void BeginDraw(SpriteSortMode sortMode, BlendState blendState,
@@ -217,6 +122,26 @@ namespace GLX
         public void EndDraw()
         {
             spriteBatch.End();
+        }
+
+        public void DrawWorld()
+        {
+            foreach (KeyValuePair<string, GameState> gameState in activeGameStates)
+            {
+                currentGameState = gameState.Value;
+                foreach (Action drawMethod in gameState.Value.drawMethods)
+                {
+                    drawMethod.Invoke();
+                }
+            }
+            foreach (KeyValuePair<string, MenuState> menuState in activeMenuStates)
+            {
+                currentGameState = menuState.Value;
+                foreach (Action drawMethod in menuState.Value.drawMethods)
+                {
+                    drawMethod.Invoke();
+                }
+            }
         }
     }
 }
