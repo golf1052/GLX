@@ -4,6 +4,85 @@ using Microsoft.Xna.Framework.Graphics;
 
 namespace GLX
 {
+    public struct ParticleOptions
+    {
+        public readonly Vector2 position;
+        public readonly Tuple<int, int> size;
+        public readonly Color startingColor;
+        public readonly Color endingColor;
+        public readonly Tuple<int, int> aliveTime;
+        public readonly Tuple<float, float> velocity;
+        public readonly Tuple<float, float> velocityDecayRate;
+        public readonly Tuple<float, float> colorShiftRate;
+        public readonly Tuple<float, float> fadeRate;
+        public readonly float rotation;
+        public readonly int spread;
+        public readonly bool hasGravity;
+        public readonly float gravity;
+        public readonly float bounce;
+
+        public ParticleOptions(Vector2 position,
+            Color startingColor,
+            Color endingColor,
+            Tuple<int, int> aliveTime,
+            Tuple<float, float> velocity,
+            Tuple<float, float> velocityDecayRate,
+            Tuple<float, float> colorShiftRate,
+            Tuple<float, float> fadeRate,
+            float rotation,
+            int spread,
+            bool hasGravity,
+            float bounce,
+            float gravity = 0.0f)
+        {
+            this.position = position;
+            this.size = null;
+            this.startingColor = startingColor;
+            this.endingColor = endingColor;
+            this.aliveTime = aliveTime;
+            this.velocity = velocity;
+            this.velocityDecayRate = velocityDecayRate;
+            this.colorShiftRate = colorShiftRate;
+            this.fadeRate = fadeRate;
+            this.rotation = rotation;
+            this.spread = spread;
+            this.hasGravity = hasGravity;
+            this.gravity = gravity;
+            this.bounce = bounce;
+        }
+
+        public ParticleOptions(Vector2 position,
+            Tuple<int, int> size,
+            Color startingColor,
+            Color endingColor,
+            Tuple<int, int> aliveTime,
+            Tuple<float, float> velocity,
+            Tuple<float, float> velocityDecayRate,
+            Tuple<float, float> colorShiftRate,
+            Tuple<float, float> fadeRate,
+            float rotation,
+            int spread,
+            bool hasGravity,
+            float bounce,
+            float gravity = 0.0f)
+        {
+            this.position = position;
+            this.size = size;
+            this.startingColor = startingColor;
+            this.endingColor = endingColor;
+            this.aliveTime = aliveTime;
+            this.velocity = velocity;
+            this.velocityDecayRate = velocityDecayRate;
+            this.colorShiftRate = colorShiftRate;
+            this.fadeRate = fadeRate;
+            this.rotation = rotation;
+            this.spread = spread;
+            this.hasGravity = hasGravity;
+            this.gravity = gravity;
+            this.bounce = bounce;
+        }
+    }
+
     /// <summary>
     /// Particles!
     /// </summary>
