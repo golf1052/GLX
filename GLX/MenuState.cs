@@ -12,6 +12,7 @@ namespace GLX
     public class MenuState : GameState
     {
         public List<TextItem> menuItems;
+        Dictionary<string, Action> menuItemActions;
         public Color unselectedColor;
         public Color selectedColor;
         int currentSelection;
@@ -32,6 +33,7 @@ namespace GLX
         public MenuState(string name, GraphicsDeviceManager graphics, Game game, World world) : base(name, graphics)
         {
             menuItems = new List<TextItem>();
+            menuItemActions = new Dictionary<string, Action>();
             currentSelection = 0;
             menuGameTime = new GameTimeWrapper(Update, game, 1.0m);
             AddTime(menuGameTime);
@@ -44,6 +46,18 @@ namespace GLX
             menuItems.Add(new TextItem(menuFont, spriteText));
             menuItems.Last().color = unselectedColor;
             menuItems.Last().Update();
+        }
+
+        public void SetMenuAction(string text, Action action)
+        {
+            foreach (TextItem item in menuItems)
+            {
+                if (item.text == text)
+                {
+                    menuItemActions.Add(text, action);
+                    break;
+                }
+            }
         }
 
         public void Update(GameTimeWrapper gameTime)
@@ -83,7 +97,11 @@ namespace GLX
                         World.gamePadStates[0].DPad.Up == ButtonState.Pressed && World.previousGamePadStates[0].DPad.Up == ButtonState.Released)
                     {
                         menuItems[currentSelection].color = unselectedColor;
-                        currentSelection = menuItems.Count - 1;
+                        currentSelection--;
+                        if (currentSelection == -1)
+                        {
+                            currentSelection = menuItems.Count - 1;
+                        }
                     }
                     else if (World.keyboardState.IsKeyDown(Keys.Down) && World.previousKeyboardState.IsKeyUp(Keys.Down) ||
                         World.gamePadStates[0].ThumbSticks.Left.Y > 0.5f && World.previousGamePadStates[0].ThumbSticks.Left.Y < 0.5f ||
@@ -96,6 +114,13 @@ namespace GLX
                             currentSelection = 0;
                         }
                     }
+                }
+
+                if (World.keyboardState.IsKeyDown(Keys.Enter) && World.previousKeyboardState.IsKeyUp(Keys.Enter) ||
+                    World.gamePadStates[0].Buttons.A == ButtonState.Pressed && World.previousGamePadStates[0].Buttons.A == ButtonState.Released)
+                {
+                    string text = menuItems[currentSelection].text;
+                    World.thingsToDo.Add(menuItemActions[text]);
                 }
             }
         }

@@ -23,6 +23,8 @@ namespace GLX
         public static GamePadState[] gamePadStates = new GamePadState[4];
         public static MouseState mouseState;
 
+        public static List<Action> thingsToDo;
+
         public Dictionary<string, GameState> gameStates;
         public List<KeyValuePair<string, GameState>> activeGameStates;
 
@@ -38,6 +40,7 @@ namespace GLX
             activeGameStates = new List<KeyValuePair<string, GameState>>();
             menuStates = new Dictionary<string, MenuState>();
             activeMenuStates = new List<KeyValuePair<string, MenuState>>();
+            thingsToDo = new List<Action>();
         }
 
         public void AddGameState(string name, GraphicsDeviceManager graphics)
@@ -52,11 +55,25 @@ namespace GLX
 
         public void ActivateGameState(string name)
         {
+            foreach (KeyValuePair<string, GameState> state in activeGameStates)
+            {
+                if (state.Key == name)
+                {
+                    return;
+                }
+            }
             activeGameStates.Add(new KeyValuePair<string, GameState>(name, gameStates[name]));
         }
 
         public void ActivateMenuState(string name)
         {
+            foreach (KeyValuePair<string, MenuState> state in activeMenuStates)
+            {
+                if (state.Key == name)
+                {
+                    return;
+                }
+            }
             activeMenuStates.Add(new KeyValuePair<string, MenuState>(name, menuStates[name]));
         }
 
@@ -87,6 +104,11 @@ namespace GLX
             {
                 menuState.Value.Update(gameTime);
             }
+            foreach (Action action in thingsToDo)
+            {
+                action.Invoke();
+            }
+            thingsToDo.Clear();
             previousKeyboardState = keyboardState;
             previousGamePadStates = gamePadStates;
             previousMouseState = mouseState;
