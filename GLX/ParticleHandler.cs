@@ -121,9 +121,11 @@ namespace GLX
                             Vector2 intersectVector = new Vector2(particles[i].pos.X - particles[j].pos.X,
                                 particles[i].pos.Y - particles[j].pos.Y);
                             intersectVector.Normalize();
+                            Vector2 particle1Force = particles[i].mass * (particles[i].vel * 0.9f);
+                            Vector2 particle2Force = particles[j].mass * (particles[j].vel * 0.9f);
                             intersectVector *= distanceToMove;
-                            particles[i].pos += intersectVector;
-                            particles[j].pos -= intersectVector;
+                            particles[i].pos += intersectVector + particle2Force;
+                            particles[j].pos -= intersectVector + particle1Force;
                         }
                     }
                 }

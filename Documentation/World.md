@@ -3,20 +3,22 @@ Holds information and controls the world for a game
 
 ## Fields
 - Random number generator
-- **gameTimes** - List of game times in the world
-- **cameras** - List of cameras in the world
-- **currentCamera** - The name of the camera we are using
-- **camera1** - The default camera
+- Global keyboard, gamepad, and mouse states. Updated once a frame in World.Update
+- **gameStates** - Dictionary of game states keyed by the name of the game state
+- **activeGameStates** - List of active game states
+- **menuStates** - Dictionary of menu states keyed by the name of the menu state
+- **activeMenuStates** - List of active menu states
 
 ## Constructor
 - Create a new world
 
 ## Methods
 - **LoadSpriteBatch** - Sets up the sprite batch for the game. Should be called at the beginning of LoadContent
-- **AddTime** - Adds a game time to the list of game times
-- **AddCamera** - Adds a camera to the list of cameras
-- **RemoveCamera** - Removes a camera from the list of cameras
-- **UpdateCurrentCamera** - Updates the current camera. Must be called by user because we don't know what time the camera exists in.
+- **AddGameState** - Adds a game state to the list of game states
+- **AddMenuState** - Adds a menu state to the list of menu states
+- **ActivateGameState** - Activates a game state so that it gets updated and drawn when the world is updated
+- **ActivateMenuState** - Activates a menu state so that it gets updated and drawn when the world is updated
+- **ClearStates** - Clears both the activated game states and the activated menu states
 - **Update** - Updates the world
 - **BeginDraw** - Begin the sprite batch
 - **Draw** - Draw using the specified draw method

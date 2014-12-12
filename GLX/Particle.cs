@@ -143,6 +143,8 @@ namespace GLX
         /// </summary>
         private bool useDrawRect;
 
+        public float mass;
+
         /// <summary>
         /// Create a particle using a texture
         /// </summary>
@@ -180,6 +182,7 @@ namespace GLX
             if (!visible)
             {
                 visible = true;
+                mass = 1.0f;
                 alpha = 1.0f;
                 vel = new Vector2((float)Math.Cos((MathHelper.ToRadians(rotation) +
                     MathHelper.ToRadians(World.random.Next(-spread, spread)))),
