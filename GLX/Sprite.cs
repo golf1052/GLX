@@ -160,6 +160,11 @@ namespace GLX
                         {
                             // For every frame we moved add one to our current frame
                             animations.currentFrame++;
+                            if (animations.runOneFrame)
+                            {
+                                animations.runOneFrame = false;
+                                animations.active = false;
+                            }
                             if (animations.currentFrame == animations.currentSpriteSheet.frameCount)
                             {
                                 // Then check if we hit the frame count, if we did and the animation should not
@@ -200,6 +205,11 @@ namespace GLX
                         {
                             // except we go backwards in frames
                             animations.currentFrame--;
+                            if (animations.runOneFrame)
+                            {
+                                animations.runOneFrame = false;
+                                animations.active = false;
+                            }
                             if (animations.currentFrame == -1)
                             {
                                 // and if we hit the first frame then check to see if we should loop
@@ -227,6 +237,11 @@ namespace GLX
                     }
                 }
             }
+            UpdateTexture(graphics);
+        }
+
+        internal void UpdateTexture(GraphicsDeviceManager graphics)
+        {
             Rectangle oldSourceRect = animations.sourceRect;
             // Then move our source rectangle to the right spot and update our texture and color data
             if (animations.currentSpriteSheet.direction == SpriteSheet.Direction.LeftToRight)

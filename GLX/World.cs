@@ -41,6 +41,10 @@ namespace GLX
             menuStates = new Dictionary<string, MenuState>();
             activeMenuStates = new List<KeyValuePair<string, MenuState>>();
             thingsToDo = new List<Action>();
+            for (int i = 0; i < gamePadStates.Length; i++)
+            {
+                gamePadStates[i] = GamePad.GetState((PlayerIndex)i);
+            }
         }
 
         public void AddGameState(string name, GraphicsDeviceManager graphics)

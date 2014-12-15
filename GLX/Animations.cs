@@ -57,6 +57,8 @@ namespace GLX
         /// </summary>
         private string _currentAnimation;
 
+        internal bool runOneFrame;
+
         /// <summary>
         /// The current animation.
         /// </summary>
@@ -116,12 +118,19 @@ namespace GLX
             ResetAnimation();
         }
 
+        public void RunOneFrame()
+        {
+            active = true;
+            runOneFrame = true;
+        }
+
         /// <summary>
         /// Reset the animation to the beginning
         /// </summary>
         private void ResetAnimation()
         {
             active = true;
+            runOneFrame = false;
             if (spriteSheets.Count != 0)
             {
                 spriteSheetInfo = spriteSheets[currentAnimation].info;

@@ -39,6 +39,8 @@ namespace GLX
             AddTime(menuGameTime);
             AddDraw(Draw);
             this.world = world;
+            unselectedColor = Color.Black;
+            selectedColor = Color.Yellow;
         }
 
         public void AddMenuItem(string spriteText = "")
