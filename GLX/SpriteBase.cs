@@ -48,7 +48,7 @@ namespace GLX
         public float alpha;
 
         /// <summary>
-        /// Stores the totation of Sprite in degrees.
+        /// Stores the rotation of Sprite in degrees.
         /// </summary>
         public float rotation;
 

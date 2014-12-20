@@ -317,7 +317,10 @@ namespace GLX
         {
             if (visible)
             {
-                vel *= velocityDecayRate;
+                Vector2 tempVel = vel * velocityDecayRate;
+                Vector2 differenceVel = vel - tempVel;
+                Vector2 gsDifference = differenceVel * (float)gameTime.GameSpeed;
+                vel -= gsDifference;
                 if (hasGravity)
                 {
                     vel.Y += gravity * (float)gameTime.GameSpeed;
