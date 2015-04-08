@@ -36,6 +36,7 @@ namespace GLX
         public World(GraphicsDeviceManager graphics)
         {
             this.graphics = graphics;
+            spriteBatch = new SpriteBatch(graphics.GraphicsDevice);
             gameStates = new Dictionary<string, GameState>();
             activeGameStates = new List<KeyValuePair<string, GameState>>();
             menuStates = new Dictionary<string, MenuState>();
@@ -47,9 +48,19 @@ namespace GLX
             }
         }
 
+        public void AddGameState(string name)
+        {
+            AddGameState(name, this.graphics);
+        }
+
         public void AddGameState(string name, GraphicsDeviceManager graphics)
         {
             gameStates.Add(name, new GameState(name, graphics));
+        }
+
+        public void AddMenuState(string name, Game game)
+        {
+            AddMenuState(name, this.graphics, game);
         }
 
         public void AddMenuState(string name, GraphicsDeviceManager graphics, Game game)
@@ -85,11 +96,6 @@ namespace GLX
         {
             activeGameStates.Clear();
             activeMenuStates.Clear();
-        }
-
-        public void LoadSpriteBatch()
-        {
-            spriteBatch = new SpriteBatch(graphics.GraphicsDevice);
         }
 
         public void Update(GameTime gameTime)
