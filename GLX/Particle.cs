@@ -291,7 +291,7 @@ namespace GLX
             float bounce,
             float gravity = 0.0f)
         {
-            drawRect = new Rectangle((int)pos.X, (int)pos.Y, size.Item1, size.Item2);
+            drawRect = new Rectangle((int)Math.Round(pos.X), (int)Math.Round(pos.Y), size.Item1, size.Item2);
             return SpawnParticleBase(position,
                 color,
                 aliveTime,

@@ -31,7 +31,8 @@ namespace GLX
             text = spriteText;
             pos = Vector2.Zero;
             vel = Vector2.Zero;
-            rect = new Rectangle((int)pos.X, (int)pos.Y, (int)textSize.X, (int)textSize.Y);
+            rect = new Rectangle((int)Math.Round(pos.X), (int)Math.Round(pos.Y),
+                (int)Math.Round(textSize.X), (int)Math.Round(textSize.Y));
             visible = true;
             color = Color.White;
             alpha = 1.0f;
@@ -43,7 +44,8 @@ namespace GLX
         public override void Update()
         {
             pos += vel;
-            rect = new Rectangle((int)pos.X, (int)pos.Y, (int)textSize.X, (int)textSize.Y);
+            rect = new Rectangle((int)Math.Round(pos.X), (int)Math.Round(pos.Y),
+                (int)Math.Round(textSize.X), (int)Math.Round(textSize.Y));
         }
 
         public override void Draw(SpriteBatch spriteBatch)

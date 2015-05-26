@@ -57,8 +57,8 @@ namespace GLX
         public Sprite(Texture2D loadedTex)
         {
             tex = loadedTex;
-            drawRect = new Rectangle((int)pos.X, (int)pos.Y, 0, 0);
-            rect = new Rectangle((int)pos.X, (int)pos.Y, tex.Width, tex.Height);
+            drawRect = new Rectangle((int)Math.Round(pos.X), (int)Math.Round(pos.Y), 0, 0);
+            rect = new Rectangle((int)Math.Round(pos.X), (int)Math.Round(pos.Y), tex.Width, tex.Height);
             colorData = new ColorData(tex);
             origin = new Vector2(tex.Width / 2, tex.Height / 2);
             isAnimated = false;
@@ -74,8 +74,8 @@ namespace GLX
         {
             tex = new Texture2D(graphics.GraphicsDevice, 1, 1, false, SurfaceFormat.Color);
             tex.SetData(new[] { color });
-            drawRect = new Rectangle((int)pos.X, (int)pos.Y, 0, 0);
-            rect = new Rectangle((int)pos.X, (int)pos.Y, tex.Width, tex.Height);
+            drawRect = new Rectangle((int)Math.Round(pos.X), (int)Math.Round(pos.Y), 0, 0);
+            rect = new Rectangle((int)Math.Round(pos.X), (int)Math.Round(pos.Y), tex.Width, tex.Height);
             colorData = new ColorData(tex);
             origin = new Vector2(tex.Width / 2, tex.Height / 2);
             isAnimated = false;
@@ -92,7 +92,7 @@ namespace GLX
         public Sprite(SpriteSheetInfo spriteSheetInfo, GameTimeWrapper gameTime)
         {
             isAnimated = true;
-            drawRect = new Rectangle((int)pos.X, (int)pos.Y, 0, 0);
+            drawRect = new Rectangle((int)Math.Round(pos.X), (int)Math.Round(pos.Y), 0, 0);
             animations = new Animations(spriteSheetInfo, gameTime);
             ready = false;
         }
@@ -110,7 +110,7 @@ namespace GLX
                 animations.currentSpriteSheet = animations.spriteSheets.First().Value;
             }
             UpdateTexAndColorData(animations.currentSpriteSheet, graphics.GraphicsDevice);
-            rect = new Rectangle((int)pos.X, (int)pos.Y, tex.Width, tex.Height);
+            rect = new Rectangle((int)Math.Round(pos.X), (int)Math.Round(pos.Y), tex.Width, tex.Height);
             origin = new Vector2(tex.Width / 2, tex.Height / 2);
             ready = true;
         }
@@ -127,9 +127,9 @@ namespace GLX
                 UpdateAnimation(gameTime, graphics);
             }
             pos += vel * (float)gameTime.GameSpeed;
-            drawRect.X = (int)pos.X;
-            drawRect.Y = (int)pos.Y;
-            rect = new Rectangle((int)pos.X, (int)pos.Y, tex.Width, tex.Height);
+            drawRect.X = (int)Math.Round(pos.X);
+            drawRect.Y = (int)Math.Round(pos.Y);
+            rect = new Rectangle((int)Math.Round(pos.X), (int)Math.Round(pos.Y), tex.Width, tex.Height);
             spriteTransform = Matrix.CreateTranslation(new Vector3(-origin, 0.0f)) *
                 Matrix.CreateScale(scale) * Matrix.CreateRotationZ(rotation) *
                 Matrix.CreateTranslation(new Vector3(pos, 0.0f));
@@ -324,8 +324,8 @@ namespace GLX
                                       Vector2.Max(leftBottom, rightBottom));
 
             // Return that as a rectangle
-            return new Rectangle((int)min.X, (int)min.Y,
-                                 (int)(max.X - min.X), (int)(max.Y - min.Y));
+            return new Rectangle((int)Math.Round(min.X), (int)Math.Round(min.Y),
+                                 (int)Math.Round(max.X - min.X), (int)Math.Round(max.Y - min.Y));
         }
     }
 }

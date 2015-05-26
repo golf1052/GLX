@@ -92,16 +92,16 @@ namespace GLX
                     Matrix.CreateRotationZ(MathHelper.ToRadians(rot.Value)) *
                     Matrix.CreateScale(new Vector3(zoom.Value, zoom.Value, 1)) *
                     Matrix.CreateTranslation(new Vector3(viewport.Width * 0.5f, viewport.Height * 0.5f, 0));
-                viewport.X = (int)pan.Value.X - viewport.Width / 2;
-                viewport.Y = (int)pan.Value.Y - viewport.Height / 2;
+                viewport.X = (int)Math.Round(pan.Value.X - viewport.Width / 2);
+                viewport.Y = (int)Math.Round(pan.Value.Y - viewport.Height / 2);
             }
             else if (focus == Focus.TopLeft)
             {
                 _transform = Matrix.CreateTranslation(new Vector3(-pan.Value.X, -pan.Value.Y, 0)) *
                     Matrix.CreateRotationZ(MathHelper.ToRadians(rot.Value)) *
                     Matrix.CreateScale(new Vector3(zoom.Value, zoom.Value, 0));
-                viewport.X = (int)pan.Value.X;
-                viewport.Y = (int)pan.Value.Y;
+                viewport.X = (int)Math.Round(pan.Value.X);
+                viewport.Y = (int)Math.Round(pan.Value.Y);
             }
             _inverseTransform = Matrix.Invert(_transform);
         }
