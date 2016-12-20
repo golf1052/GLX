@@ -128,14 +128,14 @@ namespace GLX
         {
             BeginDraw(SpriteSortMode.Deferred, BlendState.AlphaBlend,
                 null, null, null, null,
-                currentGameState.cameras[currentGameState.currentCamera].transform);
+                currentGameState.cameras[currentGameState.currentCamera].Transform);
         }
 
         public void BeginDraw(SpriteSortMode spriteSortMode, BlendState blendState)
         {
             BeginDraw(spriteSortMode, blendState,
                 null, null, null, null,
-                currentGameState.cameras[currentGameState.currentCamera].transform);
+                currentGameState.cameras[currentGameState.currentCamera].Transform);
         }
 
         public void BeginDraw(SpriteSortMode sortMode, BlendState blendState,

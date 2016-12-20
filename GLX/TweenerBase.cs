@@ -1,7 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using Microsoft.Xna.Framework;
 
 namespace GLX
@@ -27,6 +24,8 @@ namespace GLX
             smoothingRate = 0.1f;
             smoothingValue = 0;
         }
+
+        public abstract void Update();
 
         public abstract void Update(GameTimeWrapper gameTime);
 

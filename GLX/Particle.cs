@@ -184,7 +184,7 @@ namespace GLX
                 visible = true;
                 mass = 1.0f;
                 alpha = 1.0f;
-                vel = new Vector2((float)Math.Cos((MathHelper.ToRadians(rotation) +
+                base.velocity = new Vector2((float)Math.Cos((MathHelper.ToRadians(rotation) +
                     MathHelper.ToRadians(World.random.Next(-spread, spread)))),
                     (float)Math.Sin((MathHelper.ToRadians(rotation) +
                     MathHelper.ToRadians(World.random.Next(-spread, spread))))) *
@@ -194,7 +194,7 @@ namespace GLX
                 this.colorShiftRate = RandomBetween(colorShiftRate.Item1, colorShiftRate.Item2);
                 startingColor = color;
                 this.color = color;
-                pos = position;
+                base.position = position;
                 this.aliveTime = TimeSpan.FromMilliseconds(World.random.Next(aliveTime.Item1, aliveTime.Item2));
                 colorShiftValue = 1.0f;
                 endingColor = fadeTo;
@@ -291,7 +291,7 @@ namespace GLX
             float bounce,
             float gravity = 0.0f)
         {
-            drawRect = new Rectangle((int)Math.Round(pos.X), (int)Math.Round(pos.Y), size.Item1, size.Item2);
+            drawRect = new Rectangle((int)Math.Round(base.position.X), (int)Math.Round(base.position.Y), size.Item1, size.Item2);
             return SpawnParticleBase(position,
                 color,
                 aliveTime,
@@ -317,13 +317,13 @@ namespace GLX
         {
             if (visible)
             {
-                Vector2 tempVel = vel * velocityDecayRate;
-                Vector2 differenceVel = vel - tempVel;
+                Vector2 tempVel = velocity * velocityDecayRate;
+                Vector2 differenceVel = velocity - tempVel;
                 Vector2 gsDifference = differenceVel * (float)gameTime.GameSpeed;
-                vel -= gsDifference;
+                velocity -= gsDifference;
                 if (hasGravity)
                 {
-                    vel.Y += gravity * (float)gameTime.GameSpeed;
+                    velocity.Y += gravity * (float)gameTime.GameSpeed;
                 }
 
                 aliveTime -= gameTime.ElapsedGameTime;

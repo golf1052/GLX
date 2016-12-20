@@ -50,7 +50,7 @@ namespace GLX
             gameTimes = new List<GameTimeWrapper>();
 
             cameras = new Dictionary<string, Camera>();
-            _camera1 = new Camera(graphics.GraphicsDevice.Viewport, Camera.Focus.TopLeft);
+            _camera1 = new Camera(graphics.GraphicsDevice.Viewport, Camera.CameraFocus.TopLeft);
             cameras.Add("camera1", camera1);
             _currentCamera = "camera1";
         }

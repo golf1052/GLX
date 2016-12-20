@@ -1,7 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 
@@ -55,7 +53,7 @@ namespace GLX
         /// <summary>
         /// The current animation
         /// </summary>
-        private string _currentAnimation;
+        private string currentAnimationName;
 
         internal bool runOneFrame;
 
@@ -64,24 +62,41 @@ namespace GLX
         /// </summary>
         /// <remarks>When set we first check if the animation exists. If it does set it up.
         /// If it does not throw an exception.</remarks>
-        public string currentAnimation
+        public string CurrentAnimationName
         {
             get
             {
-                return _currentAnimation;
+                return currentAnimationName;
             }
             set
             {
-                if (spriteSheets.ContainsKey(value))
+                if (value == null)
                 {
-                    _currentAnimation = value;
-                    currentSpriteSheet = spriteSheets[_currentAnimation];
-                    ResetAnimation();
+                    currentAnimationName = null;
+                    currentSpriteSheet = null;
+                    active = false;
                 }
                 else
                 {
-                    throw new Exception("That animation does not exist.");
+                    if (spriteSheets.ContainsKey(value))
+                    {
+                        currentAnimationName = value;
+                        currentSpriteSheet = spriteSheets[currentAnimationName];
+                        ResetAnimation();
+                    }
+                    else
+                    {
+                        throw new Exception("That animation does not exist.");
+                    }
                 }
+            }
+        }
+
+        public SpriteSheet CurrentAnimation
+        {
+            get
+            {
+                return currentSpriteSheet;
             }
         }
 
@@ -105,16 +120,21 @@ namespace GLX
             }
         }
 
+        public Animations(SpriteSheetInfo spriteSheetInfo)
+        {
+            this.spriteSheetInfo = spriteSheetInfo;
+            spriteSheets = new Dictionary<string, SpriteSheet>();
+            ResetAnimation();
+        }
+
         /// <summary>
         /// Create new animation storage
         /// </summary>
         /// <param name="spriteSheetInfo">The sprite sheet info for the animations</param>
         /// <param name="gameTime">The game time the sprite exists in</param>
-        public Animations(SpriteSheetInfo spriteSheetInfo, GameTimeWrapper gameTime)
+        public Animations(SpriteSheetInfo spriteSheetInfo, GameTimeWrapper gameTime) : this(spriteSheetInfo)
         {
             this.gameTime = gameTime;
-            this.spriteSheetInfo = spriteSheetInfo;
-            spriteSheets = new Dictionary<string, SpriteSheet>();
             ResetAnimation();
         }
 
@@ -133,23 +153,32 @@ namespace GLX
             runOneFrame = false;
             if (spriteSheets.Count != 0)
             {
-                spriteSheetInfo = spriteSheets[currentAnimation].info;
+                spriteSheetInfo = CurrentAnimation.info;
             }
             sourceRect = new Rectangle(0, 0, spriteSheetInfo.frameWidth, spriteSheetInfo.frameHeight);
             elapsedTime = 0;
-            if (gameTime.GameSpeed > 0)
+
+            if (gameTime == null)
             {
+                elapsedTime = 0;
                 currentFrame = 0;
             }
             else
             {
-                if (currentSpriteSheet != null)
+                if (gameTime.GameSpeed > 0)
                 {
-                    currentFrame = currentSpriteSheet.frameCount - 1;
+                    currentFrame = 0;
                 }
                 else
                 {
-                    currentFrame = 0;
+                    if (currentSpriteSheet != null)
+                    {
+                        currentFrame = currentSpriteSheet.frameCount - 1;
+                    }
+                    else
+                    {
+                        currentFrame = 0;
+                    }
                 }
             }
         }

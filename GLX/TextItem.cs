@@ -29,9 +29,9 @@ namespace GLX
         {
             font = loadedFont;
             text = spriteText;
-            pos = Vector2.Zero;
-            vel = Vector2.Zero;
-            rect = new Rectangle((int)Math.Round(pos.X), (int)Math.Round(pos.Y),
+            position = Vector2.Zero;
+            velocity = Vector2.Zero;
+            rectangle = new Rectangle((int)Math.Round(position.X), (int)Math.Round(position.Y),
                 (int)Math.Round(textSize.X), (int)Math.Round(textSize.Y));
             visible = true;
             color = Color.White;
@@ -43,14 +43,14 @@ namespace GLX
 
         public override void Update()
         {
-            pos += vel;
-            rect = new Rectangle((int)Math.Round(pos.X), (int)Math.Round(pos.Y),
+            position += velocity;
+            rectangle = new Rectangle((int)Math.Round(position.X), (int)Math.Round(position.Y),
                 (int)Math.Round(textSize.X), (int)Math.Round(textSize.Y));
         }
 
         public override void Draw(SpriteBatch spriteBatch)
         {
-            spriteBatch.DrawString(font, text, pos, color, rotation, origin, scale, SpriteEffects.None, 0);
+            spriteBatch.DrawString(font, text, position, color, rotation, origin, scale, SpriteEffects.None, 0);
         }
     }
 }

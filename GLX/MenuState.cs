@@ -133,7 +133,7 @@ namespace GLX
             Vector2 currentPosition = initialPosition;
             for (int i = 0; i < menuItems.Count; i++)
             {
-                menuItems[i].pos = currentPosition;
+                menuItems[i].position = currentPosition;
                 if (menuDirection == Direction.LeftToRight)
                 {
                     currentPosition.X += menuItems[i].textSize.X + spacing;

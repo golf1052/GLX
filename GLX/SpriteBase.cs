@@ -15,12 +15,12 @@ namespace GLX
         /// <summary>
         /// Stores the position of the sprite.
         /// </summary>
-        public Vector2 pos;
+        public Vector2 position;
 
         /// <summary>
         /// Stores the velocity of the sprite.
         /// </summary>
-        public Vector2 vel;
+        public Vector2 velocity;
 
         /// <summary>
         /// Stores whether or not the sprite is visible.
@@ -30,7 +30,7 @@ namespace GLX
         /// <summary>
         /// Stores the bounding rectangle of the sprite.
         /// </summary>
-        public Rectangle rect;
+        public Rectangle rectangle;
 
         /// <summary>
         /// Stores the color of the sprite.
@@ -62,18 +62,10 @@ namespace GLX
         /// </summary>
         public SpriteBase()
         {
-            SpriteInit();
-        }
-
-        /// <summary>
-        /// Base sprite instantiation. Sets fields to default values.
-        /// </summary>
-        private void SpriteInit()
-        {
-            pos = Vector2.Zero;
-            vel = Vector2.Zero;
+            position = Vector2.Zero;
+            velocity = Vector2.Zero;
             visible = true;
-            rect = new Rectangle(0, 0, 0, 0);
+            rectangle = new Rectangle(0, 0, 0, 0);
             color = Color.White;
             origin = new Vector2(0, 0);
             alpha = 1.0f;
@@ -86,7 +78,7 @@ namespace GLX
         /// </summary>
         public virtual void Update()
         {
-            pos += vel;
+            position += velocity;
         }
 
         /// <summary>
@@ -119,28 +111,28 @@ namespace GLX
             {
                 if (keyboardState.IsKeyDown(key))
                 {
-                    pos.Y -= speed;
+                    position.Y -= speed;
                 }
             }
             if (movementDirection == MovementDirection.Down)
             {
                 if (keyboardState.IsKeyDown(key))
                 {
-                    pos.Y += speed;
+                    position.Y += speed;
                 }
             }
             if (movementDirection == MovementDirection.Left)
             {
                 if (keyboardState.IsKeyDown(key))
                 {
-                    pos.X -= speed;
+                    position.X -= speed;
                 }
             }
             if (movementDirection == MovementDirection.Right)
             {
                 if (keyboardState.IsKeyDown(key))
                 {
-                    pos.X += speed;
+                    position.X += speed;
                 }
             }
         }
@@ -151,8 +143,8 @@ namespace GLX
         /// <param name="targetPosition">The position the sprite should point to</param>
         public void Aim(Vector2 targetPosition)
         {
-            float XDistance = targetPosition.X - pos.X;
-            float YDistance = targetPosition.Y - pos.Y;
+            float XDistance = targetPosition.X - position.X;
+            float YDistance = targetPosition.Y - position.Y;
             float angle = (float)Math.Atan2(YDistance, XDistance);
             rotation = MathHelper.ToDegrees(angle);
         }
@@ -166,9 +158,9 @@ namespace GLX
         /// correct position on the screen.</remarks>
         public void Aim(MouseState mouseState, Camera camera)
         {
-            Vector2 transformedMouseState = Vector2.Transform(mouseState.Position.ToVector2(), camera.inverseTransform);
-            float XDistance = transformedMouseState.X - pos.X;
-            float YDistance = transformedMouseState.Y - pos.Y;
+            Vector2 transformedMouseState = Vector2.Transform(mouseState.Position.ToVector2(), camera.InverseTransform);
+            float XDistance = transformedMouseState.X - position.X;
+            float YDistance = transformedMouseState.Y - position.Y;
             float angle = (float)Math.Atan2(YDistance, XDistance);
             rotation = MathHelper.ToDegrees(angle);
         }

@@ -79,25 +79,25 @@ namespace GLX
             {
                 if (container != null)
                 {
-                    if (particle.pos.X < container.Value.Left + particle.tex.Width / 2)
+                    if (particle.position.X < container.Value.Left + particle.tex.Width / 2)
                     {
-                        particle.pos.X = container.Value.Left + particle.tex.Width / 2;
-                        particle.vel.X *= -particle.bounce;
+                        particle.position.X = container.Value.Left + particle.tex.Width / 2;
+                        particle.velocity.X *= -particle.bounce;
                     }
-                    if (particle.pos.X > container.Value.Right - particle.tex.Width / 2)
+                    if (particle.position.X > container.Value.Right - particle.tex.Width / 2)
                     {
-                        particle.pos.X = container.Value.Right - particle.tex.Width / 2;
-                        particle.vel.X *= -particle.bounce;
+                        particle.position.X = container.Value.Right - particle.tex.Width / 2;
+                        particle.velocity.X *= -particle.bounce;
                     }
-                    if (particle.pos.Y < container.Value.Top + particle.tex.Height / 2)
+                    if (particle.position.Y < container.Value.Top + particle.tex.Height / 2)
                     {
-                        particle.pos.Y = container.Value.Top + particle.tex.Height / 2;
-                        particle.vel.Y *= -particle.bounce;
+                        particle.position.Y = container.Value.Top + particle.tex.Height / 2;
+                        particle.velocity.Y *= -particle.bounce;
                     }
-                    if (particle.pos.Y > container.Value.Bottom - particle.tex.Height / 2)
+                    if (particle.position.Y > container.Value.Bottom - particle.tex.Height / 2)
                     {
-                        particle.pos.Y = container.Value.Bottom - particle.tex.Height / 2;
-                        particle.vel.Y *= -particle.bounce;
+                        particle.position.Y = container.Value.Bottom - particle.tex.Height / 2;
+                        particle.velocity.Y *= -particle.bounce;
                     }
                 }
                 particle.Update(gameTime, graphics);
@@ -113,19 +113,19 @@ namespace GLX
                             continue;
                         }
 
-                        float distance = Vector2.Distance(particles[i].pos, particles[j].pos);
+                        float distance = Vector2.Distance(particles[i].position, particles[j].position);
                         if (distance < particles[i].tex.Width)
                         {
                             float distanceToMove = Math.Abs(particles[i].tex.Width - distance);
                             distanceToMove /= 2;
-                            Vector2 intersectVector = new Vector2(particles[i].pos.X - particles[j].pos.X,
-                                particles[i].pos.Y - particles[j].pos.Y);
+                            Vector2 intersectVector = new Vector2(particles[i].position.X - particles[j].position.X,
+                                particles[i].position.Y - particles[j].position.Y);
                             intersectVector.Normalize();
-                            Vector2 particle1Force = particles[i].mass * (particles[i].vel * 0.9f);
-                            Vector2 particle2Force = particles[j].mass * (particles[j].vel * 0.9f);
+                            Vector2 particle1Force = particles[i].mass * (particles[i].velocity * 0.9f);
+                            Vector2 particle2Force = particles[j].mass * (particles[j].velocity * 0.9f);
                             intersectVector *= distanceToMove;
-                            particles[i].pos += intersectVector + particle2Force;
-                            particles[j].pos -= intersectVector + particle1Force;
+                            particles[i].position += intersectVector + particle2Force;
+                            particles[j].position -= intersectVector + particle1Force;
                         }
                     }
                 }

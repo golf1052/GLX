@@ -14,6 +14,8 @@ namespace GLX
     /// </summary>
     public class Sprite : SpriteBase
     {
+        private GraphicsDeviceManager graphics;
+
         /// <summary>
         /// Sprite texture
         /// </summary>
@@ -54,11 +56,11 @@ namespace GLX
         /// Creates a new sprite with the loaded texture
         /// </summary>
         /// <param name="loadedTex">The texture loaded from the Content manager</param>
-        public Sprite(Texture2D loadedTex)
+        public Sprite(Texture2D loadedTex) : base()
         {
             tex = loadedTex;
-            drawRect = new Rectangle((int)Math.Round(pos.X), (int)Math.Round(pos.Y), 0, 0);
-            rect = new Rectangle((int)Math.Round(pos.X), (int)Math.Round(pos.Y), tex.Width, tex.Height);
+            drawRect = new Rectangle((int)position.X, (int)position.Y, 0, 0);
+            rectangle = new Rectangle((int)position.X, (int)position.Y, tex.Width, tex.Height);
             colorData = new ColorData(tex);
             origin = new Vector2(tex.Width / 2, tex.Height / 2);
             isAnimated = false;
@@ -70,16 +72,25 @@ namespace GLX
         /// </summary>
         /// <remarks>This pixel can be resized using <see cref="drawRect"/></remarks>
         /// <param name="graphics">Graphics device manager for game</param>
-        public Sprite(GraphicsDeviceManager graphics)
+        public Sprite(GraphicsDeviceManager graphics) : base()
         {
             tex = new Texture2D(graphics.GraphicsDevice, 1, 1, false, SurfaceFormat.Color);
             tex.SetData(new[] { color });
-            drawRect = new Rectangle((int)Math.Round(pos.X), (int)Math.Round(pos.Y), 0, 0);
-            rect = new Rectangle((int)Math.Round(pos.X), (int)Math.Round(pos.Y), tex.Width, tex.Height);
+            drawRect = new Rectangle((int)position.X, (int)position.Y, 0, 0);
+            rectangle = new Rectangle((int)position.X, (int)position.Y, tex.Width, tex.Height);
             colorData = new ColorData(tex);
             origin = new Vector2(tex.Width / 2, tex.Height / 2);
             isAnimated = false;
             ready = true;
+        }
+
+        public Sprite(SpriteSheetInfo spriteSheetInfo, GraphicsDeviceManager graphics) : base()
+        {
+            this.graphics = graphics;
+            isAnimated = true;
+            drawRect = new Rectangle((int)position.X, (int)position.Y, 0, 0);
+            animations = new Animations(spriteSheetInfo);
+            ready = false;
         }
 
         /// <summary>
@@ -89,10 +100,11 @@ namespace GLX
         /// </summary>
         /// <param name="spriteSheetInfo">The sprite sheet info</param>
         /// <param name="gameTime">The game time the sprite will exist in</param>
-        public Sprite(SpriteSheetInfo spriteSheetInfo, GameTimeWrapper gameTime)
+        public Sprite(SpriteSheetInfo spriteSheetInfo, GameTimeWrapper gameTime, GraphicsDeviceManager graphics) : base()
         {
+            this.graphics = graphics;
             isAnimated = true;
-            drawRect = new Rectangle((int)Math.Round(pos.X), (int)Math.Round(pos.Y), 0, 0);
+            drawRect = new Rectangle((int)position.X, (int)position.Y, 0, 0);
             animations = new Animations(spriteSheetInfo, gameTime);
             ready = false;
         }
@@ -101,47 +113,102 @@ namespace GLX
         /// Sets up an animated Sprite so that it is ready to be used
         /// </summary>
         /// <remarks>Sets the texture as the first </remarks>
-        /// <param name="graphics">The graphics device manager</param>
-        public void Ready(GraphicsDeviceManager graphics)
+        public void Ready()
         {
             tex = new Texture2D(graphics.GraphicsDevice, animations.spriteSheetInfo.frameWidth, animations.spriteSheetInfo.frameHeight);
-            if (animations.currentAnimation == "" || animations.currentAnimation == null)
+            if (animations.CurrentAnimationName == "" || animations.CurrentAnimationName == null)
             {
                 animations.currentSpriteSheet = animations.spriteSheets.First().Value;
             }
             UpdateTexAndColorData(animations.currentSpriteSheet, graphics.GraphicsDevice);
-            rect = new Rectangle((int)Math.Round(pos.X), (int)Math.Round(pos.Y), tex.Width, tex.Height);
+            rectangle = new Rectangle((int)Math.Round(position.X), (int)Math.Round(position.Y), tex.Width, tex.Height);
             origin = new Vector2(tex.Width / 2, tex.Height / 2);
             ready = true;
+        }
+
+        public virtual void Update(GameTime gameTime)
+        {
+            if (isAnimated)
+            {
+                UpdateAnimation(gameTime);
+            }
+            position += velocity;
+            drawRect.X = (int)position.X;
+            drawRect.Y = (int)position.Y;
+            rectangle = new Rectangle((int)position.X, (int)position.Y, tex.Width, tex.Height);
+            spriteTransform = Matrix.CreateTranslation(new Vector3(-origin, 0.0f)) *
+                Matrix.CreateScale(scale) * Matrix.CreateRotationZ(rotation) *
+                Matrix.CreateTranslation(new Vector3(position, 0.0f));
+            rectangle = CalculateBoundingRectangle(new Rectangle(0, 0, tex.Width, tex.Height), spriteTransform);
         }
 
         /// <summary>
         /// Updates the sprite
         /// </summary>
         /// <param name="gameTime">The game time the sprite exists in</param>
-        /// <param name="graphics">The graphics device manager</param>
-        public virtual void Update(GameTimeWrapper gameTime, GraphicsDeviceManager graphics)
+        public virtual void Update(GameTimeWrapper gameTime)
         {
             if (isAnimated)
             {
-                UpdateAnimation(gameTime, graphics);
+                UpdateAnimation(gameTime);
             }
-            pos += vel * (float)gameTime.GameSpeed;
-            drawRect.X = (int)Math.Round(pos.X);
-            drawRect.Y = (int)Math.Round(pos.Y);
-            rect = new Rectangle((int)Math.Round(pos.X), (int)Math.Round(pos.Y), tex.Width, tex.Height);
+            position += velocity * (float)gameTime.GameSpeed;
+            drawRect.X = (int)position.X;
+            drawRect.Y = (int)position.Y;
+            rectangle = new Rectangle((int)position.X, (int)position.Y, tex.Width, tex.Height);
             spriteTransform = Matrix.CreateTranslation(new Vector3(-origin, 0.0f)) *
                 Matrix.CreateScale(scale) * Matrix.CreateRotationZ(rotation) *
-                Matrix.CreateTranslation(new Vector3(pos, 0.0f));
-            rect = CalculateBoundingRectangle(new Rectangle(0, 0, tex.Width, tex.Height), spriteTransform);
+                Matrix.CreateTranslation(new Vector3(position, 0.0f));
+            rectangle = CalculateBoundingRectangle(new Rectangle(0, 0, tex.Width, tex.Height), spriteTransform);
+        }
+
+        private void UpdateAnimation(GameTime gameTime)
+        {
+            if (animations.active)
+            {
+                animations.elapsedTime += gameTime.ElapsedGameTime.Ticks;
+                if (animations.elapsedTime > animations.currentSpriteSheet.frameTime)
+                {
+                    long framesMoved = animations.elapsedTime / animations.currentSpriteSheet.frameTime;
+                    for (int i = 0; i < framesMoved; i++)
+                    {
+                        animations.currentFrame++;
+                        if (animations.currentFrame == animations.currentSpriteSheet.frameCount)
+                        {
+                            if (!animations.currentSpriteSheet.loop)
+                            {
+                                animations.active = false;
+                                animations.elapsedTime = 0;
+                                animations.currentFrame = 0;
+                                break;
+                            }
+                            else
+                            {
+                                animations.currentFrame = 0;
+                            }
+                        }
+                        if (animations.currentFrame >= 0 && animations.currentFrame < animations.currentSpriteSheet.frameActions.Count)
+                        {
+                            foreach (Action action in animations.currentSpriteSheet.frameActions[animations.currentFrame])
+                            {
+                                action.Invoke();
+                            }
+                        }
+                    }
+                }
+                animations.elapsedTime = animations.elapsedTime % animations.currentSpriteSheet.frameTime;
+            }
+            if (animations.CurrentAnimationName != null)
+            {
+                UpdateTexture();
+            }
         }
 
         /// <summary>
         /// Updates the sprite animation
         /// </summary>
         /// <param name="gameTime">The game time the sprite exists in</param>
-        /// <param name="graphics">The graphics device manager</param>
-        private void UpdateAnimation(GameTimeWrapper gameTime, GraphicsDeviceManager graphics)
+        private void UpdateAnimation(GameTimeWrapper gameTime)
         {
             // If the animation is active
             if (animations.active)
@@ -237,10 +304,10 @@ namespace GLX
                     }
                 }
             }
-            UpdateTexture(graphics);
+            UpdateTexture();
         }
 
-        internal void UpdateTexture(GraphicsDeviceManager graphics)
+        internal void UpdateTexture()
         {
             Rectangle oldSourceRect = animations.sourceRect;
             // Then move our source rectangle to the right spot and update our texture and color data
@@ -258,9 +325,13 @@ namespace GLX
                     animations.spriteSheetInfo.frameWidth,
                     animations.spriteSheetInfo.frameHeight);
             }
-            if (animations.sourceRect != oldSourceRect)
+
+            if (graphics != null)
             {
-                UpdateTexAndColorData(animations.currentSpriteSheet, graphics.GraphicsDevice);
+                if (animations.sourceRect != oldSourceRect)
+                {
+                    UpdateTexAndColorData(animations.currentSpriteSheet, graphics.GraphicsDevice);
+                }
             }
         }
 
@@ -270,7 +341,19 @@ namespace GLX
         /// <param name="spriteBatch">The sprite batch</param>
         public override void Draw(SpriteBatch spriteBatch)
         {
-            spriteBatch.Draw(tex, pos, null, color * alpha, MathHelper.ToRadians(rotation), origin, scale, SpriteEffects.None, 0);
+            if (isAnimated && animations.active)
+            {
+                DrawAnimation(spriteBatch);
+            }
+            else
+            {
+                spriteBatch.Draw(tex, position, null, color * alpha, MathHelper.ToRadians(rotation), origin, scale, SpriteEffects.None, 0);
+            }
+        }
+
+        public void DrawAnimation(SpriteBatch spriteBatch)
+        {
+            spriteBatch.Draw(animations.CurrentAnimation.tex, position, animations.sourceRect, color * alpha, MathHelper.ToRadians(rotation), origin, scale, SpriteEffects.None, 0);
         }
 
         /// <summary>
