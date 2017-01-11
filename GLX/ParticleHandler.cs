@@ -73,7 +73,7 @@ namespace GLX
             return false;
         }
 
-        public void Update(GameTimeWrapper gameTime, GraphicsDeviceManager graphics)
+        public void Update(GameTimeWrapper gameTime)
         {
             foreach (Particle particle in particles)
             {
@@ -100,7 +100,7 @@ namespace GLX
                         particle.velocity.Y *= -particle.bounce;
                     }
                 }
-                particle.Update(gameTime, graphics);
+                particle.Update(gameTime);
             }
             if (collisions)
             {

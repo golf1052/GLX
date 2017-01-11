@@ -312,8 +312,7 @@ namespace GLX
         /// </summary>
         /// <param name="gameTime">The game time the particle exists in</param>
         /// <param name="graphics">The graphics device manager</param>
-        public override void Update(GameTimeWrapper gameTime,
-            GraphicsDeviceManager graphics)
+        public override void Update(GameTimeWrapper gameTime)
         {
             if (visible)
             {
@@ -327,12 +326,6 @@ namespace GLX
                 }
 
                 aliveTime -= gameTime.ElapsedGameTime;
-
-                //if (pos.Y > graphics.GraphicsDevice.Viewport.Height)
-                //{
-                //    pos.Y = graphics.GraphicsDevice.Viewport.Height - tex.Height / 2;
-                //    vel.Y *= -bounce;
-                //}
 
                 if (aliveTime <= TimeSpan.Zero)
                 {
@@ -367,7 +360,7 @@ namespace GLX
                     visible = false;
                 }
 
-                base.Update(gameTime, graphics);
+                base.Update(gameTime);
             }
         }
 
