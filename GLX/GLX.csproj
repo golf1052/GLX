@@ -70,6 +70,7 @@
     <Compile Include="TextItem.cs" />
     <Compile Include="TweenerBase.cs" />
     <Compile Include="Vector2Tweener.cs" />
+    <Compile Include="VirtualResolutionRenderer.cs" />
     <Compile Include="World.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
