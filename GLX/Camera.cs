@@ -36,40 +36,40 @@ namespace GLX
             }
         }
 
-        private Vector2Tweener pan;
-        public Vector2Tweener Pan
+        private Vector2 pan;
+        public Vector2 Pan
         {
             get
             {
                 return pan;
             }
-            private set
+            set
             {
                 pan = value;
                 isViewTransformDirty = true;
             }
         }
-        private FloatTweener zoom;
-        public FloatTweener Zoom
+        private float zoom;
+        public float Zoom
         {
             get
             {
                 return zoom;
             }
-            private set
+            set
             {
                 zoom = value;
                 isViewTransformDirty = true;
             }
         }
-        private FloatTweener rotation;
-        public FloatTweener Rotation
+        private float rotation;
+        public float Rotation
         {
             get
             {
                 return rotation;
             }
-            private set
+            set
             {
                 rotation = value;
                 isViewTransformDirty = true;
@@ -89,10 +89,8 @@ namespace GLX
                     if (value == CameraFocus.Center)
                     {
                         focus = value;
-                        Pan.startingValue = new Vector2(Pan.Value.X + virtualResolutionRenderer.VirtualResolution.X / 2,
-                            Pan.Value.Y + virtualResolutionRenderer.VirtualResolution.Y / 2);
-                        Pan._value = Pan.startingValue;
-                        Pan.targetValue = Vector2.Zero;
+                        Pan = new Vector2(Pan.X + virtualResolutionRenderer.VirtualResolution.X / 2,
+                            Pan.Y + virtualResolutionRenderer.VirtualResolution.Y / 2);
                     }
                 }
                 else if (focus == CameraFocus.Center)
@@ -100,10 +98,8 @@ namespace GLX
                     if (value == CameraFocus.TopLeft)
                     {
                         focus = value;
-                        Pan.startingValue = new Vector2(Pan.Value.X - virtualResolutionRenderer.VirtualResolution.X / 2,
-                            Pan.Value.Y - virtualResolutionRenderer.VirtualResolution.Y / 2);
-                        Pan._value = Pan.startingValue;
-                        Pan.targetValue = Vector2.Zero;
+                        Pan = new Vector2(Pan.X - virtualResolutionRenderer.VirtualResolution.X / 2,
+                            Pan.Y - virtualResolutionRenderer.VirtualResolution.Y / 2);
                     }
                 }
             }
@@ -122,23 +118,21 @@ namespace GLX
         {
             this.virtualResolutionRenderer = virtualResolutionRenderer;
             isViewTransformDirty = true;
-            Pan = new Vector2Tweener();
-            Zoom = new FloatTweener();
-            Rotation = new FloatTweener();
-            Zoom.Value = 1;
-            Rotation.Value = 0;
+            Pan = Vector2.Zero;
+            Zoom = 1;
+            Rotation = 0;
             this.focus = focus;
         }
 
         private void UpdateTransform()
         {
-            cameraTranslationVector.X = -Pan.Value.X;
-            cameraTranslationVector.Y = -Pan.Value.Y;
+            cameraTranslationVector.X = -Pan.X;
+            cameraTranslationVector.Y = -Pan.Y;
 
             cameraTranslationMatrix = Matrix.CreateTranslation(cameraTranslationVector);
-            cameraRotationMatrix = Matrix.CreateRotationZ(MathHelper.ToRadians(rotation.Value));
+            cameraRotationMatrix = Matrix.CreateRotationZ(MathHelper.ToRadians(rotation));
 
-            cameraScaleVector = new Vector3(zoom.Value, zoom.Value, 1);
+            cameraScaleVector = new Vector3(zoom, zoom, 1);
 
             cameraScaleMatrix = Matrix.CreateScale(cameraScaleVector);
 
@@ -157,7 +151,7 @@ namespace GLX
                     Matrix.CreateTranslation(
                         new Vector3(virtualResolutionRenderer.VirtualResolution.X * 0.5f,
                         virtualResolutionRenderer.VirtualResolution.Y * 0.5f,
-                        1));
+                        0));
             }
             else if (Focus == CameraFocus.TopLeft)
             {
@@ -172,17 +166,11 @@ namespace GLX
 
         public void Update()
         {
-            Pan.Update();
-            Zoom.Update();
-            Rotation.Update();
             UpdateTransform();
         }
 
         public void Update(GameTimeWrapper gameTime)
         {
-            Pan.Update(gameTime);
-            Zoom.Update(gameTime);
-            Rotation.Update(gameTime);
             UpdateTransform();
         }
     }

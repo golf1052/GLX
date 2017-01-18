@@ -90,7 +90,8 @@ namespace GLX
 
         private void RecreateScaleMatrix()
         {
-            scaleMatrix = Matrix.CreateScale(scale, scale, 1);
+            //scaleMatrix = Matrix.CreateScale(scale, scale, 1);
+            scaleMatrix = Matrix.CreateScale(ScreenResolution.X / VirtualResolution.X, ScreenResolution.X / VirtualResolution.X, 1);
             dirtyMatrix = false;
         }
 
