@@ -12,7 +12,7 @@ namespace GLX
     {
         private GraphicsDeviceManager graphics;
         private SpriteBatch spriteBatch;
-        private VirtualResolutionRenderer virtualResolutionRenderer;
+        public VirtualResolutionRenderer virtualResolutionRenderer;
 
         public static Random random = new Random();
 

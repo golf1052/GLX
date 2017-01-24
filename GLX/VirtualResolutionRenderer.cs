@@ -20,7 +20,7 @@ namespace GLX
         
         public Color BackgroundColor { get; set; }
         public Vector2 VirtualResolution { get; private set; }
-        public Vector2 ScreenResolution { get; private set; }
+        public Vector2 WindowResolution { get; private set; }
 
         public VirtualResolutionRenderer(GraphicsDeviceManager graphics) : this(graphics, new Vector2(1920, 1080))
         {
@@ -31,8 +31,8 @@ namespace GLX
             this.graphics = graphics;
             virtualMousePosition = Vector2.Zero;
             VirtualResolution = virtualResolution;
-            BackgroundColor = Color.Orange;
-            ScreenResolution = new Vector2(graphics.GraphicsDevice.DisplayMode.Width, graphics.GraphicsDevice.DisplayMode.Height);
+            BackgroundColor = Color.CornflowerBlue;
+            WindowResolution = new Vector2(graphics.PreferredBackBufferWidth, graphics.PreferredBackBufferHeight);
             SetupVirtualScreenViewport();
             ratio = new Vector2(viewport.Width / VirtualResolution.X, viewport.Height / VirtualResolution.Y);
             dirtyMatrix = true;
@@ -50,29 +50,22 @@ namespace GLX
 
         public void SetupFullViewport()
         {
-            Viewport viewport = new Viewport(0, 0, (int)ScreenResolution.X, (int)ScreenResolution.Y);
+            Viewport viewport = new Viewport(0, 0, (int)WindowResolution.X, (int)WindowResolution.Y);
             graphics.GraphicsDevice.Viewport = viewport;
             dirtyMatrix = true;
         }
 
         public void SetupVirtualScreenViewport()
         {
-            Vector2 scale = Vector2.Zero;
-            scale.X = ScreenResolution.X / VirtualResolution.X;
-            scale.Y = ScreenResolution.Y / VirtualResolution.Y;
+            Vector2 scale = new Vector2(WindowResolution.X / VirtualResolution.X,
+                WindowResolution.Y / VirtualResolution.Y);
             this.scale = Math.Min(scale.X, scale.Y);
             float targetAspectRatio = VirtualResolution.X / VirtualResolution.Y;
             float width = (int)(VirtualResolution.X * this.scale);
             float height = (int)(VirtualResolution.Y * this.scale);
 
-            //if (height > ScreenResolution.Y)
-            //{
-            //    height = (int)ScreenResolution.Y;
-            //    width = (int)(height * targetAspectRatio + 0.5f);
-            //}
-
-            viewport = new Viewport((int)((ScreenResolution.X / 2) - (width / 2)),
-                (int)((ScreenResolution.Y / 2) - (height / 2)),
+            viewport = new Viewport((int)((WindowResolution.X / 2) - (width / 2)),
+                (int)((WindowResolution.Y / 2) - (height / 2)),
                 (int)width,
                 (int)height);
             graphics.GraphicsDevice.Viewport = viewport;
@@ -90,8 +83,7 @@ namespace GLX
 
         private void RecreateScaleMatrix()
         {
-            //scaleMatrix = Matrix.CreateScale(scale, scale, 1);
-            scaleMatrix = Matrix.CreateScale(ScreenResolution.X / VirtualResolution.X, ScreenResolution.X / VirtualResolution.X, 1);
+            scaleMatrix = Matrix.CreateScale(scale, scale, 1);
             dirtyMatrix = false;
         }
 
