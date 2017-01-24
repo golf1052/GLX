@@ -43,14 +43,15 @@ namespace GLX
             }
         }
 
-        public GameState(string name, GraphicsDeviceManager graphics)
+        public GameState(string name, GraphicsDeviceManager graphics,
+            VirtualResolutionRenderer virtualResolutionRenderer)
         {
             gameTimes = new List<GameTimeWrapper>();
             drawMethods = new List<Action>();
             gameTimes = new List<GameTimeWrapper>();
 
             cameras = new Dictionary<string, Camera>();
-            _camera1 = new Camera(graphics.GraphicsDevice.Viewport, Camera.CameraFocus.TopLeft);
+            _camera1 = new Camera(virtualResolutionRenderer, Camera.CameraFocus.TopLeft);
             cameras.Add("camera1", camera1);
             _currentCamera = "camera1";
         }

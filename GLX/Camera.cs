@@ -10,6 +10,12 @@ namespace GLX
 {
     public class Camera
     {
+        public enum CameraFocus
+        {
+            TopLeft,
+            Center
+        }
+
         private Matrix transform;
         internal Matrix Transform
         {
@@ -19,6 +25,7 @@ namespace GLX
                 return transform;
             }
         }
+        private bool isViewTransformDirty;
 
         private Matrix inverseTransform;
         public Matrix InverseTransform
@@ -28,17 +35,59 @@ namespace GLX
                 return inverseTransform;
             }
         }
-        public Vector2Tweener Pan { get; private set; }
-        public FloatTweener Zoom { get; private set; }
-        public FloatTweener Rotation { get; private set; }
-        public Viewport viewport;
 
-        public enum CameraFocus
+        private Vector2 pan;
+        public Vector2 Pan
         {
-            TopLeft,
-            Center
+            get
+            {
+                return pan;
+            }
+            set
+            {
+                pan = value;
+                isViewTransformDirty = true;
+            }
         }
-
+        private Vector2 origin;
+        public Vector2 Origin
+        {
+            get
+            {
+                return origin;
+            }
+            set
+            {
+                origin = value;
+                isViewTransformDirty = true;
+            }
+        }
+        private float zoom;
+        public float Zoom
+        {
+            get
+            {
+                return zoom;
+            }
+            set
+            {
+                zoom = value;
+                isViewTransformDirty = true;
+            }
+        }
+        private float rotation;
+        public float Rotation
+        {
+            get
+            {
+                return rotation;
+            }
+            set
+            {
+                rotation = value;
+                isViewTransformDirty = true;
+            }
+        }
         private CameraFocus focus;
         public CameraFocus Focus
         {
@@ -53,10 +102,8 @@ namespace GLX
                     if (value == CameraFocus.Center)
                     {
                         focus = value;
-                        Pan.startingValue = new Vector2(Pan.Value.X + viewport.Width / 2,
-                            Pan.Value.Y + viewport.Height / 2);
-                        Pan._value = Pan.startingValue;
-                        Pan.targetValue = Vector2.Zero;
+                        Origin = new Vector2(virtualResolutionRenderer.VirtualResolution.X / 2,
+                            virtualResolutionRenderer.VirtualResolution.Y / 2);
                     }
                 }
                 else if (focus == CameraFocus.Center)
@@ -64,61 +111,71 @@ namespace GLX
                     if (value == CameraFocus.TopLeft)
                     {
                         focus = value;
-                        Pan.startingValue = new Vector2(Pan.Value.X - viewport.Width / 2,
-                            Pan.Value.Y - viewport.Height / 2);
-                        Pan._value = Pan.startingValue;
-                        Pan.targetValue = Vector2.Zero;
+                        Origin = Vector2.Zero;
                     }
                 }
             }
         }
 
-        public Camera(Viewport viewport, CameraFocus focus)
+        private VirtualResolutionRenderer virtualResolutionRenderer;
+
+        public Camera(VirtualResolutionRenderer virtualResolutionRenderer, CameraFocus focus)
         {
-            Pan = new Vector2Tweener();
-            this.viewport = viewport;
-            Zoom = new FloatTweener();
-            Rotation = new FloatTweener();
-            Zoom.Value = 1;
-            Rotation.Value = 0;
+            this.virtualResolutionRenderer = virtualResolutionRenderer;
+            isViewTransformDirty = true;
+            Pan = Vector2.Zero;
+            Zoom = 1;
+            Rotation = 0;
             this.focus = focus;
         }
 
         private void UpdateTransform()
         {
+            Vector3 cameraTranslationVector = new Vector3(-Pan, 0);
+            Matrix cameraTranslationMatrix = Matrix.CreateTranslation(cameraTranslationVector);
+
+            Vector3 originTranslationVector = new Vector3(-Origin, 0);
+            Matrix originTranslationMatrix = Matrix.CreateTranslation(originTranslationVector);
+
+            Matrix cameraRotationMatrix = Matrix.CreateRotationZ(MathHelper.ToRadians(rotation));
+
+            Vector3 cameraScaleVector = new Vector3(zoom, zoom, 1);
+            Matrix cameraScaleMatrix = Matrix.CreateScale(cameraScaleVector);
+
+            Vector3 resolutionTranslationVector = new Vector3(virtualResolutionRenderer.VirtualResolution.X * 0.5f,
+                virtualResolutionRenderer.VirtualResolution.Y * 0.5f,
+                0);
+            Matrix resolutionTranslationMatrix = Matrix.CreateTranslation(resolutionTranslationVector);
+
             if (Focus == CameraFocus.Center)
             {
-                transform = Matrix.CreateTranslation(new Vector3(-Pan.Value.X, -Pan.Value.Y, 0)) *
-                    Matrix.CreateRotationZ(MathHelper.ToRadians(Rotation.Value)) *
-                    Matrix.CreateScale(new Vector3(Zoom.Value, Zoom.Value, 1)) *
-                    Matrix.CreateTranslation(new Vector3(viewport.Width * 0.5f, viewport.Height * 0.5f, 0));
-                viewport.X = (int)Pan.Value.X - viewport.Width / 2;
-                viewport.Y = (int)Pan.Value.Y - viewport.Height / 2;
+                Vector3 reverseOriginTranslationVector = new Vector3(Origin, 0);
+                Matrix reverseOriginTranslationMatrix = Matrix.CreateTranslation(reverseOriginTranslationVector);
+                transform = cameraTranslationMatrix *
+                    originTranslationMatrix *
+                    cameraRotationMatrix *
+                    cameraScaleMatrix *
+                    virtualResolutionRenderer.GetTransformationMatrix() *
+                    reverseOriginTranslationMatrix;
             }
             else if (Focus == CameraFocus.TopLeft)
             {
-                transform = Matrix.CreateTranslation(new Vector3(-Pan.Value.X, -Pan.Value.Y, 0)) *
-                    Matrix.CreateRotationZ(MathHelper.ToRadians(Rotation.Value)) *
-                    Matrix.CreateScale(new Vector3(Zoom.Value, Zoom.Value, 0));
-                viewport.X = (int)Pan.Value.X;
-                viewport.Y = (int)Pan.Value.Y;
+                transform = cameraTranslationMatrix *
+                    originTranslationMatrix *
+                    cameraRotationMatrix *
+                    cameraScaleMatrix *
+                    virtualResolutionRenderer.GetTransformationMatrix();
             }
             inverseTransform = Matrix.Invert(transform);
         }
 
         public void Update()
         {
-            Pan.Update();
-            Zoom.Update();
-            Rotation.Update();
             UpdateTransform();
         }
 
         public void Update(GameTimeWrapper gameTime)
         {
-            Pan.Update(gameTime);
-            Zoom.Update(gameTime);
-            Rotation.Update(gameTime);
             UpdateTransform();
         }
     }

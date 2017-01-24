@@ -10,8 +10,9 @@ namespace GLX
 {
     public sealed class World
     {
-        GraphicsDeviceManager graphics;
-        SpriteBatch spriteBatch;
+        private GraphicsDeviceManager graphics;
+        private SpriteBatch spriteBatch;
+        public VirtualResolutionRenderer virtualResolutionRenderer;
 
         public static Random random = new Random();
 
@@ -37,6 +38,7 @@ namespace GLX
         {
             this.graphics = graphics;
             spriteBatch = new SpriteBatch(graphics.GraphicsDevice);
+            virtualResolutionRenderer = new VirtualResolutionRenderer(graphics);
             gameStates = new Dictionary<string, GameState>();
             activeGameStates = new List<KeyValuePair<string, GameState>>();
             menuStates = new Dictionary<string, MenuState>();
@@ -50,22 +52,22 @@ namespace GLX
 
         public void AddGameState(string name)
         {
-            AddGameState(name, this.graphics);
+            AddGameState(name, graphics);
         }
 
         public void AddGameState(string name, GraphicsDeviceManager graphics)
         {
-            gameStates.Add(name, new GameState(name, graphics));
+            gameStates.Add(name, new GameState(name, graphics, virtualResolutionRenderer));
         }
 
         public void AddMenuState(string name, Game game)
         {
-            AddMenuState(name, this.graphics, game);
+            AddMenuState(name, graphics, game);
         }
 
         public void AddMenuState(string name, GraphicsDeviceManager graphics, Game game)
         {
-            menuStates.Add(name, new MenuState(name, graphics, game, this));
+            menuStates.Add(name, new MenuState(name, graphics, game, this, virtualResolutionRenderer));
         }
 
         public void ActivateGameState(string name)
@@ -142,6 +144,7 @@ namespace GLX
             SamplerState samplerState, DepthStencilState depthStencilState,
             RasterizerState rasterizerState, Effect effect, Matrix transformMatrix)
         {
+            virtualResolutionRenderer.BeginDraw();
             spriteBatch.Begin(sortMode, blendState, samplerState,
                 depthStencilState, rasterizerState, effect, transformMatrix);
         }
