@@ -169,6 +169,12 @@ namespace GLX
             inverseTransform = Matrix.Invert(transform);
         }
 
+        public Vector2 MouseToScreenCoords(Point mouseScreenPosition)
+        {
+            Vector2 screenPosition = new Vector2(mouseScreenPosition.X - virtualResolutionRenderer.Viewport.X, mouseScreenPosition.Y - virtualResolutionRenderer.Viewport.Y);
+            return Vector2.Transform(screenPosition, inverseTransform);
+        }
+
         public void Update()
         {
             UpdateTransform();
