@@ -18,6 +18,20 @@ namespace GLX
             return new Vector3(vector, 0);
         }
 
+        /// <summary>
+        /// Calculate the projection of vector a onto vector b
+        /// </summary>
+        /// <param name="a">Initial vector</param>
+        /// <param name="b">Vector that is being projected onto</param>
+        /// <returns>The projection of vector a onto vector b</returns>
+        public static Vector2 Projection(this Vector2 a, Vector2 b)
+        {
+            Vector2 projection = new Vector2();
+            projection.X = Vector2.Dot(a, b) / b.LengthSquared() * b.X;
+            projection.Y = Vector2.Dot(a, b) / b.LengthSquared() * b.Y;
+            return projection;
+        }
+
         public static Vector2 Intersection(Vector2 point1, Vector2 point2, Vector2 point3, Vector2 point4)
         {
             float ua = (point4.X - point3.X) * (point1.Y - point3.Y) - (point4.Y - point3.Y) * (point1.X - point3.X);
