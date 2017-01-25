@@ -17,9 +17,23 @@ namespace GLX
         private bool dirtyMatrix;
         private static Matrix scaleMatrix;
         private float scale;
-        
+
         public Color BackgroundColor { get; set; }
-        public Vector2 VirtualResolution { get; private set; }
+        private Vector2 virtualResolution;
+        public Vector2 VirtualResolution
+        {
+            get
+            {
+                return virtualResolution;
+            }
+            set
+            {
+                virtualResolution = value;
+                SetupVirtualScreenViewport();
+                ratio = new Vector2(viewport.Width / VirtualResolution.X, viewport.Height / VirtualResolution.Y);
+                dirtyMatrix = true;
+            }
+        }
         public Vector2 WindowResolution { get; private set; }
 
         public VirtualResolutionRenderer(GraphicsDeviceManager graphics) : this(graphics, new Vector2(1920, 1080))
@@ -30,7 +44,7 @@ namespace GLX
         {
             this.graphics = graphics;
             virtualMousePosition = Vector2.Zero;
-            VirtualResolution = virtualResolution;
+            this.virtualResolution = virtualResolution;
             BackgroundColor = Color.CornflowerBlue;
             WindowResolution = new Vector2(graphics.PreferredBackBufferWidth, graphics.PreferredBackBufferHeight);
             SetupVirtualScreenViewport();

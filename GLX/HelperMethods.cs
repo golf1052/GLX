@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Input;
 
 namespace GLX
 {
@@ -30,6 +31,11 @@ namespace GLX
             projection.X = Vector2.Dot(a, b) / b.LengthSquared() * b.X;
             projection.Y = Vector2.Dot(a, b) / b.LengthSquared() * b.Y;
             return projection;
+        }
+
+        public static bool IsKeyDownAndUp(this KeyboardState keyboardState, Keys key, KeyboardState previousKeyboardState)
+        {
+            return keyboardState.IsKeyDown(key) && previousKeyboardState.IsKeyUp(key);
         }
 
         public static Vector2 Intersection(Vector2 point1, Vector2 point2, Vector2 point3, Vector2 point4)
