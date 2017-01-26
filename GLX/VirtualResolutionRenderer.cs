@@ -18,8 +18,8 @@ namespace GLX
 
         public Viewport Viewport { get; private set; }
         public Color BackgroundColor { get; set; }
-        private Vector2 virtualResolution;
-        public Vector2 VirtualResolution
+        private Size virtualResolution;
+        public Size VirtualResolution
         {
             get
             {
@@ -29,24 +29,24 @@ namespace GLX
             {
                 virtualResolution = value;
                 SetupVirtualScreenViewport();
-                ratio = new Vector2(Viewport.Width / VirtualResolution.X, Viewport.Height / VirtualResolution.Y);
+                ratio = new Vector2(Viewport.Width / VirtualResolution.Width, Viewport.Height / VirtualResolution.Height);
                 dirtyMatrix = true;
             }
         }
-        public Vector2 WindowResolution { get; private set; }
+        public Size WindowResolution { get; private set; }
 
-        public VirtualResolutionRenderer(GraphicsDeviceManager graphics) : this(graphics, new Vector2(1920, 1080))
+        public VirtualResolutionRenderer(GraphicsDeviceManager graphics) : this(graphics, new Size(1920, 1080))
         {
         }
 
-        public VirtualResolutionRenderer(GraphicsDeviceManager graphics, Vector2 virtualResolution)
+        public VirtualResolutionRenderer(GraphicsDeviceManager graphics, Size virtualResolution)
         {
             this.graphics = graphics;
             this.virtualResolution = virtualResolution;
             BackgroundColor = Color.CornflowerBlue;
-            WindowResolution = new Vector2(graphics.PreferredBackBufferWidth, graphics.PreferredBackBufferHeight);
+            WindowResolution = new Size(graphics.PreferredBackBufferWidth, graphics.PreferredBackBufferHeight);
             SetupVirtualScreenViewport();
-            ratio = new Vector2(Viewport.Width / VirtualResolution.X, Viewport.Height / VirtualResolution.Y);
+            ratio = new Vector2(Viewport.Width / VirtualResolution.Width, Viewport.Height / VirtualResolution.Height);
             dirtyMatrix = true;
         }
 
@@ -69,15 +69,15 @@ namespace GLX
 
         public void SetupVirtualScreenViewport()
         {
-            Vector2 scale = new Vector2(WindowResolution.X / VirtualResolution.X,
-                WindowResolution.Y / VirtualResolution.Y);
+            Vector2 scale = new Vector2(WindowResolution.Width / VirtualResolution.Width,
+                WindowResolution.Height / VirtualResolution.Height);
             this.scale = Math.Min(scale.X, scale.Y);
-            float targetAspectRatio = VirtualResolution.X / VirtualResolution.Y;
-            float width = (int)(VirtualResolution.X * this.scale);
-            float height = (int)(VirtualResolution.Y * this.scale);
+            float targetAspectRatio = VirtualResolution.Width / VirtualResolution.Height;
+            float width = (int)(VirtualResolution.Width * this.scale);
+            float height = (int)(VirtualResolution.Height * this.scale);
 
-            Viewport = new Viewport((int)((WindowResolution.X / 2) - (width / 2)),
-                (int)((WindowResolution.Y / 2) - (height / 2)),
+            Viewport = new Viewport((int)((WindowResolution.Width / 2) - (width / 2)),
+                (int)((WindowResolution.Height / 2) - (height / 2)),
                 (int)width,
                 (int)height);
             graphics.GraphicsDevice.Viewport = Viewport;

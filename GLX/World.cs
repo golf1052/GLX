@@ -32,7 +32,7 @@ namespace GLX
         public Dictionary<string, MenuState> menuStates;
         public List<KeyValuePair<string, MenuState>> activeMenuStates;
 
-        private GameState currentGameState;
+        public GameState currentGameState;
 
         public World(GraphicsDeviceManager graphics)
         {

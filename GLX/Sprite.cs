@@ -24,7 +24,25 @@ namespace GLX
         /// <summary>
         /// Sprite draw rectangle
         /// </summary>
-        public Rectangle drawRect;
+        private Rectangle drawRect;
+
+        private Size drawSize;
+        /// <summary>
+        /// Sprite draw size
+        /// </summary>
+        public Size DrawSize
+        {
+            get
+            {
+                return drawSize;
+            }
+            set
+            {
+                drawSize = value;
+                drawRect.Width = (int)drawSize.Width;
+                drawRect.Height = (int)drawSize.Height;
+            }
+        }
 
         /// <summary>
         /// Texture color data
@@ -60,6 +78,7 @@ namespace GLX
         {
             tex = loadedTex;
             drawRect = new Rectangle((int)position.X, (int)position.Y, 0, 0);
+            drawSize = Size.Zero;
             rectangle = new Rectangle((int)position.X, (int)position.Y, tex.Width, tex.Height);
             colorData = new ColorData(tex);
             origin = new Vector2(tex.Width / 2, tex.Height / 2);
@@ -70,13 +89,14 @@ namespace GLX
         /// <summary>
         /// Creates a new sprite that has a 1 by 1 white pixel as its texture
         /// </summary>
-        /// <remarks>This pixel can be resized using <see cref="drawRect"/></remarks>
+        /// <remarks>This pixel can be resized using <see cref="DrawSize"/></remarks>
         /// <param name="graphics">Graphics device manager for game</param>
         public Sprite(GraphicsDeviceManager graphics) : base()
         {
             tex = new Texture2D(graphics.GraphicsDevice, 1, 1, false, SurfaceFormat.Color);
             tex.SetData(new[] { color });
             drawRect = new Rectangle((int)position.X, (int)position.Y, 0, 0);
+            drawSize = Size.Zero;
             rectangle = new Rectangle((int)position.X, (int)position.Y, tex.Width, tex.Height);
             colorData = new ColorData(tex);
             origin = new Vector2(tex.Width / 2, tex.Height / 2);
@@ -89,6 +109,7 @@ namespace GLX
             this.graphics = graphics;
             isAnimated = true;
             drawRect = new Rectangle((int)position.X, (int)position.Y, 0, 0);
+            drawSize = Size.Zero;
             animations = new Animations(spriteSheetInfo);
             ready = false;
         }
@@ -105,6 +126,7 @@ namespace GLX
             this.graphics = graphics;
             isAnimated = true;
             drawRect = new Rectangle((int)position.X, (int)position.Y, 0, 0);
+            drawSize = Size.Zero;
             animations = new Animations(spriteSheetInfo, gameTime);
             ready = false;
         }
@@ -121,7 +143,7 @@ namespace GLX
                 animations.currentSpriteSheet = animations.spriteSheets.First().Value;
             }
             UpdateTexAndColorData(animations.currentSpriteSheet, graphics.GraphicsDevice);
-            rectangle = new Rectangle((int)Math.Round(position.X), (int)Math.Round(position.Y), tex.Width, tex.Height);
+            rectangle = new Rectangle((int)position.X, (int)position.Y, tex.Width, tex.Height);
             origin = new Vector2(tex.Width / 2, tex.Height / 2);
             ready = true;
         }
