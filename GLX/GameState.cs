@@ -13,15 +13,6 @@ namespace GLX
         public List<GameTimeWrapper> gameTimes;
         public List<Action> drawMethods;
 
-        private Camera _camera1;
-        public Camera camera1
-        {
-            get
-            {
-                return _camera1;
-            }
-        }
-
         public GameState(string name, GraphicsDeviceManager graphics,
             VirtualResolutionRenderer virtualResolutionRenderer)
         {
