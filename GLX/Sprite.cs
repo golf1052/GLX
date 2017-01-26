@@ -26,6 +26,8 @@ namespace GLX
         /// </summary>
         private Rectangle drawRect;
 
+        private bool usingDrawRect;
+
         private Size drawSize;
         /// <summary>
         /// Sprite draw size
@@ -78,6 +80,7 @@ namespace GLX
         {
             tex = loadedTex;
             drawRect = new Rectangle((int)position.X, (int)position.Y, 0, 0);
+            usingDrawRect = false;
             drawSize = Size.Zero;
             rectangle = new Rectangle((int)position.X, (int)position.Y, tex.Width, tex.Height);
             colorData = new ColorData(tex);
@@ -96,6 +99,7 @@ namespace GLX
             tex = new Texture2D(graphics.GraphicsDevice, 1, 1, false, SurfaceFormat.Color);
             tex.SetData(new[] { color });
             drawRect = new Rectangle((int)position.X, (int)position.Y, 0, 0);
+            usingDrawRect = true;
             drawSize = Size.Zero;
             rectangle = new Rectangle((int)position.X, (int)position.Y, tex.Width, tex.Height);
             colorData = new ColorData(tex);
@@ -109,6 +113,7 @@ namespace GLX
             this.graphics = graphics;
             isAnimated = true;
             drawRect = new Rectangle((int)position.X, (int)position.Y, 0, 0);
+            usingDrawRect = false;
             drawSize = Size.Zero;
             animations = new Animations(spriteSheetInfo);
             ready = false;
@@ -126,6 +131,7 @@ namespace GLX
             this.graphics = graphics;
             isAnimated = true;
             drawRect = new Rectangle((int)position.X, (int)position.Y, 0, 0);
+            usingDrawRect = false;
             drawSize = Size.Zero;
             animations = new Animations(spriteSheetInfo, gameTime);
             ready = false;
@@ -157,11 +163,22 @@ namespace GLX
             position += velocity;
             drawRect.X = (int)position.X;
             drawRect.Y = (int)position.Y;
-            rectangle = new Rectangle((int)position.X, (int)position.Y, tex.Width, tex.Height);
-            spriteTransform = Matrix.CreateTranslation(new Vector3(-origin, 0.0f)) *
-                Matrix.CreateScale(scale) * Matrix.CreateRotationZ(rotation) *
-                Matrix.CreateTranslation(new Vector3(position, 0.0f));
-            rectangle = CalculateBoundingRectangle(new Rectangle(0, 0, tex.Width, tex.Height), spriteTransform);
+            if (!usingDrawRect)
+            {
+                rectangle = new Rectangle((int)position.X, (int)position.Y, tex.Width, tex.Height);
+                spriteTransform = Matrix.CreateTranslation(new Vector3(-origin, 0.0f)) *
+                    Matrix.CreateScale(scale) * Matrix.CreateRotationZ(rotation) *
+                    Matrix.CreateTranslation(new Vector3(position, 0.0f));
+                rectangle = CalculateBoundingRectangle(new Rectangle(0, 0, tex.Width, tex.Height), spriteTransform);
+            }
+            else
+            {
+                rectangle = new Rectangle((int)position.X, (int)position.Y, drawRect.Width, drawRect.Height);
+                spriteTransform = Matrix.CreateTranslation(new Vector3(-origin, 0.0f)) *
+                    Matrix.CreateScale(scale) * Matrix.CreateRotationZ(rotation) *
+                    Matrix.CreateTranslation(new Vector3(position, 0.0f));
+                rectangle = CalculateBoundingRectangle(new Rectangle(0, 0, drawRect.Width, drawRect.Height), spriteTransform);
+            }
         }
 
         /// <summary>
@@ -177,11 +194,22 @@ namespace GLX
             position += velocity * (float)gameTime.GameSpeed;
             drawRect.X = (int)position.X;
             drawRect.Y = (int)position.Y;
-            rectangle = new Rectangle((int)position.X, (int)position.Y, tex.Width, tex.Height);
-            spriteTransform = Matrix.CreateTranslation(new Vector3(-origin, 0.0f)) *
-                Matrix.CreateScale(scale) * Matrix.CreateRotationZ(rotation) *
-                Matrix.CreateTranslation(new Vector3(position, 0.0f));
-            rectangle = CalculateBoundingRectangle(new Rectangle(0, 0, tex.Width, tex.Height), spriteTransform);
+            if (!usingDrawRect)
+            {
+                rectangle = new Rectangle((int)position.X, (int)position.Y, tex.Width, tex.Height);
+                spriteTransform = Matrix.CreateTranslation(new Vector3(-origin, 0.0f)) *
+                    Matrix.CreateScale(scale) * Matrix.CreateRotationZ(rotation) *
+                    Matrix.CreateTranslation(new Vector3(position, 0.0f));
+                rectangle = CalculateBoundingRectangle(new Rectangle(0, 0, tex.Width, tex.Height), spriteTransform);
+            }
+            else
+            {
+                rectangle = new Rectangle((int)position.X, (int)position.Y, drawRect.Width, drawRect.Height);
+                spriteTransform = Matrix.CreateTranslation(new Vector3(-origin, 0.0f)) *
+                    Matrix.CreateScale(scale) * Matrix.CreateRotationZ(rotation) *
+                    Matrix.CreateTranslation(new Vector3(position, 0.0f));
+                rectangle = CalculateBoundingRectangle(new Rectangle(0, 0, drawRect.Width, drawRect.Height), spriteTransform);
+            }
         }
 
         private void UpdateAnimation(GameTime gameTime)
@@ -369,7 +397,14 @@ namespace GLX
             }
             else
             {
-                spriteBatch.Draw(tex, position, null, color * alpha, MathHelper.ToRadians(rotation), origin, scale, SpriteEffects.None, 0);
+                if (!usingDrawRect)
+                {
+                    spriteBatch.Draw(tex, position, null, color * alpha, MathHelper.ToRadians(rotation), origin, scale, SpriteEffects.None, 0);
+                }
+                else
+                {
+                    DrawRect(spriteBatch);
+                }
             }
         }
 
