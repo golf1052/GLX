@@ -65,67 +65,6 @@ namespace GLX
 
         public void Update(GameTimeWrapper gameTime)
         {
-            if (menuItems.Count > 0)
-            {
-                menuItems[currentSelection].color = selectedColor;
-                if (menuDirection == Direction.LeftToRight)
-                {
-                    if (World.keyboardState.IsKeyDown(Keys.Left) && World.previousKeyboardState.IsKeyUp(Keys.Left) ||
-                        World.gamePadStates[0].ThumbSticks.Left.X < -0.5f && World.previousGamePadStates[0].ThumbSticks.Left.X > -0.5f ||
-                        World.gamePadStates[0].DPad.Left == ButtonState.Pressed && World.previousGamePadStates[0].DPad.Left == ButtonState.Released)
-                    {
-                        menuItems[currentSelection].color = unselectedColor;
-                        currentSelection--;
-                        if (currentSelection == -1)
-                        {
-                            currentSelection = menuItems.Count - 1;
-                        }
-                    }
-                    else if (World.keyboardState.IsKeyDown(Keys.Right) && World.previousKeyboardState.IsKeyUp(Keys.Right) ||
-                        World.gamePadStates[0].ThumbSticks.Left.X > 0.5f && World.previousGamePadStates[0].ThumbSticks.Left.X < 0.5f ||
-                        World.gamePadStates[0].DPad.Right == ButtonState.Pressed && World.previousGamePadStates[0].DPad.Right == ButtonState.Released)
-                    {
-                        menuItems[currentSelection].color = unselectedColor;
-                        currentSelection++;
-                        if (currentSelection == menuItems.Count)
-                        {
-                            currentSelection = 0;
-                        }
-                    }
-                }
-                else if (menuDirection == Direction.TopToBottom)
-                {
-                    if (World.keyboardState.IsKeyDown(Keys.Up) && World.previousKeyboardState.IsKeyUp(Keys.Up) ||
-                        World.gamePadStates[0].ThumbSticks.Left.Y < -0.5f && World.previousGamePadStates[0].ThumbSticks.Left.Y > -0.5f ||
-                        World.gamePadStates[0].DPad.Up == ButtonState.Pressed && World.previousGamePadStates[0].DPad.Up == ButtonState.Released)
-                    {
-                        menuItems[currentSelection].color = unselectedColor;
-                        currentSelection--;
-                        if (currentSelection == -1)
-                        {
-                            currentSelection = menuItems.Count - 1;
-                        }
-                    }
-                    else if (World.keyboardState.IsKeyDown(Keys.Down) && World.previousKeyboardState.IsKeyUp(Keys.Down) ||
-                        World.gamePadStates[0].ThumbSticks.Left.Y > 0.5f && World.previousGamePadStates[0].ThumbSticks.Left.Y < 0.5f ||
-                        World.gamePadStates[0].DPad.Down == ButtonState.Pressed && World.previousGamePadStates[0].DPad.Down == ButtonState.Released)
-                    {
-                        menuItems[currentSelection].color = unselectedColor;
-                        currentSelection++;
-                        if (currentSelection == menuItems.Count)
-                        {
-                            currentSelection = 0;
-                        }
-                    }
-                }
-
-                if (World.keyboardState.IsKeyDown(Keys.Enter) && World.previousKeyboardState.IsKeyUp(Keys.Enter) ||
-                    World.gamePadStates[0].Buttons.A == ButtonState.Pressed && World.previousGamePadStates[0].Buttons.A == ButtonState.Released)
-                {
-                    string text = menuItems[currentSelection].text;
-                    World.thingsToDo.Add(menuItemActions[text]);
-                }
-            }
         }
 
         void Draw()

@@ -9,6 +9,8 @@ namespace GLX
 {
     public sealed class World
     {
+        public const string Camera1Name = "camera1";
+
         private GraphicsDeviceManager graphics;
         private SpriteBatch spriteBatch;
         public VirtualResolutionRenderer virtualResolutionRenderer;
@@ -23,7 +25,26 @@ namespace GLX
         public Dictionary<string, MenuState> menuStates;
         public List<KeyValuePair<string, MenuState>> activeMenuStates;
 
-        public GameState currentGameState;
+        private GameState currentGameState;
+
+        private Dictionary<string, Camera> cameras;
+        private string currentCameraName;
+        public string CurrentCameraName
+        {
+            get
+            {
+                return currentCameraName;
+            }
+            set
+            {
+                if (cameras.ContainsKey(value))
+                {
+                    currentCameraName = value;
+                    CurrentCamera = cameras[CurrentCameraName];
+                }
+            }
+        }
+        public Camera CurrentCamera { get; private set; }
 
         public World(GraphicsDeviceManager graphics)
         {
@@ -35,6 +56,41 @@ namespace GLX
             menuStates = new Dictionary<string, MenuState>();
             activeMenuStates = new List<KeyValuePair<string, MenuState>>();
             thingsToDo = new List<Action>();
+            cameras = new Dictionary<string, Camera>();
+            cameras.Add(Camera1Name, new Camera(virtualResolutionRenderer, Camera.CameraFocus.TopLeft));
+            currentCameraName = Camera1Name;
+            CurrentCamera = cameras[Camera1Name];
+        }
+        public void AddCamera(string name, Camera camera)
+        {
+            if (!cameras.ContainsKey(name) && name != Camera1Name)
+            {
+                cameras.Add(name, camera);
+            }
+        }
+
+        public void RemoveCamera(string name)
+        {
+            if (name == Camera1Name)
+            {
+                throw new Exception($"You cannot remove {Camera1Name}");
+            }
+            else
+            {
+                if (cameras.ContainsKey(name))
+                {
+                    if (CurrentCameraName == name)
+                    {
+                        CurrentCameraName = Camera1Name;
+                    }
+                    cameras.Remove(name);
+                }
+            }
+        }
+
+        public void UpdateCurrentCamera(GameTimeWrapper gameTime)
+        {
+            CurrentCamera.Update(gameTime);
         }
 
         public void AddGameState(string name)
@@ -108,14 +164,14 @@ namespace GLX
         {
             BeginDraw(SpriteSortMode.Deferred, BlendState.AlphaBlend,
                 null, null, null, null,
-                currentGameState.cameras[currentGameState.currentCamera].Transform);
+                CurrentCamera.Transform);
         }
 
         public void BeginDraw(SpriteSortMode spriteSortMode, BlendState blendState)
         {
             BeginDraw(spriteSortMode, blendState,
                 null, null, null, null,
-                currentGameState.cameras[currentGameState.currentCamera].Transform);
+                CurrentCamera.Transform);
         }
 
         public void BeginDraw(SpriteSortMode sortMode, BlendState blendState,

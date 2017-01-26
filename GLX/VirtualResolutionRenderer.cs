@@ -62,7 +62,7 @@ namespace GLX
 
         public void SetupFullViewport()
         {
-            Viewport viewport = new Viewport(0, 0, (int)WindowResolution.X, (int)WindowResolution.Y);
+            Viewport viewport = new Viewport(0, 0, (int)WindowResolution.Width, (int)WindowResolution.Height);
             graphics.GraphicsDevice.Viewport = viewport;
             dirtyMatrix = true;
         }

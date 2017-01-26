@@ -102,8 +102,8 @@ namespace GLX
                     if (value == CameraFocus.Center)
                     {
                         focus = value;
-                        Origin = new Vector2(virtualResolutionRenderer.VirtualResolution.X / 2,
-                            virtualResolutionRenderer.VirtualResolution.Y / 2);
+                        Origin = new Vector2(virtualResolutionRenderer.VirtualResolution.Width / 2,
+                            virtualResolutionRenderer.VirtualResolution.Height / 2);
                     }
                 }
                 else if (focus == CameraFocus.Center)
@@ -142,8 +142,8 @@ namespace GLX
             Vector3 cameraScaleVector = new Vector3(zoom, zoom, 1);
             Matrix cameraScaleMatrix = Matrix.CreateScale(cameraScaleVector);
 
-            Vector3 resolutionTranslationVector = new Vector3(virtualResolutionRenderer.VirtualResolution.X * 0.5f,
-                virtualResolutionRenderer.VirtualResolution.Y * 0.5f,
+            Vector3 resolutionTranslationVector = new Vector3(virtualResolutionRenderer.VirtualResolution.Width * 0.5f,
+                virtualResolutionRenderer.VirtualResolution.Height * 0.5f,
                 0);
             Matrix resolutionTranslationMatrix = Matrix.CreateTranslation(resolutionTranslationVector);
 
