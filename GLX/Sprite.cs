@@ -137,6 +137,17 @@ namespace GLX
             ready = false;
         }
 
+        public void updatePosition(Vector2 newPosition)
+        {
+            position = newPosition;
+
+            if (usingDrawRect)
+            {
+                drawRect.X = (int) newPosition.X;
+                drawRect.Y = (int) newPosition.Y;
+            }
+        }
+
         /// <summary>
         /// Sets up an animated Sprite so that it is ready to be used
         /// </summary>
@@ -165,19 +176,17 @@ namespace GLX
             drawRect.Y = (int)position.Y;
             if (!usingDrawRect)
             {
-                rectangle = new Rectangle((int)position.X, (int)position.Y, tex.Width, tex.Height);
                 spriteTransform = Matrix.CreateTranslation(new Vector3(-origin, 0.0f)) *
                     Matrix.CreateScale(scale) * Matrix.CreateRotationZ(rotation) *
                     Matrix.CreateTranslation(new Vector3(position, 0.0f));
-                rectangle = CalculateBoundingRectangle(new Rectangle(0, 0, tex.Width, tex.Height), spriteTransform);
+                rectangle = CalculateBoundingRectangle(new Rectangle((int)position.X, (int)position.Y, tex.Width, tex.Height), spriteTransform);
             }
             else
             {
-                rectangle = new Rectangle((int)position.X, (int)position.Y, drawRect.Width, drawRect.Height);
                 spriteTransform = Matrix.CreateTranslation(new Vector3(-origin, 0.0f)) *
                     Matrix.CreateScale(scale) * Matrix.CreateRotationZ(rotation) *
                     Matrix.CreateTranslation(new Vector3(position, 0.0f));
-                rectangle = CalculateBoundingRectangle(new Rectangle(0, 0, drawRect.Width, drawRect.Height), spriteTransform);
+                rectangle = CalculateBoundingRectangle(new Rectangle((int)position.X, (int)position.Y, drawRect.Width, drawRect.Height), spriteTransform);
             }
         }
 
@@ -196,19 +205,17 @@ namespace GLX
             drawRect.Y = (int)position.Y;
             if (!usingDrawRect)
             {
-                rectangle = new Rectangle((int)position.X, (int)position.Y, tex.Width, tex.Height);
                 spriteTransform = Matrix.CreateTranslation(new Vector3(-origin, 0.0f)) *
                     Matrix.CreateScale(scale) * Matrix.CreateRotationZ(rotation) *
                     Matrix.CreateTranslation(new Vector3(position, 0.0f));
-                rectangle = CalculateBoundingRectangle(new Rectangle(0, 0, tex.Width, tex.Height), spriteTransform);
+                rectangle = CalculateBoundingRectangle(new Rectangle((int)position.X, (int)position.Y, tex.Width, tex.Height), spriteTransform);
             }
             else
             {
-                rectangle = new Rectangle((int)position.X, (int)position.Y, drawRect.Width, drawRect.Height);
                 spriteTransform = Matrix.CreateTranslation(new Vector3(-origin, 0.0f)) *
                     Matrix.CreateScale(scale) * Matrix.CreateRotationZ(rotation) *
                     Matrix.CreateTranslation(new Vector3(position, 0.0f));
-                rectangle = CalculateBoundingRectangle(new Rectangle(0, 0, drawRect.Width, drawRect.Height), spriteTransform);
+                rectangle = CalculateBoundingRectangle(new Rectangle((int)position.X, (int)position.Y, drawRect.Width, drawRect.Height), spriteTransform);
             }
         }
 
