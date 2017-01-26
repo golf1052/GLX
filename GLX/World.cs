@@ -4,7 +4,6 @@ using System.Linq;
 using System.Text;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
-using Microsoft.Xna.Framework.Input;
 
 namespace GLX
 {
@@ -15,14 +14,6 @@ namespace GLX
         public VirtualResolutionRenderer virtualResolutionRenderer;
 
         public static Random random = new Random();
-
-        public static KeyboardState previousKeyboardState;
-        public static GamePadState[] previousGamePadStates = new GamePadState[4];
-        public static MouseState previousMouseState;
-
-        public static KeyboardState keyboardState;
-        public static GamePadState[] gamePadStates = new GamePadState[4];
-        public static MouseState mouseState;
 
         public static List<Action> thingsToDo;
 
@@ -44,10 +35,6 @@ namespace GLX
             menuStates = new Dictionary<string, MenuState>();
             activeMenuStates = new List<KeyValuePair<string, MenuState>>();
             thingsToDo = new List<Action>();
-            for (int i = 0; i < gamePadStates.Length; i++)
-            {
-                gamePadStates[i] = GamePad.GetState((PlayerIndex)i);
-            }
         }
 
         public void AddGameState(string name)
@@ -102,12 +89,6 @@ namespace GLX
 
         public void Update(GameTime gameTime)
         {
-            keyboardState = Keyboard.GetState();
-            gamePadStates[0] = GamePad.GetState(PlayerIndex.One);
-            gamePadStates[1] = GamePad.GetState(PlayerIndex.Two);
-            gamePadStates[2] = GamePad.GetState(PlayerIndex.Three);
-            gamePadStates[3] = GamePad.GetState(PlayerIndex.Four);
-            mouseState = Mouse.GetState();
             foreach (KeyValuePair<string, GameState> gameState in activeGameStates)
             {
                 gameState.Value.Update(gameTime);
@@ -121,9 +102,6 @@ namespace GLX
                 action.Invoke();
             }
             thingsToDo.Clear();
-            previousKeyboardState = keyboardState;
-            previousGamePadStates = gamePadStates;
-            previousMouseState = mouseState;
         }
 
         public void BeginDraw()
