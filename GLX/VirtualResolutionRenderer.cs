@@ -65,8 +65,6 @@ namespace GLX
         {
             // Start by resetting viewport to (0, 0, 1, 1)
             SetupFullViewport();
-            // Then clear the screen
-            //graphics.GraphicsDevice.Clear(BackgroundColor);
             // Then calculate proper viewport according to aspect ratio
             SetupVirtualScreenViewport();
         }
