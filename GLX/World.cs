@@ -200,7 +200,7 @@ namespace GLX
             SamplerState samplerState, DepthStencilState depthStencilState,
             RasterizerState rasterizerState, Effect effect, Matrix transformMatrix)
         {
-            virtualResolutionRenderer.BeginDraw();
+            CurrentCamera.virtualResolutionRenderer.BeginDraw();
             spriteBatch.Begin(sortMode, blendState, samplerState,
                 depthStencilState, rasterizerState, effect, transformMatrix);
         }

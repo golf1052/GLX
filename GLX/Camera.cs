@@ -117,7 +117,7 @@ namespace GLX
             }
         }
 
-        private VirtualResolutionRenderer virtualResolutionRenderer;
+        internal VirtualResolutionRenderer virtualResolutionRenderer;
 
         public Camera(VirtualResolutionRenderer virtualResolutionRenderer, CameraFocus focus)
         {
