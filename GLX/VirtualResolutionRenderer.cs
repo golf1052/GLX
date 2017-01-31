@@ -50,12 +50,21 @@ namespace GLX
             dirtyMatrix = true;
         }
 
+        public VirtualResolutionRenderer(GraphicsDeviceManager graphics, Size virtualResolution, Size windowResolution)
+        {
+            this.graphics = graphics;
+            this.virtualResolution = virtualResolution;
+            WindowResolution = windowResolution;
+            BackgroundColor = Color.CornflowerBlue;
+            SetupVirtualScreenViewport();
+            ratio = new Vector2(Viewport.Width / VirtualResolution.Width, Viewport.Height / VirtualResolution.Height);
+            dirtyMatrix = true;
+        }
+
         public void BeginDraw()
         {
             // Start by resetting viewport to (0, 0, 1, 1)
             SetupFullViewport();
-            // Then clear the screen
-            graphics.GraphicsDevice.Clear(BackgroundColor);
             // Then calculate proper viewport according to aspect ratio
             SetupVirtualScreenViewport();
         }

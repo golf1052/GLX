@@ -71,6 +71,10 @@ namespace GLX
             }
             set
             {
+                if (value < 0)
+                {
+                    value = 0;
+                }
                 zoom = value;
                 isViewTransformDirty = true;
             }
@@ -117,7 +121,7 @@ namespace GLX
             }
         }
 
-        private VirtualResolutionRenderer virtualResolutionRenderer;
+        internal VirtualResolutionRenderer virtualResolutionRenderer;
 
         public Camera(VirtualResolutionRenderer virtualResolutionRenderer, CameraFocus focus)
         {

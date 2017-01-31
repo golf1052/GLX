@@ -61,6 +61,7 @@ namespace GLX
             currentCameraName = Camera1Name;
             CurrentCamera = cameras[Camera1Name];
         }
+
         public void AddCamera(string name, Camera camera)
         {
             if (!cameras.ContainsKey(name) && name != Camera1Name)
@@ -85,6 +86,14 @@ namespace GLX
                     }
                     cameras.Remove(name);
                 }
+            }
+        }
+
+        public void UpdateCamera(string name, GameTimeWrapper gameTime)
+        {
+            if (cameras.ContainsKey(name))
+            {
+                cameras[name].Update(gameTime);
             }
         }
 
@@ -191,7 +200,7 @@ namespace GLX
             SamplerState samplerState, DepthStencilState depthStencilState,
             RasterizerState rasterizerState, Effect effect, Matrix transformMatrix)
         {
-            virtualResolutionRenderer.BeginDraw();
+            CurrentCamera.virtualResolutionRenderer.BeginDraw();
             spriteBatch.Begin(sortMode, blendState, samplerState,
                 depthStencilState, rasterizerState, effect, transformMatrix);
         }
