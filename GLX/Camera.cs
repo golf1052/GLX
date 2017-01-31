@@ -71,6 +71,10 @@ namespace GLX
             }
             set
             {
+                if (value < 0)
+                {
+                    value = 0;
+                }
                 zoom = value;
                 isViewTransformDirty = true;
             }
