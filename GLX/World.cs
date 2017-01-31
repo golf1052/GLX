@@ -61,6 +61,7 @@ namespace GLX
             currentCameraName = Camera1Name;
             CurrentCamera = cameras[Camera1Name];
         }
+
         public void AddCamera(string name, Camera camera)
         {
             if (!cameras.ContainsKey(name) && name != Camera1Name)
@@ -85,6 +86,14 @@ namespace GLX
                     }
                     cameras.Remove(name);
                 }
+            }
+        }
+
+        public void UpdateCamera(string name, GameTimeWrapper gameTime)
+        {
+            if (cameras.ContainsKey(name))
+            {
+                cameras[name].Update(gameTime);
             }
         }
 
