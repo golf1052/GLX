@@ -13,8 +13,7 @@ namespace GLX
         public List<GameTimeWrapper> gameTimes;
         public List<Action> drawMethods;
 
-        public GameState(string name, GraphicsDeviceManager graphics,
-            VirtualResolutionRenderer virtualResolutionRenderer)
+        public GameState(string name, GraphicsDeviceManager graphics)
         {
             gameTimes = new List<GameTimeWrapper>();
             drawMethods = new List<Action>();
