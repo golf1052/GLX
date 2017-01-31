@@ -107,9 +107,22 @@ namespace GLX
             AddGameState(name, graphics);
         }
 
+        public void AddGameState(string name, GameTimeWrapper time, Action drawMethod)
+        {
+            AddGameState(name, graphics, time, drawMethod);
+        }
+
         public void AddGameState(string name, GraphicsDeviceManager graphics)
         {
-            gameStates.Add(name, new GameState(name, graphics, virtualResolutionRenderer));
+            gameStates.Add(name, new GameState(name, graphics));
+        }
+
+        public void AddGameState(string name, GraphicsDeviceManager graphics, GameTimeWrapper time, Action drawMethod)
+        {
+            GameState gameState = new GameState(name, graphics);
+            gameState.AddTime(time);
+            gameState.AddDraw(drawMethod);
+            gameStates.Add(name, gameState);
         }
 
         public void AddMenuState(string name, Game game)
@@ -119,7 +132,7 @@ namespace GLX
 
         public void AddMenuState(string name, GraphicsDeviceManager graphics, Game game)
         {
-            menuStates.Add(name, new MenuState(name, graphics, game, this, virtualResolutionRenderer));
+            menuStates.Add(name, new MenuState(name, graphics, game, this));
         }
 
         public void ActivateGameState(string name)

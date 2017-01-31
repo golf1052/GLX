@@ -30,8 +30,7 @@ namespace GLX
         }
         public Direction menuDirection;
 
-        public MenuState(string name, GraphicsDeviceManager graphics, Game game, World world,
-            VirtualResolutionRenderer virtualResolutionRenderer) : base(name, graphics, virtualResolutionRenderer)
+        public MenuState(string name, GraphicsDeviceManager graphics, Game game, World world) : base(name, graphics)
         {
             menuItems = new List<TextItem>();
             menuItemActions = new Dictionary<string, Action>();
