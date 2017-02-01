@@ -2,6 +2,10 @@
 
 An XNA/MonoGame library
 
+# Using on macOS
+Go to where MonoGame keeps its assemblies, typically `/Library/Frameworks/MonoGame.framework/v3.0/Assemblies/DesktopGL` and make a symbolic link from MonoGame.Framework.dll to MonoGame.Framework.Unix.dll  
+`sudo ln -s /Library/Frameworks/MonoGame.framework/v3.0/Assemblies/DesktopGL/MonoGame.Framework.dll /Library/Frameworks/MonoGame.framework/v3.0/Assemblies/DesktopGL/MonoGame.Framework.Unix.dll`
+
 [Overview of classes](https://github.com/golf1052/GLX/blob/master/Documentation/Overview.md)
 
 ## Usage

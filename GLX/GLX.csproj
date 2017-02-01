@@ -47,7 +47,7 @@
     <Reference Include="System.Data" />
     <Reference Include="System.Xml" />
     <Reference Include="MonoGame.Framework">
-      <HintPath>..\..\..\..\..\Library\Frameworks\MonoGame.framework\v3.6.0.1365\Assemblies\DesktopGL\MonoGame.Framework.dll</HintPath>
+      <HintPath>\Library\Frameworks\MonoGame.framework\v3.6.0.1365\Assemblies\DesktopGL\MonoGame.Framework.Unix.dll</HintPath>
     </Reference>
   </ItemGroup>
   <ItemGroup>
