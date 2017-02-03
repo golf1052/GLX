@@ -33,6 +33,16 @@ namespace GLX
             return projection;
         }
 
+        public static Vector2 LeftNormal(this Vector2 vector)
+        {
+            return new Vector2(-vector.Y, vector.X);
+        }
+
+        public static Vector2 RightNormal(this Vector2 vector)
+        {
+            return new Vector2(vector.Y, -vector.X);
+        }
+
         public static bool IsKeyDownAndUp(this KeyboardState keyboardState, Keys key, KeyboardState previousKeyboardState)
         {
             return keyboardState.IsKeyDown(key) && previousKeyboardState.IsKeyUp(key);

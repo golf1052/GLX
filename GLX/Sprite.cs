@@ -464,8 +464,8 @@ namespace GLX
                                       Vector2.Max(leftBottom, rightBottom));
 
             // Return that as a rectangle
-            return new Rectangle((int)Math.Round(min.X), (int)Math.Round(min.Y),
-                                 (int)Math.Round(max.X - min.X), (int)Math.Round(max.Y - min.Y));
+            return new Rectangle((int)min.X, (int)min.Y,
+                                 (int)(max.X - min.X), (int)(max.Y - min.Y));
         }
     }
 }

@@ -53,6 +53,9 @@
   <ItemGroup>
     <Compile Include="Animations.cs" />
     <Compile Include="Camera.cs" />
+    <Compile Include="Collisions\HelperMethods.cs" />
+    <Compile Include="Collisions\MTV.cs" />
+    <Compile Include="Collisions\Projection.cs" />
     <Compile Include="ColorData.cs" />
     <Compile Include="ColorTweener.cs" />
     <Compile Include="DebugText.cs" />
@@ -64,8 +67,9 @@
     <Compile Include="MenuState.cs" />
     <Compile Include="Particle.cs" />
     <Compile Include="ParticleHandler.cs" />
-    <Compile Include="Polygon.cs" />
+    <Compile Include="Collisions\Polygon.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Collisions\Shape.cs" />
     <Compile Include="Size.cs" />
     <Compile Include="Sound.cs" />
     <Compile Include="Sprite.cs" />
