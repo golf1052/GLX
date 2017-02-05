@@ -10,6 +10,18 @@ namespace GLX
     public static class HelperMethods
     {
         /// <summary>
+        /// Get a random double between two numbers
+        /// </summary>
+        /// <param name="random"></param>
+        /// <param name="minimum">THe minimum number</param>
+        /// <param name="maximum">The maximum number (exclusive)</param>
+        /// <returns></returns>
+        public static double NextDouble(this Random random, double minimum, double maximum)
+        {
+            return random.NextDouble() * (maximum - minimum) + minimum;
+        }
+
+        /// <summary>
         /// Creates a Vector3 from a Vector2 with 0 as its Z value
         /// </summary>
         /// <param name="vector">The Vector2</param>

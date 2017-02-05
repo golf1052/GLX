@@ -22,8 +22,9 @@ namespace GLX
 
         public void Play()
         {
-            sounds.Add(soundEffect.CreateInstance());
-            sounds.Last().Play();
+            SoundEffectInstance instance = soundEffect.CreateInstance();
+            sounds.Add(instance);
+            instance.Play();
             RemoveDeadSounds();
         }
 
@@ -32,7 +33,7 @@ namespace GLX
             SoundEffectInstance instance = soundEffect.CreateInstance();
             instance.Apply3D(listener, emitter);
             sounds.Add(instance);
-            sounds.Last().Play();
+            instance.Play();
             RemoveDeadSounds();
         }
 

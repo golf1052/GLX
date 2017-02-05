@@ -55,6 +55,12 @@ namespace GLX
             this.thickness = thickness;
         }
 
+        public override void Update()
+        {
+            point1 += velocity;
+            point2 += velocity;
+        }
+
         public override void Draw(SpriteBatch spriteBatch)
         {
             rotation = (float)Math.Atan2(point2.Y - point1.Y, point2.X - point1.X);
