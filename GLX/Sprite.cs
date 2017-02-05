@@ -167,7 +167,7 @@ namespace GLX
             {
                 rectangle = new Rectangle((int)position.X, (int)position.Y, tex.Width, tex.Height);
                 spriteTransform = Matrix.CreateTranslation(new Vector3(-origin, 0.0f)) *
-                    Matrix.CreateScale(scale) * Matrix.CreateRotationZ(rotation) *
+                    Matrix.CreateScale(scale) * Matrix.CreateRotationZ(MathHelper.ToRadians(rotation)) *
                     Matrix.CreateTranslation(new Vector3(position, 0.0f));
                 rectangle = CalculateBoundingRectangle(new Rectangle(0, 0, tex.Width, tex.Height), spriteTransform);
             }
@@ -175,7 +175,7 @@ namespace GLX
             {
                 rectangle = new Rectangle((int)position.X, (int)position.Y, drawRect.Width, drawRect.Height);
                 spriteTransform = Matrix.CreateTranslation(new Vector3(-origin, 0.0f)) *
-                    Matrix.CreateScale(scale) * Matrix.CreateRotationZ(rotation) *
+                    Matrix.CreateScale(scale) * Matrix.CreateRotationZ(MathHelper.ToRadians(rotation)) *
                     Matrix.CreateTranslation(new Vector3(position, 0.0f));
                 rectangle = CalculateBoundingRectangle(new Rectangle(0, 0, drawRect.Width, drawRect.Height), spriteTransform);
             }
@@ -198,7 +198,7 @@ namespace GLX
             {
                 rectangle = new Rectangle((int)position.X, (int)position.Y, tex.Width, tex.Height);
                 spriteTransform = Matrix.CreateTranslation(new Vector3(-origin, 0.0f)) *
-                    Matrix.CreateScale(scale) * Matrix.CreateRotationZ(rotation) *
+                    Matrix.CreateScale(scale) * Matrix.CreateRotationZ(MathHelper.ToRadians(rotation)) *
                     Matrix.CreateTranslation(new Vector3(position, 0.0f));
                 rectangle = CalculateBoundingRectangle(new Rectangle(0, 0, tex.Width, tex.Height), spriteTransform);
             }
@@ -206,7 +206,7 @@ namespace GLX
             {
                 rectangle = new Rectangle((int)position.X, (int)position.Y, drawRect.Width, drawRect.Height);
                 spriteTransform = Matrix.CreateTranslation(new Vector3(-origin, 0.0f)) *
-                    Matrix.CreateScale(scale) * Matrix.CreateRotationZ(rotation) *
+                    Matrix.CreateScale(scale) * Matrix.CreateRotationZ(MathHelper.ToRadians(rotation)) *
                     Matrix.CreateTranslation(new Vector3(position, 0.0f));
                 rectangle = CalculateBoundingRectangle(new Rectangle(0, 0, drawRect.Width, drawRect.Height), spriteTransform);
             }
@@ -464,8 +464,8 @@ namespace GLX
                                       Vector2.Max(leftBottom, rightBottom));
 
             // Return that as a rectangle
-            return new Rectangle((int)Math.Round(min.X), (int)Math.Round(min.Y),
-                                 (int)Math.Round(max.X - min.X), (int)Math.Round(max.Y - min.Y));
+            return new Rectangle((int)min.X, (int)min.Y,
+                                 (int)(max.X - min.X), (int)(max.Y - min.Y));
         }
     }
 }
