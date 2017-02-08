@@ -17,7 +17,7 @@ namespace GLX
         }
 
         private Matrix transform;
-        internal Matrix Transform
+        public Matrix Transform
         {
             get
             {
