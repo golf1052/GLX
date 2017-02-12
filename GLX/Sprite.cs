@@ -160,6 +160,7 @@ namespace GLX
             {
                 UpdateAnimation(gameTime);
             }
+            velocity += acceleration;
             position += velocity;
             drawRect.X = (int)position.X;
             drawRect.Y = (int)position.Y;
@@ -191,6 +192,7 @@ namespace GLX
             {
                 UpdateAnimation(gameTime);
             }
+            velocity += acceleration * (float)gameTime.GameSpeed;
             position += velocity * (float)gameTime.GameSpeed;
             drawRect.X = (int)position.X;
             drawRect.Y = (int)position.Y;

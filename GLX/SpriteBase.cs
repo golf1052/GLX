@@ -23,6 +23,11 @@ namespace GLX
         public Vector2 velocity;
 
         /// <summary>
+        /// Stores the acceleration of the sprite.
+        /// </summary>
+        public Vector2 acceleration;
+
+        /// <summary>
         /// Stores whether or not the sprite is visible.
         /// </summary>
         public bool visible;
@@ -78,6 +83,7 @@ namespace GLX
         /// </summary>
         public virtual void Update()
         {
+            velocity += acceleration;
             position += velocity;
         }
 
