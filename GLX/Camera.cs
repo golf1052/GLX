@@ -45,7 +45,15 @@ namespace GLX
             }
             set
             {
-                pan = value;
+                if (Focus == CameraFocus.Center)
+                {
+                    pan = value - new Vector2(virtualResolutionRenderer.VirtualResolution.Width / 2,
+                        virtualResolutionRenderer.VirtualResolution.Height / 2);
+                }
+                else
+                {
+                    pan = value;
+                }
                 isViewTransformDirty = true;
             }
         }
@@ -146,11 +154,6 @@ namespace GLX
             Vector3 cameraScaleVector = new Vector3(zoom, zoom, 1);
             Matrix cameraScaleMatrix = Matrix.CreateScale(cameraScaleVector);
 
-            Vector3 resolutionTranslationVector = new Vector3(virtualResolutionRenderer.VirtualResolution.Width * 0.5f,
-                virtualResolutionRenderer.VirtualResolution.Height * 0.5f,
-                0);
-            Matrix resolutionTranslationMatrix = Matrix.CreateTranslation(resolutionTranslationVector);
-
             if (Focus == CameraFocus.Center)
             {
                 Vector3 reverseOriginTranslationVector = new Vector3(Origin, 0);
@@ -159,8 +162,8 @@ namespace GLX
                     originTranslationMatrix *
                     cameraRotationMatrix *
                     cameraScaleMatrix *
-                    virtualResolutionRenderer.GetTransformationMatrix() *
-                    reverseOriginTranslationMatrix;
+                    reverseOriginTranslationMatrix *
+                    virtualResolutionRenderer.GetTransformationMatrix();
             }
             else if (Focus == CameraFocus.TopLeft)
             {
