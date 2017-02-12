@@ -55,9 +55,19 @@ namespace GLX
             return new Size(a.Width * b.Width, a.Height * b.Height);
         }
 
+        public static Size operator *(Size size, float scaleFactor)
+        {
+            return new Size(size.Width * scaleFactor, size.Height * scaleFactor);
+        }
+
         public static Size operator /(Size a, Size b)
         {
             return new Size(a.Width / b.Width, a.Height / b.Height);
+        }
+
+        public static Size operator /(Size size, float divider)
+        {
+            return new Size(size.Width / divider, size.Height / divider);
         }
 
         public static bool operator ==(Size a, Size b)
