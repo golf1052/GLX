@@ -62,6 +62,11 @@ namespace GLX
         public Animations animations;
 
         /// <summary>
+        /// SpriteEffects
+        /// </summary>
+        public SpriteEffects spriteEffects;
+
+        /// <summary>
         /// Does the sprite have animations
         /// </summary>
         private bool isAnimated;
@@ -85,6 +90,7 @@ namespace GLX
             rectangle = new Rectangle((int)position.X, (int)position.Y, tex.Width, tex.Height);
             colorData = new ColorData(tex);
             origin = new Vector2(tex.Width / 2, tex.Height / 2);
+            spriteEffects = SpriteEffects.None;
             isAnimated = false;
             ready = true;
         }
@@ -104,6 +110,7 @@ namespace GLX
             rectangle = new Rectangle((int)position.X, (int)position.Y, tex.Width, tex.Height);
             colorData = new ColorData(tex);
             origin = new Vector2(tex.Width / 2, tex.Height / 2);
+            spriteEffects = SpriteEffects.None;
             isAnimated = false;
             ready = true;
         }
@@ -115,6 +122,7 @@ namespace GLX
             drawRect = new Rectangle((int)position.X, (int)position.Y, 0, 0);
             usingDrawRect = false;
             drawSize = Size.Zero;
+            spriteEffects = SpriteEffects.None;
             animations = new Animations(spriteSheetInfo);
             ready = false;
         }
@@ -133,6 +141,7 @@ namespace GLX
             drawRect = new Rectangle((int)position.X, (int)position.Y, 0, 0);
             usingDrawRect = false;
             drawSize = Size.Zero;
+            spriteEffects = SpriteEffects.None;
             animations = new Animations(spriteSheetInfo, gameTime);
             ready = false;
         }
@@ -401,7 +410,7 @@ namespace GLX
             {
                 if (!usingDrawRect)
                 {
-                    spriteBatch.Draw(tex, position, null, color * alpha, MathHelper.ToRadians(rotation), origin, scale, SpriteEffects.None, 0);
+                    spriteBatch.Draw(tex, position, null, color * alpha, MathHelper.ToRadians(rotation), origin, scale, spriteEffects, 0);
                 }
                 else
                 {
@@ -412,7 +421,7 @@ namespace GLX
 
         public void DrawAnimation(SpriteBatch spriteBatch)
         {
-            spriteBatch.Draw(animations.CurrentAnimation.tex, position, animations.sourceRect, color * alpha, MathHelper.ToRadians(rotation), origin, scale, SpriteEffects.None, 0);
+            spriteBatch.Draw(animations.CurrentAnimation.tex, position, animations.sourceRect, color * alpha, MathHelper.ToRadians(rotation), origin, scale, spriteEffects, 0);
         }
 
         /// <summary>
@@ -421,7 +430,7 @@ namespace GLX
         /// <param name="spriteBatch">The sprite batch</param>
         public void DrawRect(SpriteBatch spriteBatch)
         {
-            spriteBatch.Draw(tex, drawRect, null, color * alpha, MathHelper.ToRadians(rotation), origin, SpriteEffects.None, 0);
+            spriteBatch.Draw(tex, drawRect, null, color * alpha, MathHelper.ToRadians(rotation), origin, spriteEffects, 0);
         }
 
         /// <summary>
