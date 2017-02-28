@@ -47,8 +47,7 @@ namespace GLX
             {
                 if (Focus == CameraFocus.Center)
                 {
-                    pan = value - new Vector2(virtualResolutionRenderer.VirtualResolution.Width / 2,
-                        virtualResolutionRenderer.VirtualResolution.Height / 2);
+                    pan = value;
                 }
                 else
                 {
@@ -114,8 +113,8 @@ namespace GLX
                     if (value == CameraFocus.Center)
                     {
                         focus = value;
-                        Origin = new Vector2(virtualResolutionRenderer.VirtualResolution.Width / 2,
-                            virtualResolutionRenderer.VirtualResolution.Height / 2);
+                        Origin = -(new Vector2(virtualResolutionRenderer.VirtualResolution.Width / 2,
+                            virtualResolutionRenderer.VirtualResolution.Height / 2));
                     }
                 }
                 else if (focus == CameraFocus.Center)
@@ -156,13 +155,10 @@ namespace GLX
 
             if (Focus == CameraFocus.Center)
             {
-                Vector3 reverseOriginTranslationVector = new Vector3(Origin, 0);
-                Matrix reverseOriginTranslationMatrix = Matrix.CreateTranslation(reverseOriginTranslationVector);
                 transform = cameraTranslationMatrix *
                     originTranslationMatrix *
                     cameraRotationMatrix *
                     cameraScaleMatrix *
-                    reverseOriginTranslationMatrix *
                     virtualResolutionRenderer.GetTransformationMatrix();
             }
             else if (Focus == CameraFocus.TopLeft)
