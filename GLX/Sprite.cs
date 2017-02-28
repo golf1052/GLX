@@ -108,7 +108,6 @@ namespace GLX
             usingDrawRect = true;
             drawSize = Size.Zero;
             rectangle = new Rectangle((int)position.X, (int)position.Y, tex.Width, tex.Height);
-            colorData = new ColorData(tex);
             origin = new Vector2(tex.Width / 2, tex.Height / 2);
             spriteEffects = SpriteEffects.None;
             isAnimated = false;

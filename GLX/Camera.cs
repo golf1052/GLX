@@ -16,11 +16,16 @@ namespace GLX
             Center
         }
 
+        private Matrix virtualTransform;
+        private Matrix projectionTransform;
+        private BoundingFrustum boundingFrustum;
+
         private Matrix transform;
         public Matrix Transform
         {
             get
             {
+                UpdateVirtualTransform();
                 UpdateTransform();
                 return transform;
             }
@@ -140,7 +145,7 @@ namespace GLX
             this.focus = focus;
         }
 
-        private void UpdateTransform()
+        private void UpdateVirtualTransform()
         {
             Vector3 cameraTranslationVector = new Vector3(-Pan, 0);
             Matrix cameraTranslationMatrix = Matrix.CreateTranslation(cameraTranslationVector);
@@ -155,21 +160,38 @@ namespace GLX
 
             if (Focus == CameraFocus.Center)
             {
-                transform = cameraTranslationMatrix *
+                virtualTransform = cameraTranslationMatrix *
                     originTranslationMatrix *
                     cameraRotationMatrix *
-                    cameraScaleMatrix *
-                    virtualResolutionRenderer.GetTransformationMatrix();
+                    cameraScaleMatrix;
             }
             else if (Focus == CameraFocus.TopLeft)
             {
-                transform = cameraTranslationMatrix *
+                virtualTransform = cameraTranslationMatrix *
                     originTranslationMatrix *
                     cameraRotationMatrix *
-                    cameraScaleMatrix *
-                    virtualResolutionRenderer.GetTransformationMatrix();
+                    cameraScaleMatrix;
             }
+        }
+
+        private void UpdateTransform()
+        {
+            transform = virtualTransform * virtualResolutionRenderer.GetTransformationMatrix();
             inverseTransform = Matrix.Invert(transform);
+        }
+
+        private void UpdateProjectionTransform()
+        {
+            projectionTransform = Matrix.CreateOrthographicOffCenter(0,
+                virtualResolutionRenderer.VirtualResolution.Width,
+                virtualResolutionRenderer.VirtualResolution.Height,
+                0, -1, 0);
+            Matrix.Multiply(ref virtualTransform, ref projectionTransform, out projectionTransform);
+        }
+
+        private void UpdateBoundingFrustum()
+        {
+            boundingFrustum = new BoundingFrustum(projectionTransform);
         }
 
         public Vector2 MouseToScreenCoords(Point mouseScreenPosition)
@@ -178,14 +200,36 @@ namespace GLX
             return Vector2.Transform(screenPosition, inverseTransform);
         }
 
+        public bool Contains(Vector2 vector)
+        {
+            ContainmentType containmentType = boundingFrustum.Contains(vector.ToVector3());
+            return !(containmentType == ContainmentType.Disjoint);
+        }
+
+        public bool Contains(Rectangle rectangle)
+        {
+            // doesn't look like it's working atm
+            Vector3 min = new Vector3(rectangle.X, rectangle.Y, 0.5f);
+            Vector3 max = new Vector3(rectangle.X + rectangle.Width, rectangle.Y + rectangle.Height, 0.5f);
+            BoundingBox box = new BoundingBox(min, max);
+            ContainmentType containmentType = boundingFrustum.Contains(boundingFrustum);
+            return !(containmentType == ContainmentType.Disjoint);
+        }
+
         public void Update()
         {
+            UpdateVirtualTransform();
             UpdateTransform();
+            UpdateProjectionTransform();
+            UpdateBoundingFrustum();
         }
 
         public void Update(GameTimeWrapper gameTime)
         {
+            UpdateVirtualTransform();
             UpdateTransform();
+            UpdateProjectionTransform();
+            UpdateBoundingFrustum();
         }
     }
 }
