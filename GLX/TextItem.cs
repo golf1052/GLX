@@ -50,7 +50,7 @@ namespace GLX
 
         public override void Draw(SpriteBatch spriteBatch)
         {
-            spriteBatch.DrawString(font, text, position, color, rotation, origin, scale, SpriteEffects.None, 0);
+            spriteBatch.DrawString(font, text, position, color * alpha, rotation, origin, scale, SpriteEffects.None, 0);
         }
     }
 }
