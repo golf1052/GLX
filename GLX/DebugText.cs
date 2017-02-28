@@ -19,21 +19,36 @@ namespace GLX
 
         public static List<TextItem> debugTexts;
         public static Corner corner;
-        public static Vector2 pos;
+        public static Vector2 position;
         public static float spacing;
         public static SpriteFont spriteFont;
 
-        public static void Initialize(Vector2 pos, Corner corner, float spacing)
+        static DebugText()
         {
-            DebugText.debugTexts = new List<TextItem>();
-            DebugText.pos = pos;
+            debugTexts = new List<TextItem>();
+        }
+
+        public static void Initialize(SpriteFont spriteFont)
+        {
+            Initialize(spriteFont, Vector2.Zero, Corner.TopLeft, 0);
+        }
+
+        public static void Initialize(SpriteFont spriteFont, Vector2 pos, Corner corner, float spacing)
+        {
+            DebugText.spriteFont = spriteFont;
+            DebugText.position = pos;
             DebugText.corner = corner;
             DebugText.spacing = spacing;
         }
 
+        public static void Add(params TextItem[] items)
+        {
+            debugTexts.AddRange(items);
+        }
+
         public static void Draw(SpriteBatch spriteBatch)
         {
-            Vector2 startPosition = pos;
+            Vector2 startPosition = position;
 
             if (corner == Corner.TopLeft)
             {
