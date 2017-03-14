@@ -225,7 +225,7 @@ namespace GLX
             long frameTime,
             bool loop)
         {
-            return new SpriteSheet(spriteSheet,
+            SpriteSheet newSpriteSheet = new SpriteSheet(spriteSheet,
                 info,
                 frameCount,
                 columns,
@@ -233,6 +233,10 @@ namespace GLX
                 direction,
                 frameTime,
                 loop);
+
+            spriteSheets.Add("player", newSpriteSheet);
+
+            return newSpriteSheet;
         }
 
         public void SetFrameAction(string animation, int frameNumber, Action action)
