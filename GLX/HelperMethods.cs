@@ -60,6 +60,11 @@ namespace GLX
             return keyboardState.IsKeyDown(key) && previousKeyboardState.IsKeyUp(key);
         }
 
+        public static bool IsButtonDownAndUp(this GamePadState gamePadState, Buttons button, GamePadState previousGamePadState)
+        {
+            return gamePadState.IsButtonDown(button) && previousGamePadState.IsButtonUp(button);
+        }
+
         public static Vector2 Intersection(Vector2 point1, Vector2 point2, Vector2 point3, Vector2 point4)
         {
             float ua = (point4.X - point3.X) * (point1.Y - point3.Y) - (point4.Y - point3.Y) * (point1.X - point3.X);
