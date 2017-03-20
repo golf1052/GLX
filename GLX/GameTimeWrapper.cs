@@ -77,6 +77,8 @@ namespace GLX
             }
         }
 
+        public bool NormalUpdate { get; set; }
+
         public GameTimeWrapper(Action<GameTimeWrapper> time, Game game, decimal gameSpeed)
         {
             this.UpdateMethod = time;
@@ -86,6 +88,7 @@ namespace GLX
             this.TotalGameTime = TimeSpan.Zero;
             this.ElapsedGameTime = TimeSpan.Zero;
             this.IsRunningSlowly = false;
+            NormalUpdate = true;
         }
 
         public void Update(GameTime gameTime)
@@ -107,6 +110,51 @@ namespace GLX
                     gameSpeedDecimal = -1.0m;
                     gameSpeed = systemSpeed * -1;
                 }
+
+                for (long i = 0; i < updateLoops; i++)
+                {
+                    TotalGameTime += TimeSpan.FromTicks(gameSpeed);
+                    ElapsedGameTime = TimeSpan.FromTicks(gameSpeed);
+                    IsRunningSlowly = gameTime.IsRunningSlowly;
+                    UpdateMethod.Invoke(this);
+                }
+            }
+            if (timeLeftOver != 0)
+            {
+                gameSpeedDecimal = (decimal)timeLeftOver / (decimal)systemSpeed;
+                gameSpeed = timeLeftOver;
+                TotalGameTime += TimeSpan.FromTicks(gameSpeed);
+                ElapsedGameTime = TimeSpan.FromTicks(gameSpeed);
+                IsRunningSlowly = gameTime.IsRunningSlowly;
+                UpdateMethod.Invoke(this);
+            }
+            gameSpeed = realGameSpeed;
+            gameSpeedDecimal = realGameSpeedDecimal;
+        }
+
+        public void UpdateByIncrement(GameTime gameTime)
+        {
+            long updateLoops = Math.Abs(gameSpeed / systemSpeed);
+            if (gameSpeed < systemSpeed)
+            {
+                updateLoops = Math.Abs(systemSpeed / gameSpeed);
+            }
+            long timeLeftOver = gameSpeed % systemSpeed;
+            long realGameSpeed = gameSpeed;
+            decimal realGameSpeedDecimal = gameSpeedDecimal;
+            ActualGameSpeed = realGameSpeedDecimal;
+            if (updateLoops > 0)
+            {
+                //if (gameSpeedDecimal >= 0)
+                //{
+                //    gameSpeedDecimal = 1.0m;
+                //    gameSpeed = systemSpeed;
+                //}
+                //else
+                //{
+                //    gameSpeedDecimal = -1.0m;
+                //    gameSpeed = systemSpeed * -1;
+                //}
 
                 for (long i = 0; i < updateLoops; i++)
                 {

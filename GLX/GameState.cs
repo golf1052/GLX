@@ -15,6 +15,7 @@ namespace GLX
 
         public GameState(string name, GraphicsDeviceManager graphics)
         {
+            this.name = name;
             gameTimes = new List<GameTimeWrapper>();
             drawMethods = new List<Action>();
             gameTimes = new List<GameTimeWrapper>();
@@ -29,7 +30,14 @@ namespace GLX
         {
             foreach (GameTimeWrapper time in gameTimes)
             {
-                time.Update(gameTime);
+                if (time.NormalUpdate)
+                {
+                    time.Update(gameTime);
+                }
+                else
+                {
+                    time.UpdateByIncrement(gameTime);
+                }
             }
         }
 
