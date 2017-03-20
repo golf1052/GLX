@@ -102,6 +102,11 @@ namespace GLX
             CurrentCamera.Update(gameTime);
         }
 
+        public void AddGameState(GameState gameState)
+        {
+            gameStates.Add(gameState.name, gameState);
+        }
+
         public void AddGameState(string name)
         {
             AddGameState(name, graphics);
