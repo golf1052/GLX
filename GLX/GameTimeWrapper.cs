@@ -137,7 +137,10 @@ namespace GLX
             long updateLoops = Math.Abs(gameSpeed / systemSpeed);
             if (gameSpeed < systemSpeed)
             {
-                updateLoops = Math.Abs(systemSpeed / gameSpeed);
+                if (gameSpeed != 0)
+                {
+                    updateLoops = Math.Abs(systemSpeed / gameSpeed);
+                }
             }
             long timeLeftOver = gameSpeed % systemSpeed;
             long realGameSpeed = gameSpeed;

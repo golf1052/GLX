@@ -142,6 +142,11 @@ namespace GLX
             gameStates.Add(name, gameState);
         }
 
+        public void AddMenuState(MenuState menuState)
+        {
+            menuStates.Add(menuState.name, menuState);
+        }
+
         public void AddMenuState(string name, Game game)
         {
             AddMenuState(name, graphics, game);
@@ -164,6 +169,18 @@ namespace GLX
             activeGameStates.Add(new KeyValuePair<string, GameState>(name, gameStates[name]));
         }
 
+        public void DeactivateGameState(string name)
+        {
+            for (int i = 0; i < activeGameStates.Count; i++)
+            {
+                if (activeGameStates[i].Key == name)
+                {
+                    activeGameStates.RemoveAt(i);
+                    return;
+                }
+            }
+        }
+
         public void ActivateMenuState(string name)
         {
             foreach (KeyValuePair<string, MenuState> state in activeMenuStates)
@@ -174,6 +191,18 @@ namespace GLX
                 }
             }
             activeMenuStates.Add(new KeyValuePair<string, MenuState>(name, menuStates[name]));
+        }
+
+        public void DeactivateMenuState(string name)
+        {
+            for (int i = 0; i < activeMenuStates.Count; i++)
+            {
+                if (activeMenuStates[i].Key == name)
+                {
+                    activeMenuStates.RemoveAt(i);
+                    return;
+                }
+            }
         }
 
         public void ClearStates()

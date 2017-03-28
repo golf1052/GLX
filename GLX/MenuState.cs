@@ -21,8 +21,6 @@ namespace GLX
         public float spacing;
         World world;
 
-        GameTimeWrapper menuGameTime;
-
         public enum Direction
         {
             LeftToRight,
@@ -35,8 +33,6 @@ namespace GLX
             menuItems = new List<TextItem>();
             menuItemActions = new Dictionary<string, Action>();
             currentSelection = 0;
-            menuGameTime = new GameTimeWrapper(Update, game, 1.0m);
-            AddTime(menuGameTime);
             AddDraw(Draw);
             this.world = world;
             unselectedColor = Color.Black;
@@ -60,10 +56,6 @@ namespace GLX
                     break;
                 }
             }
-        }
-
-        public void Update(GameTimeWrapper gameTime)
-        {
         }
 
         void Draw()
