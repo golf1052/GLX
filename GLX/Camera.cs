@@ -88,6 +88,11 @@ namespace GLX
                     value = 0;
                 }
                 zoom = value;
+                if (Focus == CameraFocus.Center)
+                {
+                    Origin = -(new Vector2(virtualResolutionRenderer.VirtualResolution.Width / 2,
+                            virtualResolutionRenderer.VirtualResolution.Height / 2)) * (1 / zoom);
+                }
                 isViewTransformDirty = true;
             }
         }
