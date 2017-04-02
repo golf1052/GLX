@@ -39,7 +39,7 @@ namespace GLX.Collisions
             {
                 Projection proj1 = p1.Project(axis);
                 Projection proj2 = p2.Project(axis);
-                if (!proj1.Overlaps(proj2))
+                if (!proj1.Overlaps(proj2) || Double.IsNaN(axis.X))
                 {
                     return null;
                 }
