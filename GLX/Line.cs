@@ -61,6 +61,12 @@ namespace GLX
             point2 += velocity;
         }
 
+        public void Update(GameTimeWrapper gameTime)
+        {
+            point1 += velocity * (float)gameTime.GameSpeed;
+            point2 += velocity * (float)gameTime.GameSpeed;
+        }
+
         public override void Draw(SpriteBatch spriteBatch)
         {
             rotation = (float)Math.Atan2(point2.Y - point1.Y, point2.X - point1.X);
