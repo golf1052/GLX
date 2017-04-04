@@ -147,14 +147,16 @@ namespace GLX
             menuStates.Add(menuState.name, menuState);
         }
 
-        public void AddMenuState(string name, Game game)
+        public MenuState AddMenuState(string name, Game game)
         {
-            AddMenuState(name, graphics, game);
+            return AddMenuState(name, graphics, game);
         }
 
-        public void AddMenuState(string name, GraphicsDeviceManager graphics, Game game)
+        public MenuState AddMenuState(string name, GraphicsDeviceManager graphics, Game game)
         {
-            menuStates.Add(name, new MenuState(name, graphics, game, this));
+            MenuState menuState = new MenuState(name, graphics, game, this);
+            menuStates.Add(name, menuState);
+            return menuState;
         }
 
         public void ActivateGameState(string name)

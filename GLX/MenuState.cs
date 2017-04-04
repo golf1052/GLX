@@ -15,8 +15,36 @@ namespace GLX
         Dictionary<string, Action> menuItemActions;
         public Color unselectedColor;
         public Color selectedColor;
-        int currentSelection;
-        public SpriteFont menuFont;
+        private int currentSelection;
+        public int CurrentSelection
+        {
+            get
+            {
+                return currentSelection;
+            }
+            set
+            {
+                if (menuItems.Count > 0)
+                {
+                    if (value >= menuItems.Count)
+                    {
+                        value = 0;
+                    }
+                    else if (value <= -1)
+                    {
+                        value = menuItems.Count - 1;
+                    }
+                    foreach (var item in menuItems)
+                    {
+                        item.color = unselectedColor;
+                    }
+                    menuItems[value].color = selectedColor;
+                    currentSelection = value;
+                }
+            }
+        }
+
+        public SpriteFont MenuFont { get; set; }
         public Vector2 initialPosition;
         public float spacing;
         World world;
@@ -37,13 +65,19 @@ namespace GLX
             this.world = world;
             unselectedColor = Color.Black;
             selectedColor = Color.Yellow;
+            spacing = 10;
+            menuDirection = Direction.TopToBottom;
         }
 
         public void AddMenuItem(string spriteText = "")
         {
-            menuItems.Add(new TextItem(menuFont, spriteText));
+            menuItems.Add(new TextItem(MenuFont, spriteText));
             menuItems.Last().color = unselectedColor;
             menuItems.Last().Update();
+            if (menuItems.Count == 1)
+            {
+                menuItems[0].color = selectedColor;
+            }
         }
 
         public void SetMenuAction(string text, Action action)
@@ -55,6 +89,17 @@ namespace GLX
                     menuItemActions.Add(text, action);
                     break;
                 }
+            }
+        }
+
+        public void DoAction()
+        {
+            if (menuItemActions.ContainsKey(menuItems[CurrentSelection].text))
+            {
+                // this is bad. if the action modifies the state list then trying to just directly invoke the
+                // action will throw an error. instead we have to defer the invocation until after the update
+                // loops finish...
+                World.thingsToDo.Add(menuItemActions[menuItems[CurrentSelection].text]);
             }
         }
 
