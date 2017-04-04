@@ -18,6 +18,7 @@ namespace GLX
         }
 
         public static List<TextItem> debugTexts;
+        private static List<TextItem> otherDebugTexts;
         public static Corner corner;
         public static Vector2 position;
         public static float spacing;
@@ -26,6 +27,7 @@ namespace GLX
         static DebugText()
         {
             debugTexts = new List<TextItem>();
+            otherDebugTexts = new List<TextItem>();
         }
 
         public static void Initialize(SpriteFont spriteFont)
@@ -44,6 +46,13 @@ namespace GLX
         public static void Add(params TextItem[] items)
         {
             debugTexts.AddRange(items);
+        }
+
+        public static void AddOther(string key, string text)
+        {
+            TextItem item = new TextItem(spriteFont, text);
+            otherDebugTexts.Add(item);
+            debugTexts.AddRange(otherDebugTexts);
         }
 
         public static void Draw(SpriteBatch spriteBatch)
@@ -93,6 +102,8 @@ namespace GLX
                     textItem.Draw(spriteBatch);
                 }
             }
+            debugTexts.Clear();
+            otherDebugTexts.Clear();
         }
     }
 }

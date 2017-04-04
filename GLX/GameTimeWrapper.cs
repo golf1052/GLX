@@ -15,6 +15,9 @@ namespace GLX
         // This time world's time between frames. Unit = Ticks.
         private long gameSpeed;
 
+        // The gameSpeed when this GameTime was orignally initalized
+        private readonly long originalGameSpeed;
+
         // This time world's time specified as a ratio. gameSpeed / systemSpeed.
         private decimal gameSpeedDecimal;
 
@@ -85,6 +88,7 @@ namespace GLX
             this.systemSpeed = game.TargetElapsedTime.Ticks;
             this.gameSpeed = game.TargetElapsedTime.Ticks;
             this.GameSpeed = gameSpeed;
+            this.originalGameSpeed = this.gameSpeed;
             this.TotalGameTime = TimeSpan.Zero;
             this.ElapsedGameTime = TimeSpan.Zero;
             this.IsRunningSlowly = false;
@@ -139,7 +143,7 @@ namespace GLX
             {
                 if (gameSpeed != 0)
                 {
-                    updateLoops = Math.Abs(systemSpeed / gameSpeed);
+                    updateLoops = Math.Abs(systemSpeed / originalGameSpeed);
                 }
             }
             long timeLeftOver = gameSpeed % systemSpeed;
@@ -148,6 +152,7 @@ namespace GLX
             ActualGameSpeed = realGameSpeedDecimal;
             if (updateLoops > 0)
             {
+                DebugText.AddOther(nameof(updateLoops), updateLoops.ToString());
                 //if (gameSpeedDecimal >= 0)
                 //{
                 //    gameSpeedDecimal = 1.0m;

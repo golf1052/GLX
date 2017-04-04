@@ -63,8 +63,8 @@ namespace GLX
             currentSelection = 0;
             AddDraw(Draw);
             this.world = world;
-            unselectedColor = Color.Gray;
-            selectedColor = Color.White;
+            unselectedColor = Color.Black;
+            selectedColor = Color.Yellow;
             spacing = 10;
             menuDirection = Direction.TopToBottom;
         }
