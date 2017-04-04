@@ -30,5 +30,10 @@ namespace GLX.Collisions
             }
             return 0;
         }
+
+        public bool Contains(Projection p)
+        {
+            return p.min > min && p.max < max;
+        }
     }
 }
