@@ -1,0 +1,732 @@
+﻿<!DOCTYPE html>
+<!--[if IE]><![endif]-->
+<html>
+  
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <title>Class Sprite
+   </title>
+    <meta name="viewport" content="width=device-width">
+    <meta name="title" content="Class Sprite
+   ">
+    <meta name="generator" content="docfx 2.15.5.0">
+    
+    <link rel="shortcut icon" href="../favicon.ico">
+    <link rel="stylesheet" href="../styles/docfx.vendor.css">
+    <link rel="stylesheet" href="../styles/docfx.css">
+    <link rel="stylesheet" href="../styles/main.css">
+    <meta property="docfx:navrel" content="../toc.html">
+    <meta property="docfx:tocrel" content="toc.html">
+    
+    
+  </head>
+  <body data-spy="scroll" data-target="#affix">
+    <div id="wrapper">
+      <header>
+        
+        <nav id="autocollapse" class="navbar navbar-inverse ng-scope" role="navigation">
+          <div class="container">
+            <div class="navbar-header">
+              <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+              </button>
+              
+              <a class="navbar-brand" href="../index.html">
+                <img id="logo" class="svg" src="../logo.svg" alt="">
+              </a>
+            </div>
+            <div class="collapse navbar-collapse" id="navbar">
+              <form class="navbar-form navbar-right" role="search" id="search">
+                <div class="form-group">
+                  <input type="text" class="form-control" id="search-query" placeholder="Search" autocomplete="off">
+                </div>
+              </form>
+            </div>
+          </div>
+        </nav>
+        
+        <div class="subnav navbar navbar-default">
+          <div class="container hide-when-search" id="breadcrumb">
+            <ul class="breadcrumb">
+              <li></li>
+            </ul>
+          </div>
+        </div>
+      </header>
+      <div role="main" class="container body-content hide-when-search">
+        
+        <div class="sidenav hide-when-search">
+          <a class="btn toc-toggle collapse" data-toggle="collapse" href="#sidetoggle" aria-expanded="false" aria-controls="sidetoggle">Show / Hide Table of Contents</a>
+          <div class="sidetoggle collapse" id="sidetoggle">
+            <div id="sidetoc"></div>
+          </div>
+        </div>
+        <div class="article row grid-right">
+          <div class="col-md-10">
+            <article class="content wrap" id="_content">
+              
+              
+              <h1 id="GLX_Sprite" data-uid="GLX.Sprite">Class Sprite
+              </h1>
+              <div class="markdown level0 summary"><p>Sprite class</p>
+</div>
+              <div class="markdown level0 conceptual"></div>
+              <div class="inheritance">
+                <h5>Inheritance</h5>
+                  <div class="level0"><span class="xref">System.Object</span></div>
+                  <div class="level1"><a class="xref" href="GLX.SpriteBase.html">SpriteBase</a></div>
+                  <div class="level2"><span class="xref">Sprite</span></div>
+                  <div class="level3"><a class="xref" href="GLX.Particle.html">Particle</a></div>
+              </div>
+              <div class="inheritedMembers">
+                <h5>Inherited Members</h5>
+                <div>
+                  <a class="xref" href="GLX.SpriteBase.html#GLX_SpriteBase_position">SpriteBase.position</a>
+                </div>
+                <div>
+                  <a class="xref" href="GLX.SpriteBase.html#GLX_SpriteBase_velocity">SpriteBase.velocity</a>
+                </div>
+                <div>
+                  <a class="xref" href="GLX.SpriteBase.html#GLX_SpriteBase_acceleration">SpriteBase.acceleration</a>
+                </div>
+                <div>
+                  <a class="xref" href="GLX.SpriteBase.html#GLX_SpriteBase_visible">SpriteBase.visible</a>
+                </div>
+                <div>
+                  <a class="xref" href="GLX.SpriteBase.html#GLX_SpriteBase_rectangle">SpriteBase.rectangle</a>
+                </div>
+                <div>
+                  <a class="xref" href="GLX.SpriteBase.html#GLX_SpriteBase_color">SpriteBase.color</a>
+                </div>
+                <div>
+                  <a class="xref" href="GLX.SpriteBase.html#GLX_SpriteBase_origin">SpriteBase.origin</a>
+                </div>
+                <div>
+                  <a class="xref" href="GLX.SpriteBase.html#GLX_SpriteBase_alpha">SpriteBase.alpha</a>
+                </div>
+                <div>
+                  <a class="xref" href="GLX.SpriteBase.html#GLX_SpriteBase_rotation">SpriteBase.rotation</a>
+                </div>
+                <div>
+                  <a class="xref" href="GLX.SpriteBase.html#GLX_SpriteBase_scale">SpriteBase.scale</a>
+                </div>
+                <div>
+                  <a class="xref" href="GLX.SpriteBase.html#GLX_SpriteBase_Update">SpriteBase.Update()</a>
+                </div>
+                <div>
+                  <a class="xref" href="GLX.SpriteBase.html#GLX_SpriteBase_Move_Microsoft_Xna_Framework_Input_KeyboardState_System_Single_GLX_SpriteBase_MovementDirection_Microsoft_Xna_Framework_Input_Keys_">SpriteBase.Move(KeyboardState, Single, SpriteBase.MovementDirection, Keys)</a>
+                </div>
+                <div>
+                  <a class="xref" href="GLX.SpriteBase.html#GLX_SpriteBase_Aim_Microsoft_Xna_Framework_Vector2_">SpriteBase.Aim(Vector2)</a>
+                </div>
+                <div>
+                  <a class="xref" href="GLX.SpriteBase.html#GLX_SpriteBase_Aim_Microsoft_Xna_Framework_Input_MouseState_GLX_Camera_">SpriteBase.Aim(MouseState, Camera)</a>
+                </div>
+                <div>
+                  <a class="xref" href="GLX.SpriteBase.html#GLX_SpriteBase_Aim_Microsoft_Xna_Framework_Input_GamePadState_GLX_SpriteBase_ThumbStick_">SpriteBase.Aim(GamePadState, SpriteBase.ThumbStick)</a>
+                </div>
+                <div>
+                  <span class="xref">System.Object.Equals(System.Object)</span>
+                </div>
+                <div>
+                  <span class="xref">System.Object.Equals(System.Object, System.Object)</span>
+                </div>
+                <div>
+                  <span class="xref">System.Object.GetHashCode()</span>
+                </div>
+                <div>
+                  <span class="xref">System.Object.GetType()</span>
+                </div>
+                <div>
+                  <span class="xref">System.Object.MemberwiseClone()</span>
+                </div>
+                <div>
+                  <span class="xref">System.Object.ReferenceEquals(System.Object, System.Object)</span>
+                </div>
+                <div>
+                  <span class="xref">System.Object.ToString()</span>
+                </div>
+              </div>
+              <h6><strong>Namespace</strong>:GLX</h6>
+              <h6><strong>Assembly</strong>:GLX.dll</h6>
+              <h5 id="GLX_Sprite_syntax">Syntax</h5>
+              <div class="codewrapper">
+                <pre><code class="lang-csharp hljs">public class Sprite : SpriteBase</code></pre>
+              </div>
+              <h3 id="constructors">Constructors
+              </h3>
+              <span class="small pull-right mobile-hide">
+                <span class="divider">|</span>
+                <a href="https://github.com/golf1052/GLX/new/master/apiSpec/new?filename=GLX_Sprite__ctor_GLX_SpriteSheetInfo_GLX_GameTimeWrapper_Microsoft_Xna_Framework_GraphicsDeviceManager_.md&amp;value=---%0Auid%3A%20GLX.Sprite.%23ctor(GLX.SpriteSheetInfo%2CGLX.GameTimeWrapper%2CMicrosoft.Xna.Framework.GraphicsDeviceManager)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+              </span>
+              <span class="small pull-right mobile-hide">
+                <a href="https://github.com/golf1052/GLX/blob/master/GLX/Sprite.cs/#L136">View Source</a>
+              </span>
+              <a id="GLX_Sprite__ctor_" data-uid="GLX.Sprite.#ctor*"></a>
+              <h4 id="GLX_Sprite__ctor_GLX_SpriteSheetInfo_GLX_GameTimeWrapper_Microsoft_Xna_Framework_GraphicsDeviceManager_" data-uid="GLX.Sprite.#ctor(GLX.SpriteSheetInfo,GLX.GameTimeWrapper,Microsoft.Xna.Framework.GraphicsDeviceManager)">Sprite(SpriteSheetInfo, GameTimeWrapper, GraphicsDeviceManager)</h4>
+              <div class="markdown level1 summary"><p>Creates an animatable Sprite that is not ready to use
+In order to use this sprite you need to add sprite sheets
+Then call <pre><code>Ready</code></pre></p>
+</div>
+              <div class="markdown level1 conceptual"></div>
+              <h5 class="decalaration">Declaration</h5>
+              <div class="codewrapper">
+                <pre><code class="lang-csharp hljs">public Sprite(SpriteSheetInfo spriteSheetInfo, GameTimeWrapper gameTime, GraphicsDeviceManager graphics)</code></pre>
+              </div>
+              <h5 class="parameters">Parameters</h5>
+              <table class="table table-bordered table-striped table-condensed">
+                <thead>
+                  <tr>
+                    <th>Type</th>
+                    <th>Name</th>
+                    <th>Description</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td><a class="xref" href="GLX.SpriteSheetInfo.html">SpriteSheetInfo</a></td>
+                    <td><span class="parametername">spriteSheetInfo</span></td>
+                    <td><p>The sprite sheet info</p>
+</td>
+                  </tr>
+                  <tr>
+                    <td><a class="xref" href="GLX.GameTimeWrapper.html">GameTimeWrapper</a></td>
+                    <td><span class="parametername">gameTime</span></td>
+                    <td><p>The game time the sprite will exist in</p>
+</td>
+                  </tr>
+                  <tr>
+                    <td><span class="xref">Microsoft.Xna.Framework.GraphicsDeviceManager</span></td>
+                    <td><span class="parametername">graphics</span></td>
+                    <td></td>
+                  </tr>
+                </tbody>
+              </table>
+              <span class="small pull-right mobile-hide">
+                <span class="divider">|</span>
+                <a href="https://github.com/golf1052/GLX/new/master/apiSpec/new?filename=GLX_Sprite__ctor_GLX_SpriteSheetInfo_Microsoft_Xna_Framework_GraphicsDeviceManager_.md&amp;value=---%0Auid%3A%20GLX.Sprite.%23ctor(GLX.SpriteSheetInfo%2CMicrosoft.Xna.Framework.GraphicsDeviceManager)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+              </span>
+              <span class="small pull-right mobile-hide">
+                <a href="https://github.com/golf1052/GLX/blob/master/GLX/Sprite.cs/#L117">View Source</a>
+              </span>
+              <a id="GLX_Sprite__ctor_" data-uid="GLX.Sprite.#ctor*"></a>
+              <h4 id="GLX_Sprite__ctor_GLX_SpriteSheetInfo_Microsoft_Xna_Framework_GraphicsDeviceManager_" data-uid="GLX.Sprite.#ctor(GLX.SpriteSheetInfo,Microsoft.Xna.Framework.GraphicsDeviceManager)">Sprite(SpriteSheetInfo, GraphicsDeviceManager)</h4>
+              <div class="markdown level1 summary"></div>
+              <div class="markdown level1 conceptual"></div>
+              <h5 class="decalaration">Declaration</h5>
+              <div class="codewrapper">
+                <pre><code class="lang-csharp hljs">public Sprite(SpriteSheetInfo spriteSheetInfo, GraphicsDeviceManager graphics)</code></pre>
+              </div>
+              <h5 class="parameters">Parameters</h5>
+              <table class="table table-bordered table-striped table-condensed">
+                <thead>
+                  <tr>
+                    <th>Type</th>
+                    <th>Name</th>
+                    <th>Description</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td><a class="xref" href="GLX.SpriteSheetInfo.html">SpriteSheetInfo</a></td>
+                    <td><span class="parametername">spriteSheetInfo</span></td>
+                    <td></td>
+                  </tr>
+                  <tr>
+                    <td><span class="xref">Microsoft.Xna.Framework.GraphicsDeviceManager</span></td>
+                    <td><span class="parametername">graphics</span></td>
+                    <td></td>
+                  </tr>
+                </tbody>
+              </table>
+              <span class="small pull-right mobile-hide">
+                <span class="divider">|</span>
+                <a href="https://github.com/golf1052/GLX/new/master/apiSpec/new?filename=GLX_Sprite__ctor_Microsoft_Xna_Framework_Graphics_Texture2D_.md&amp;value=---%0Auid%3A%20GLX.Sprite.%23ctor(Microsoft.Xna.Framework.Graphics.Texture2D)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+              </span>
+              <span class="small pull-right mobile-hide">
+                <a href="https://github.com/golf1052/GLX/blob/master/GLX/Sprite.cs/#L84">View Source</a>
+              </span>
+              <a id="GLX_Sprite__ctor_" data-uid="GLX.Sprite.#ctor*"></a>
+              <h4 id="GLX_Sprite__ctor_Microsoft_Xna_Framework_Graphics_Texture2D_" data-uid="GLX.Sprite.#ctor(Microsoft.Xna.Framework.Graphics.Texture2D)">Sprite(Texture2D)</h4>
+              <div class="markdown level1 summary"><p>Creates a new sprite with the loaded texture</p>
+</div>
+              <div class="markdown level1 conceptual"></div>
+              <h5 class="decalaration">Declaration</h5>
+              <div class="codewrapper">
+                <pre><code class="lang-csharp hljs">public Sprite(Texture2D loadedTex)</code></pre>
+              </div>
+              <h5 class="parameters">Parameters</h5>
+              <table class="table table-bordered table-striped table-condensed">
+                <thead>
+                  <tr>
+                    <th>Type</th>
+                    <th>Name</th>
+                    <th>Description</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td><span class="xref">Microsoft.Xna.Framework.Graphics.Texture2D</span></td>
+                    <td><span class="parametername">loadedTex</span></td>
+                    <td><p>The texture loaded from the Content manager</p>
+</td>
+                  </tr>
+                </tbody>
+              </table>
+              <span class="small pull-right mobile-hide">
+                <span class="divider">|</span>
+                <a href="https://github.com/golf1052/GLX/new/master/apiSpec/new?filename=GLX_Sprite__ctor_Microsoft_Xna_Framework_GraphicsDeviceManager_.md&amp;value=---%0Auid%3A%20GLX.Sprite.%23ctor(Microsoft.Xna.Framework.GraphicsDeviceManager)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+              </span>
+              <span class="small pull-right mobile-hide">
+                <a href="https://github.com/golf1052/GLX/blob/master/GLX/Sprite.cs/#L103">View Source</a>
+              </span>
+              <a id="GLX_Sprite__ctor_" data-uid="GLX.Sprite.#ctor*"></a>
+              <h4 id="GLX_Sprite__ctor_Microsoft_Xna_Framework_GraphicsDeviceManager_" data-uid="GLX.Sprite.#ctor(Microsoft.Xna.Framework.GraphicsDeviceManager)">Sprite(GraphicsDeviceManager)</h4>
+              <div class="markdown level1 summary"><p>Creates a new sprite that has a 1 by 1 white pixel as its texture</p>
+</div>
+              <div class="markdown level1 conceptual"></div>
+              <h5 class="decalaration">Declaration</h5>
+              <div class="codewrapper">
+                <pre><code class="lang-csharp hljs">public Sprite(GraphicsDeviceManager graphics)</code></pre>
+              </div>
+              <h5 class="parameters">Parameters</h5>
+              <table class="table table-bordered table-striped table-condensed">
+                <thead>
+                  <tr>
+                    <th>Type</th>
+                    <th>Name</th>
+                    <th>Description</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td><span class="xref">Microsoft.Xna.Framework.GraphicsDeviceManager</span></td>
+                    <td><span class="parametername">graphics</span></td>
+                    <td><p>Graphics device manager for game</p>
+</td>
+                  </tr>
+                </tbody>
+              </table>
+              <h5 id="GLX_Sprite__ctor_Microsoft_Xna_Framework_GraphicsDeviceManager__remarks">Remarks</h5>
+              <div class="markdown level1 remarks"><p>This pixel can be resized using <a class="xref" href="GLX.Sprite.html#GLX_Sprite_DrawSize">DrawSize</a></p>
+</div>
+              <h3 id="fields">Fields
+              </h3>
+              <span class="small pull-right mobile-hide">
+                <span class="divider">|</span>
+                <a href="https://github.com/golf1052/GLX/new/master/apiSpec/new?filename=GLX_Sprite_animations.md&amp;value=---%0Auid%3A%20GLX.Sprite.animations%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+              </span>
+              <span class="small pull-right mobile-hide">
+                <a href="https://github.com/golf1052/GLX/blob/master/GLX/Sprite.cs/#L62">View Source</a>
+              </span>
+              <h4 id="GLX_Sprite_animations" data-uid="GLX.Sprite.animations">animations</h4>
+              <div class="markdown level1 summary"><p>Sprite animation data</p>
+</div>
+              <div class="markdown level1 conceptual"></div>
+              <h5 class="decalaration">Declaration</h5>
+              <div class="codewrapper">
+                <pre><code class="lang-csharp hljs">public Animations animations</code></pre>
+              </div>
+              <h5 class="fieldValue">Field Value</h5>
+              <table class="table table-bordered table-striped table-condensed">
+                <thead>
+                  <tr>
+                    <th>Type</th>
+                    <th>Description</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td><a class="xref" href="GLX.Animations.html">Animations</a></td>
+                    <td></td>
+                  </tr>
+                </tbody>
+              </table>
+              <span class="small pull-right mobile-hide">
+                <span class="divider">|</span>
+                <a href="https://github.com/golf1052/GLX/new/master/apiSpec/new?filename=GLX_Sprite_colorData.md&amp;value=---%0Auid%3A%20GLX.Sprite.colorData%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+              </span>
+              <span class="small pull-right mobile-hide">
+                <a href="https://github.com/golf1052/GLX/blob/master/GLX/Sprite.cs/#L52">View Source</a>
+              </span>
+              <h4 id="GLX_Sprite_colorData" data-uid="GLX.Sprite.colorData">colorData</h4>
+              <div class="markdown level1 summary"><p>Texture color data</p>
+</div>
+              <div class="markdown level1 conceptual"></div>
+              <h5 class="decalaration">Declaration</h5>
+              <div class="codewrapper">
+                <pre><code class="lang-csharp hljs">public ColorData colorData</code></pre>
+              </div>
+              <h5 class="fieldValue">Field Value</h5>
+              <table class="table table-bordered table-striped table-condensed">
+                <thead>
+                  <tr>
+                    <th>Type</th>
+                    <th>Description</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td><a class="xref" href="GLX.ColorData.html">ColorData</a></td>
+                    <td></td>
+                  </tr>
+                </tbody>
+              </table>
+              <span class="small pull-right mobile-hide">
+                <span class="divider">|</span>
+                <a href="https://github.com/golf1052/GLX/new/master/apiSpec/new?filename=GLX_Sprite_spriteEffects.md&amp;value=---%0Auid%3A%20GLX.Sprite.spriteEffects%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+              </span>
+              <span class="small pull-right mobile-hide">
+                <a href="https://github.com/golf1052/GLX/blob/master/GLX/Sprite.cs/#L67">View Source</a>
+              </span>
+              <h4 id="GLX_Sprite_spriteEffects" data-uid="GLX.Sprite.spriteEffects">spriteEffects</h4>
+              <div class="markdown level1 summary"><p>SpriteEffects</p>
+</div>
+              <div class="markdown level1 conceptual"></div>
+              <h5 class="decalaration">Declaration</h5>
+              <div class="codewrapper">
+                <pre><code class="lang-csharp hljs">public SpriteEffects spriteEffects</code></pre>
+              </div>
+              <h5 class="fieldValue">Field Value</h5>
+              <table class="table table-bordered table-striped table-condensed">
+                <thead>
+                  <tr>
+                    <th>Type</th>
+                    <th>Description</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td><span class="xref">Microsoft.Xna.Framework.Graphics.SpriteEffects</span></td>
+                    <td></td>
+                  </tr>
+                </tbody>
+              </table>
+              <span class="small pull-right mobile-hide">
+                <span class="divider">|</span>
+                <a href="https://github.com/golf1052/GLX/new/master/apiSpec/new?filename=GLX_Sprite_spriteTransform.md&amp;value=---%0Auid%3A%20GLX.Sprite.spriteTransform%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+              </span>
+              <span class="small pull-right mobile-hide">
+                <a href="https://github.com/golf1052/GLX/blob/master/GLX/Sprite.cs/#L57">View Source</a>
+              </span>
+              <h4 id="GLX_Sprite_spriteTransform" data-uid="GLX.Sprite.spriteTransform">spriteTransform</h4>
+              <div class="markdown level1 summary"><p>Sprite transform. Used when sprite is rotated and/or scaled</p>
+</div>
+              <div class="markdown level1 conceptual"></div>
+              <h5 class="decalaration">Declaration</h5>
+              <div class="codewrapper">
+                <pre><code class="lang-csharp hljs">public Matrix spriteTransform</code></pre>
+              </div>
+              <h5 class="fieldValue">Field Value</h5>
+              <table class="table table-bordered table-striped table-condensed">
+                <thead>
+                  <tr>
+                    <th>Type</th>
+                    <th>Description</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td><span class="xref">Microsoft.Xna.Framework.Matrix</span></td>
+                    <td></td>
+                  </tr>
+                </tbody>
+              </table>
+              <span class="small pull-right mobile-hide">
+                <span class="divider">|</span>
+                <a href="https://github.com/golf1052/GLX/new/master/apiSpec/new?filename=GLX_Sprite_tex.md&amp;value=---%0Auid%3A%20GLX.Sprite.tex%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+              </span>
+              <span class="small pull-right mobile-hide">
+                <a href="https://github.com/golf1052/GLX/blob/master/GLX/Sprite.cs/#L22">View Source</a>
+              </span>
+              <h4 id="GLX_Sprite_tex" data-uid="GLX.Sprite.tex">tex</h4>
+              <div class="markdown level1 summary"><p>Sprite texture</p>
+</div>
+              <div class="markdown level1 conceptual"></div>
+              <h5 class="decalaration">Declaration</h5>
+              <div class="codewrapper">
+                <pre><code class="lang-csharp hljs">public Texture2D tex</code></pre>
+              </div>
+              <h5 class="fieldValue">Field Value</h5>
+              <table class="table table-bordered table-striped table-condensed">
+                <thead>
+                  <tr>
+                    <th>Type</th>
+                    <th>Description</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td><span class="xref">Microsoft.Xna.Framework.Graphics.Texture2D</span></td>
+                    <td></td>
+                  </tr>
+                </tbody>
+              </table>
+              <h3 id="properties">Properties
+              </h3>
+              <span class="small pull-right mobile-hide">
+                <span class="divider">|</span>
+                <a href="https://github.com/golf1052/GLX/new/master/apiSpec/new?filename=GLX_Sprite_DrawSize.md&amp;value=---%0Auid%3A%20GLX.Sprite.DrawSize%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+              </span>
+              <span class="small pull-right mobile-hide">
+                <a href="https://github.com/golf1052/GLX/blob/master/GLX/Sprite.cs/#L35">View Source</a>
+              </span>
+              <a id="GLX_Sprite_DrawSize_" data-uid="GLX.Sprite.DrawSize*"></a>
+              <h4 id="GLX_Sprite_DrawSize" data-uid="GLX.Sprite.DrawSize">DrawSize</h4>
+              <div class="markdown level1 summary"><p>Sprite draw size</p>
+</div>
+              <div class="markdown level1 conceptual"></div>
+              <h5 class="decalaration">Declaration</h5>
+              <div class="codewrapper">
+                <pre><code class="lang-csharp hljs">public Size DrawSize { get; set; }</code></pre>
+              </div>
+              <h5 class="propertyValue">Property Value</h5>
+              <table class="table table-bordered table-striped table-condensed">
+                <thead>
+                  <tr>
+                    <th>Type</th>
+                    <th>Description</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td><a class="xref" href="GLX.Size.html">Size</a></td>
+                    <td></td>
+                  </tr>
+                </tbody>
+              </table>
+              <h3 id="methods">Methods
+              </h3>
+              <span class="small pull-right mobile-hide">
+                <span class="divider">|</span>
+                <a href="https://github.com/golf1052/GLX/new/master/apiSpec/new?filename=GLX_Sprite_Draw_Microsoft_Xna_Framework_Graphics_SpriteBatch_.md&amp;value=---%0Auid%3A%20GLX.Sprite.Draw(Microsoft.Xna.Framework.Graphics.SpriteBatch)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+              </span>
+              <span class="small pull-right mobile-hide">
+                <a href="https://github.com/golf1052/GLX/blob/master/GLX/Sprite.cs/#L402">View Source</a>
+              </span>
+              <a id="GLX_Sprite_Draw_" data-uid="GLX.Sprite.Draw*"></a>
+              <h4 id="GLX_Sprite_Draw_Microsoft_Xna_Framework_Graphics_SpriteBatch_" data-uid="GLX.Sprite.Draw(Microsoft.Xna.Framework.Graphics.SpriteBatch)">Draw(SpriteBatch)</h4>
+              <div class="markdown level1 summary"><p>Draws the sprite</p>
+</div>
+              <div class="markdown level1 conceptual"></div>
+              <h5 class="decalaration">Declaration</h5>
+              <div class="codewrapper">
+                <pre><code class="lang-csharp hljs">public override void Draw(SpriteBatch spriteBatch)</code></pre>
+              </div>
+              <h5 class="parameters">Parameters</h5>
+              <table class="table table-bordered table-striped table-condensed">
+                <thead>
+                  <tr>
+                    <th>Type</th>
+                    <th>Name</th>
+                    <th>Description</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td><span class="xref">Microsoft.Xna.Framework.Graphics.SpriteBatch</span></td>
+                    <td><span class="parametername">spriteBatch</span></td>
+                    <td><p>The sprite batch</p>
+</td>
+                  </tr>
+                </tbody>
+              </table>
+              <h5 class="overrides">Overrides</h5>
+              <div><a class="xref" href="GLX.SpriteBase.html#GLX_SpriteBase_Draw_Microsoft_Xna_Framework_Graphics_SpriteBatch_">SpriteBase.Draw(SpriteBatch)</a></div>
+              <span class="small pull-right mobile-hide">
+                <span class="divider">|</span>
+                <a href="https://github.com/golf1052/GLX/new/master/apiSpec/new?filename=GLX_Sprite_DrawAnimation_Microsoft_Xna_Framework_Graphics_SpriteBatch_.md&amp;value=---%0Auid%3A%20GLX.Sprite.DrawAnimation(Microsoft.Xna.Framework.Graphics.SpriteBatch)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+              </span>
+              <span class="small pull-right mobile-hide">
+                <a href="https://github.com/golf1052/GLX/blob/master/GLX/Sprite.cs/#L421">View Source</a>
+              </span>
+              <a id="GLX_Sprite_DrawAnimation_" data-uid="GLX.Sprite.DrawAnimation*"></a>
+              <h4 id="GLX_Sprite_DrawAnimation_Microsoft_Xna_Framework_Graphics_SpriteBatch_" data-uid="GLX.Sprite.DrawAnimation(Microsoft.Xna.Framework.Graphics.SpriteBatch)">DrawAnimation(SpriteBatch)</h4>
+              <div class="markdown level1 summary"></div>
+              <div class="markdown level1 conceptual"></div>
+              <h5 class="decalaration">Declaration</h5>
+              <div class="codewrapper">
+                <pre><code class="lang-csharp hljs">public void DrawAnimation(SpriteBatch spriteBatch)</code></pre>
+              </div>
+              <h5 class="parameters">Parameters</h5>
+              <table class="table table-bordered table-striped table-condensed">
+                <thead>
+                  <tr>
+                    <th>Type</th>
+                    <th>Name</th>
+                    <th>Description</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td><span class="xref">Microsoft.Xna.Framework.Graphics.SpriteBatch</span></td>
+                    <td><span class="parametername">spriteBatch</span></td>
+                    <td></td>
+                  </tr>
+                </tbody>
+              </table>
+              <span class="small pull-right mobile-hide">
+                <span class="divider">|</span>
+                <a href="https://github.com/golf1052/GLX/new/master/apiSpec/new?filename=GLX_Sprite_DrawRect_Microsoft_Xna_Framework_Graphics_SpriteBatch_.md&amp;value=---%0Auid%3A%20GLX.Sprite.DrawRect(Microsoft.Xna.Framework.Graphics.SpriteBatch)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+              </span>
+              <span class="small pull-right mobile-hide">
+                <a href="https://github.com/golf1052/GLX/blob/master/GLX/Sprite.cs/#L430">View Source</a>
+              </span>
+              <a id="GLX_Sprite_DrawRect_" data-uid="GLX.Sprite.DrawRect*"></a>
+              <h4 id="GLX_Sprite_DrawRect_Microsoft_Xna_Framework_Graphics_SpriteBatch_" data-uid="GLX.Sprite.DrawRect(Microsoft.Xna.Framework.Graphics.SpriteBatch)">DrawRect(SpriteBatch)</h4>
+              <div class="markdown level1 summary"><p>Draws the sprite using its draw rectangle</p>
+</div>
+              <div class="markdown level1 conceptual"></div>
+              <h5 class="decalaration">Declaration</h5>
+              <div class="codewrapper">
+                <pre><code class="lang-csharp hljs">public void DrawRect(SpriteBatch spriteBatch)</code></pre>
+              </div>
+              <h5 class="parameters">Parameters</h5>
+              <table class="table table-bordered table-striped table-condensed">
+                <thead>
+                  <tr>
+                    <th>Type</th>
+                    <th>Name</th>
+                    <th>Description</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td><span class="xref">Microsoft.Xna.Framework.Graphics.SpriteBatch</span></td>
+                    <td><span class="parametername">spriteBatch</span></td>
+                    <td><p>The sprite batch</p>
+</td>
+                  </tr>
+                </tbody>
+              </table>
+              <span class="small pull-right mobile-hide">
+                <span class="divider">|</span>
+                <a href="https://github.com/golf1052/GLX/new/master/apiSpec/new?filename=GLX_Sprite_Ready.md&amp;value=---%0Auid%3A%20GLX.Sprite.Ready%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+              </span>
+              <span class="small pull-right mobile-hide">
+                <a href="https://github.com/golf1052/GLX/blob/master/GLX/Sprite.cs/#L152">View Source</a>
+              </span>
+              <a id="GLX_Sprite_Ready_" data-uid="GLX.Sprite.Ready*"></a>
+              <h4 id="GLX_Sprite_Ready" data-uid="GLX.Sprite.Ready">Ready()</h4>
+              <div class="markdown level1 summary"><p>Sets up an animated Sprite so that it is ready to be used</p>
+</div>
+              <div class="markdown level1 conceptual"></div>
+              <h5 class="decalaration">Declaration</h5>
+              <div class="codewrapper">
+                <pre><code class="lang-csharp hljs">public void Ready()</code></pre>
+              </div>
+              <h5 id="GLX_Sprite_Ready_remarks">Remarks</h5>
+              <div class="markdown level1 remarks"><p>Sets the texture as the first </p>
+</div>
+              <span class="small pull-right mobile-hide">
+                <span class="divider">|</span>
+                <a href="https://github.com/golf1052/GLX/new/master/apiSpec/new?filename=GLX_Sprite_Update_GLX_GameTimeWrapper_.md&amp;value=---%0Auid%3A%20GLX.Sprite.Update(GLX.GameTimeWrapper)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+              </span>
+              <span class="small pull-right mobile-hide">
+                <a href="https://github.com/golf1052/GLX/blob/master/GLX/Sprite.cs/#L197">View Source</a>
+              </span>
+              <a id="GLX_Sprite_Update_" data-uid="GLX.Sprite.Update*"></a>
+              <h4 id="GLX_Sprite_Update_GLX_GameTimeWrapper_" data-uid="GLX.Sprite.Update(GLX.GameTimeWrapper)">Update(GameTimeWrapper)</h4>
+              <div class="markdown level1 summary"><p>Updates the sprite</p>
+</div>
+              <div class="markdown level1 conceptual"></div>
+              <h5 class="decalaration">Declaration</h5>
+              <div class="codewrapper">
+                <pre><code class="lang-csharp hljs">public virtual void Update(GameTimeWrapper gameTime)</code></pre>
+              </div>
+              <h5 class="parameters">Parameters</h5>
+              <table class="table table-bordered table-striped table-condensed">
+                <thead>
+                  <tr>
+                    <th>Type</th>
+                    <th>Name</th>
+                    <th>Description</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td><a class="xref" href="GLX.GameTimeWrapper.html">GameTimeWrapper</a></td>
+                    <td><span class="parametername">gameTime</span></td>
+                    <td><p>The game time the sprite exists in</p>
+</td>
+                  </tr>
+                </tbody>
+              </table>
+              <span class="small pull-right mobile-hide">
+                <span class="divider">|</span>
+                <a href="https://github.com/golf1052/GLX/new/master/apiSpec/new?filename=GLX_Sprite_Update_Microsoft_Xna_Framework_GameTime_.md&amp;value=---%0Auid%3A%20GLX.Sprite.Update(Microsoft.Xna.Framework.GameTime)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+              </span>
+              <span class="small pull-right mobile-hide">
+                <a href="https://github.com/golf1052/GLX/blob/master/GLX/Sprite.cs/#L165">View Source</a>
+              </span>
+              <a id="GLX_Sprite_Update_" data-uid="GLX.Sprite.Update*"></a>
+              <h4 id="GLX_Sprite_Update_Microsoft_Xna_Framework_GameTime_" data-uid="GLX.Sprite.Update(Microsoft.Xna.Framework.GameTime)">Update(GameTime)</h4>
+              <div class="markdown level1 summary"></div>
+              <div class="markdown level1 conceptual"></div>
+              <h5 class="decalaration">Declaration</h5>
+              <div class="codewrapper">
+                <pre><code class="lang-csharp hljs">public virtual void Update(GameTime gameTime)</code></pre>
+              </div>
+              <h5 class="parameters">Parameters</h5>
+              <table class="table table-bordered table-striped table-condensed">
+                <thead>
+                  <tr>
+                    <th>Type</th>
+                    <th>Name</th>
+                    <th>Description</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td><span class="xref">Microsoft.Xna.Framework.GameTime</span></td>
+                    <td><span class="parametername">gameTime</span></td>
+                    <td></td>
+                  </tr>
+                </tbody>
+              </table>
+                        </article>
+          </div>
+          
+          <div class="hidden-sm col-md-2" role="complementary">
+            <div class="sideaffix">
+              <div class="contribution">
+                <ul class="nav">
+                  <li>
+                    <a href="https://github.com/golf1052/GLX/new/master/apiSpec/new?filename=GLX_Sprite.md&amp;value=---%0Auid%3A%20GLX.Sprite%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" class="contribution-link">Improve this Doc</a>
+                  </li>
+                  <li>
+                    <a href="https://github.com/golf1052/GLX/blob/master/GLX/Sprite.cs/#L15" class="contribution-link">View Source</a>
+                  </li>
+                </ul>
+              </div>
+              <nav class="bs-docs-sidebar hidden-print hidden-xs hidden-sm affix" id="affix">
+              <!-- <p><a class="back-to-top" href="#top">Back to top</a><p> -->
+              </nav>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+      <footer>
+        <div class="grad-bottom"></div>
+        <div class="footer">
+          <div class="container">
+            <span class="pull-right">
+              <a href="#top">Back to top</a>
+            </span>
+            
+            <span>Copyright © 2015-2016 Microsoft<br>Generated by <strong>DocFX</strong></span>
+          </div>
+        </div>
+      </footer>
+    </div>
+    
+    <script type="text/javascript" src="../styles/docfx.vendor.js"></script>
+    <script type="text/javascript" src="../styles/docfx.js"></script>
+    <script type="text/javascript" src="../styles/main.js"></script>
+  </body>
+</html>
