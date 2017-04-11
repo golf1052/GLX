@@ -61,6 +61,7 @@
     ],
     "dest": "_site",
     "globalMetadata": {
+      "_appFaviconPath": "favicon.ico",
       "_gitContribute": {
         "repo": "https://github.com/golf1052/GLX",
         "branch": "master"
@@ -69,7 +70,8 @@
     "globalMetadataFiles": [],
     "fileMetadataFiles": [],
     "template": [
-      "default"
+      "default",
+      "glx_template"
     ],
     "postProcessors": [],
     "noLangKeyword": false
