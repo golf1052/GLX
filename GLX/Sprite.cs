@@ -10,7 +10,7 @@ using Microsoft.Xna.Framework.Input;
 namespace GLX
 {
     /// <summary>
-    /// Sprite class
+    /// The Sprite class is the more implemented version of the <see cref="SpriteBase"/> class. This class holds actual texture data.
     /// </summary>
     public class Sprite : SpriteBase
     {
@@ -114,6 +114,13 @@ namespace GLX
             ready = true;
         }
 
+        /// <summary>
+        /// Creates an animatable Sprite that is not ready to use.
+        /// In order to use this sprite you need to add sprite sheets
+        /// then call <see cref="Ready"/>.
+        /// </summary>
+        /// <param name="spriteSheetInfo">The sprite sheet info.</param>
+        /// <param name="graphics">The graphics device manager.</param>
         public Sprite(SpriteSheetInfo spriteSheetInfo, GraphicsDeviceManager graphics) : base()
         {
             this.graphics = graphics;
@@ -127,12 +134,13 @@ namespace GLX
         }
 
         /// <summary>
-        /// Creates an animatable Sprite that is not ready to use
+        /// Creates an animatable Sprite that is not ready to use.
         /// In order to use this sprite you need to add sprite sheets
-        /// Then call <code>Ready</code>
+        /// then call <see cref="Ready"/>.
         /// </summary>
         /// <param name="spriteSheetInfo">The sprite sheet info</param>
         /// <param name="gameTime">The game time the sprite will exist in</param>
+        /// <param name="graphics">The graphics device manager</param>
         public Sprite(SpriteSheetInfo spriteSheetInfo, GameTimeWrapper gameTime, GraphicsDeviceManager graphics) : base()
         {
             this.graphics = graphics;
@@ -162,6 +170,10 @@ namespace GLX
             ready = true;
         }
 
+        /// <summary>
+        /// Updates the sprite.
+        /// </summary>
+        /// <param name="gameTime">The game time.</param>
         public virtual void Update(GameTime gameTime)
         {
             if (isAnimated)
@@ -418,6 +430,10 @@ namespace GLX
             }
         }
 
+        /// <summary>
+        /// Draws an animated sprite.
+        /// </summary>
+        /// <param name="spriteBatch">The sprite batch.</param>
         public void DrawAnimation(SpriteBatch spriteBatch)
         {
             spriteBatch.Draw(animations.CurrentAnimation.tex, position, animations.sourceRect, color * alpha, MathHelper.ToRadians(rotation), origin, scale, spriteEffects, 0);

@@ -86,7 +86,7 @@ namespace GLX
                     }
                     else
                     {
-                        throw new Exception("That animation does not exist.");
+                        throw new GLXException("That animation does not exist.");
                     }
                 }
             }
@@ -104,7 +104,6 @@ namespace GLX
         /// Indexer for adding new sprite sheets
         /// </summary>
         /// <param name="key">The name of the sprite sheet</param>
-        /// <returns></returns>
         public SpriteSheet this[string key]
         {
             set
@@ -120,6 +119,10 @@ namespace GLX
             }
         }
 
+        /// <summary>
+        /// Create new animation storage
+        /// </summary>
+        /// <param name="spriteSheetInfo">The sprite sheet info for the animations</param>
         public Animations(SpriteSheetInfo spriteSheetInfo)
         {
             this.spriteSheetInfo = spriteSheetInfo;
@@ -138,6 +141,9 @@ namespace GLX
             ResetAnimation();
         }
 
+        /// <summary>
+        /// Sets the animation to run one frame
+        /// </summary>
         public void RunOneFrame()
         {
             active = true;
@@ -183,6 +189,14 @@ namespace GLX
             }
         }
 
+        /// <summary>
+        /// Creates a new sprite sheet
+        /// </summary>
+        /// <param name="spriteSheet">The texture the sprite sheet is referencing</param>
+        /// <param name="frameCount">The number of frames</param>
+        /// <param name="frameTime">The time between frames. In milliseconds.</param>
+        /// <param name="loop">If the animation should loop</param>
+        /// <returns>A sprite sheet</returns>
         public SpriteSheet AddSpriteSheet(Texture2D spriteSheet,
             int frameCount,
             long frameTime,
@@ -198,6 +212,17 @@ namespace GLX
                 loop);
         }
 
+        /// <summary>
+        /// Creates a new sprite sheet
+        /// </summary>
+        /// <param name="spriteSheet">The texture the sprite sheet is referencing</param>
+        /// <param name="frameCount">The number of frames</param>
+        /// <param name="columns">The number of columns in the sprite sheet</param>
+        /// <param name="rows">The number of rows in the sprite sheet</param>
+        /// <param name="direction">The direction the sprite sheet goes in (either left to right or top to bottom)</param>
+        /// <param name="frameTime">The time between frames. In milliseconds.</param>
+        /// <param name="loop">If the animation should loop</param>
+        /// <returns>A sprite sheet</returns>
         public SpriteSheet AddSpriteSheet(Texture2D spriteSheet,
             int frameCount,
             int columns,
@@ -216,6 +241,18 @@ namespace GLX
                 loop);
         }
 
+        /// <summary>
+        /// Creates a new sprite sheet
+        /// </summary>
+        /// <param name="spriteSheet">The texture the sprite sheet is referencing</param>
+        /// <param name="info">The sprite sheet info</param>
+        /// <param name="frameCount">The number of frames</param>
+        /// <param name="columns">The number of columns in the sprite sheet</param>
+        /// <param name="rows">The number of rows in the sprite sheet</param>
+        /// <param name="direction">The direction the sprite sheet goes in (either left to right or top to bottom)</param>
+        /// <param name="frameTime">The time between frames. In milliseconds.</param>
+        /// <param name="loop">If the animation should loop</param>
+        /// <returns>A sprite sheet</returns>
         public SpriteSheet AddSpriteSheet(Texture2D spriteSheet,
             SpriteSheetInfo info,
             int frameCount,
@@ -235,6 +272,12 @@ namespace GLX
                 loop);
         }
 
+        /// <summary>
+        /// Sets an action on a frame
+        /// </summary>
+        /// <param name="animation">The animation name to set the action on</param>
+        /// <param name="frameNumber">The frame of the animation to set the action on</param>
+        /// <param name="action">The action to set</param>
         public void SetFrameAction(string animation, int frameNumber, Action action)
         {
             if (spriteSheets.ContainsKey(animation))
@@ -243,10 +286,16 @@ namespace GLX
             }
             else
             {
-                throw new Exception("That animation does not exist.");
+                throw new GLXException("That animation does not exist.");
             }
         }
 
+        /// <summary>
+        /// Sets an action on a reverse frame (for when the animation plays in reverse)
+        /// </summary>
+        /// <param name="animation">The animation name to set the action on</param>
+        /// <param name="frameNumber">The frame of the animation to set the action on</param>
+        /// <param name="action">The action to set</param>
         public void SetReverseFrameAction(string animation, int frameNumber, Action action)
         {
             if (spriteSheets.ContainsKey(animation))
@@ -255,7 +304,7 @@ namespace GLX
             }
             else
             {
-                throw new Exception("That animation does not exist.");
+                throw new GLXException("That animation does not exist.");
             }
         }
     }

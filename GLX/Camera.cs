@@ -8,8 +8,14 @@ using System.Diagnostics;
 
 namespace GLX
 {
+    /// <summary>
+    /// Defines a 2D camera
+    /// </summary>
     public class Camera
     {
+        /// <summary>
+        /// Camera focuses. Where the 0, 0 of the camera is.
+        /// </summary>
         public enum CameraFocus
         {
             TopLeft,
@@ -21,6 +27,10 @@ namespace GLX
         private BoundingFrustum boundingFrustum;
 
         private Matrix transform;
+
+        /// <summary>
+        /// The camera transform matrix
+        /// </summary>
         public Matrix Transform
         {
             get
@@ -33,6 +43,10 @@ namespace GLX
         private bool isViewTransformDirty;
 
         private Matrix inverseTransform;
+
+        /// <summary>
+        /// The camera inverse transform matrix
+        /// </summary>
         public Matrix InverseTransform
         {
             get
@@ -42,6 +56,10 @@ namespace GLX
         }
 
         private Vector2 pan;
+
+        /// <summary>
+        /// The camera pan (position).
+        /// </summary>
         public Vector2 Pan
         {
             get
@@ -61,7 +79,12 @@ namespace GLX
                 isViewTransformDirty = true;
             }
         }
+
         private Vector2 origin;
+
+        /// <summary>
+        /// The camera origin
+        /// </summary>
         public Vector2 Origin
         {
             get
@@ -74,7 +97,12 @@ namespace GLX
                 isViewTransformDirty = true;
             }
         }
+
         private float zoom;
+
+        /// <summary>
+        /// The camera zoom
+        /// </summary>
         public float Zoom
         {
             get
@@ -96,7 +124,12 @@ namespace GLX
                 isViewTransformDirty = true;
             }
         }
+
         private float rotation;
+
+        /// <summary>
+        /// The camera rotation
+        /// </summary>
         public float Rotation
         {
             get
@@ -110,6 +143,10 @@ namespace GLX
             }
         }
         private CameraFocus focus;
+
+        /// <summary>
+        /// The camera focus
+        /// </summary>
         public CameraFocus Focus
         {
             get
@@ -140,6 +177,11 @@ namespace GLX
 
         internal VirtualResolutionRenderer virtualResolutionRenderer;
 
+        /// <summary>
+        /// Creates a new camera
+        /// </summary>
+        /// <param name="virtualResolutionRenderer">A virtual resolution renderer</param>
+        /// <param name="focus">The camera focus</param>
         public Camera(VirtualResolutionRenderer virtualResolutionRenderer, CameraFocus focus)
         {
             this.virtualResolutionRenderer = virtualResolutionRenderer;
@@ -199,18 +241,33 @@ namespace GLX
             boundingFrustum = new BoundingFrustum(projectionTransform);
         }
 
+        /// <summary>
+        /// Converts a mouse point position into real screen coordinates
+        /// </summary>
+        /// <param name="mouseScreenPosition">The mouse point position</param>
+        /// <returns>A Vector2 containing the mouse screen coordinates</returns>
         public Vector2 MouseToScreenCoords(Point mouseScreenPosition)
         {
             Vector2 screenPosition = new Vector2(mouseScreenPosition.X - virtualResolutionRenderer.Viewport.X, mouseScreenPosition.Y - virtualResolutionRenderer.Viewport.Y);
             return Vector2.Transform(screenPosition, inverseTransform);
         }
 
+        /// <summary>
+        /// Checks if the current camera view contanins the given point
+        /// </summary>
+        /// <param name="vector">The point to check</param>
+        /// <returns>If the point is contained in the current camera view</returns>
         public bool Contains(Vector2 vector)
         {
             ContainmentType containmentType = boundingFrustum.Contains(vector.ToVector3());
             return !(containmentType == ContainmentType.Disjoint);
         }
 
+        /// <summary>
+        /// DOESN'T WORK: Checks if the current camera view contains or intersects with the given rectangle
+        /// </summary>
+        /// <param name="rectangle">The rectangle to check</param>
+        /// <returns>If the rectangle is contained or intersects with the current camera view</returns>
         public bool Contains(Rectangle rectangle)
         {
             // doesn't look like it's working atm
@@ -221,6 +278,9 @@ namespace GLX
             return !(containmentType == ContainmentType.Disjoint);
         }
 
+        /// <summary>
+        /// Updates the camera
+        /// </summary>
         public void Update()
         {
             UpdateVirtualTransform();
@@ -229,6 +289,10 @@ namespace GLX
             UpdateBoundingFrustum();
         }
 
+        /// <summary>
+        /// Updates the camera
+        /// </summary>
+        /// <param name="gameTime">The game time the camera is in</param>
         public void Update(GameTimeWrapper gameTime)
         {
             UpdateVirtualTransform();

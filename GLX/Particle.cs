@@ -143,6 +143,9 @@ namespace GLX
         /// </summary>
         private bool useDrawRect;
 
+        /// <summary>
+        /// The mass of the particle.
+        /// </summary>
         public float mass;
 
         /// <summary>
@@ -311,7 +314,6 @@ namespace GLX
         /// Updates the particle
         /// </summary>
         /// <param name="gameTime">The game time the particle exists in</param>
-        /// <param name="graphics">The graphics device manager</param>
         public override void Update(GameTimeWrapper gameTime)
         {
             if (visible)

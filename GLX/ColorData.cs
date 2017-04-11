@@ -7,11 +7,21 @@ using Microsoft.Xna.Framework.Graphics;
 
 namespace GLX
 {
+    /// <summary>
+    /// Holds the color data info for sprites and sprite sheets in 1D and 2D arrays
+    /// </summary>
+    /// <remarks>
+    /// <see href="http://gamedev.stackexchange.com/a/46777">Found here.</see> This class allows for easy conversion between the 1D array given by XNA and a 2D array that is easier to manipulate.
+    /// </remarks>
     public class ColorData
     {
-        int width;
-        int height;
-        Color[] _colorData1D;
+        private int width;
+        private int height;
+        private Color[] _colorData1D;
+
+        /// <summary>
+        /// 1D array of color data
+        /// </summary>
         public Color[] colorData1D
         {
             get
@@ -24,7 +34,12 @@ namespace GLX
                 OneDToTwoD();
             }
         }
+
         Color[,] _colorData2D;
+
+        /// <summary>
+        /// 2D array of color data
+        /// </summary>
         public Color[,] colorData2D
         {
             get
@@ -38,6 +53,10 @@ namespace GLX
             }
         }
 
+        /// <summary>
+        /// Creates a new ColorData using texture data
+        /// </summary>
+        /// <param name="tex"></param>
         public ColorData(Texture2D tex)
         {
             width = tex.Width;
@@ -48,6 +67,11 @@ namespace GLX
             OneDToTwoD();
         }
 
+        /// <summary>
+        /// Creates a new empty ColorData using the given width and height
+        /// </summary>
+        /// <param name="width">The color data width</param>
+        /// <param name="height">The color data height</param>
         public ColorData(int width, int height)
         {
             this.width = width;

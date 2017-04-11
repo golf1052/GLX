@@ -9,13 +9,38 @@ using GLX;
 
 namespace GLX
 {
+    /// <summary>
+    /// Holds information about a menu state. Inherits from <see cref="GameState"/>
+    /// </summary>
+    /// <remarks>
+    /// There is some information about MenuState in the <see cref="GameState"/> documentation file.
+    /// Typically menus have text that takes the user to a new place in the game whether that is another menu or actual game play.
+    /// MenuState provides extra functionality to handle selecting menu items.
+    /// </remarks>
     public class MenuState : GameState
     {
+        /// <summary>
+        /// The list of menu items.
+        /// </summary>
         public List<TextItem> menuItems;
-        Dictionary<string, Action> menuItemActions;
-        public Color unselectedColor;
-        public Color selectedColor;
+
+        private Dictionary<string, Action> menuItemActions;
+
+        /// <summary>
+        /// The color a menu item should be when it is not selected.
+        /// </summary>
+        public Color UnselectedColor { get; set; }
+
+        /// <summary>
+        /// The color a menu item should be when it is selected.
+        /// </summary>
+        public Color SelectedColor { get; set; }
+
         private int currentSelection;
+
+        /// <summary>
+        /// Get or set the currently selected menu item index.
+        /// </summary>
         public int CurrentSelection
         {
             get
@@ -36,50 +61,85 @@ namespace GLX
                     }
                     foreach (var item in menuItems)
                     {
-                        item.color = unselectedColor;
+                        item.color = UnselectedColor;
                     }
-                    menuItems[value].color = selectedColor;
+                    menuItems[value].color = SelectedColor;
                     currentSelection = value;
                 }
             }
         }
 
+        /// <summary>
+        /// The font that should be used when drawing text.
+        /// </summary>
         public SpriteFont MenuFont { get; set; }
-        public Vector2 initialPosition;
-        public float spacing;
-        World world;
 
+        /// <summary>
+        /// The position where text should start to be drawn.
+        /// </summary>
+        public Vector2 initialPosition;
+
+        /// <summary>
+        /// The spacing between menu items.
+        /// </summary>
+        public float spacing;
+
+        private World world;
+
+        /// <summary>
+        /// The directions menu items can be arranged.
+        /// </summary>
         public enum Direction
         {
             LeftToRight,
             TopToBottom
         }
+
+        /// <summary>
+        /// The direction the menu should go, either left to right or top to bottom.
+        /// </summary>
         public Direction menuDirection;
 
-        public MenuState(string name, GraphicsDeviceManager graphics, Game game, World world) : base(name, graphics)
+        /// <summary>
+        /// Creates a new menu state. Unlike <see cref="GameState"/>, menu states come with their own game time because menus typically run at normal speed.
+        /// </summary>
+        /// <param name="name">The name of the menu state.</param>
+        /// <param name="graphics">The graphics device manager.</param>
+        /// <param name="world">The world</param>
+        public MenuState(string name, GraphicsDeviceManager graphics, World world) : base(name, graphics)
         {
             menuItems = new List<TextItem>();
             menuItemActions = new Dictionary<string, Action>();
             currentSelection = 0;
             AddDraw(Draw);
             this.world = world;
-            unselectedColor = Color.Black;
-            selectedColor = Color.Yellow;
+            UnselectedColor = Color.Black;
+            SelectedColor = Color.Yellow;
             spacing = 10;
             menuDirection = Direction.TopToBottom;
         }
 
+        /// <summary>
+        /// Adds a new menu item to the list of menu items where the given string is what the menu item will display.
+        /// </summary>
+        /// <param name="spriteText">The text of the menu item.</param>
         public void AddMenuItem(string spriteText = "")
         {
             menuItems.Add(new TextItem(MenuFont, spriteText));
-            menuItems.Last().color = unselectedColor;
+            menuItems.Last().color = UnselectedColor;
             menuItems.Last().Update();
             if (menuItems.Count == 1)
             {
-                menuItems[0].color = selectedColor;
+                menuItems[0].color = SelectedColor;
             }
         }
 
+        /// <summary>
+        /// Sets an action on a menu item.
+        /// This is used so that the menu items can cause actions to happen like switching to a new menu or launching into gameplay.
+        /// </summary>
+        /// <param name="text">The menu item to set the action on.</param>
+        /// <param name="action">The action.</param>
         public void SetMenuAction(string text, Action action)
         {
             foreach (TextItem item in menuItems)
@@ -92,6 +152,9 @@ namespace GLX
             }
         }
 
+        /// <summary>
+        /// Invokes the action on the currently selected menu item (if there is an action).
+        /// </summary>
         public void DoAction()
         {
             if (menuItemActions.ContainsKey(menuItems[CurrentSelection].text))
@@ -103,7 +166,7 @@ namespace GLX
             }
         }
 
-        void Draw()
+        private void Draw()
         {
             world.BeginDraw();
             Vector2 currentPosition = initialPosition;

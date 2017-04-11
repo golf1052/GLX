@@ -7,6 +7,9 @@ using Microsoft.Xna.Framework.Input;
 
 namespace GLX
 {
+    /// <summary>
+    /// Contains helper methods for the library.
+    /// </summary>
     public static class HelperMethods
     {
         /// <summary>
@@ -45,27 +48,59 @@ namespace GLX
             return projection;
         }
 
+        /// <summary>
+        /// Returns the left normal of the given vector
+        /// </summary>
+        /// <param name="vector">The vector</param>
+        /// <returns>The left normal</returns>
         public static Vector2 LeftNormal(this Vector2 vector)
         {
             return new Vector2(-vector.Y, vector.X);
         }
 
+        /// <summary>
+        /// Returns the right normal of the given vector
+        /// </summary>
+        /// <param name="vector">The vector</param>
+        /// <returns>The right normal</returns>
         public static Vector2 RightNormal(this Vector2 vector)
         {
             return new Vector2(vector.Y, -vector.X);
         }
 
+        /// <summary>
+        /// Checks if the given key was pressed and released.
+        /// </summary>
+        /// <param name="keyboardState">The current keyboard state.</param>
+        /// <param name="key">The key to check.</param>
+        /// <param name="previousKeyboardState">The previous keyboard state.</param>
+        /// <returns></returns>
         public static bool IsKeyDownAndUp(this KeyboardState keyboardState, Keys key, KeyboardState previousKeyboardState)
         {
             return keyboardState.IsKeyDown(key) && previousKeyboardState.IsKeyUp(key);
         }
 
+        /// <summary>
+        /// Checks if the given button was pressed and released.
+        /// </summary>
+        /// <param name="gamePadState">The current game pad state.</param>
+        /// <param name="button">The button to check.</param>
+        /// <param name="previousGamePadState">The previous game pad state.</param>
+        /// <returns></returns>
         public static bool IsButtonDownAndUp(this GamePadState gamePadState, Buttons button, GamePadState previousGamePadState)
         {
             return gamePadState.IsButtonDown(button) && previousGamePadState.IsButtonUp(button);
         }
 
-        public static Vector2 Intersection(Vector2 point1, Vector2 point2, Vector2 point3, Vector2 point4)
+        /// <summary>
+        /// Returns the intersection point of two lines if they are intersecting. Null if they are not.
+        /// </summary>
+        /// <param name="point1">The first point of line 1</param>
+        /// <param name="point2">The second point of line 1</param>
+        /// <param name="point3">The first point of line 2</param>
+        /// <param name="point4">The second point of line 2</param>
+        /// <returns>The intersection point if the lines are intersecting. Null if they are not.</returns>
+        public static Vector2? Intersection(Vector2 point1, Vector2 point2, Vector2 point3, Vector2 point4)
         {
             float ua = (point4.X - point3.X) * (point1.Y - point3.Y) - (point4.Y - point3.Y) * (point1.X - point3.X);
             float ub = (point2.X - point1.X) * (point1.Y - point3.Y) - (point2.Y - point1.Y) * (point1.X - point3.X);
@@ -95,10 +130,16 @@ namespace GLX
             }
             else
             {
-                return new Vector2(float.NaN, float.NaN);
+                return null;
             }
         }
 
+        /// <summary>
+        /// Checks if this rectangle contains the given line.
+        /// </summary>
+        /// <param name="rectangle">The rectangle</param>
+        /// <param name="line">The line</param>
+        /// <returns>If this rectangle contains the given line</returns>
         public static bool ContainsLine(this Rectangle rectangle, Line line)
         {
             Vector2 along = new Vector2(line.point1.X - line.point2.X, line.point1.Y -line.point2.Y);
@@ -113,7 +154,7 @@ namespace GLX
             return false;
         }
 
-        public static Vector2 PointOnLine(this Rectangle rectangle, Line line)
+        public static Vector2? PointOnLine(this Rectangle rectangle, Line line)
         {
             Vector2 along = new Vector2(line.point1.X - line.point2.X, line.point1.Y - line.point2.Y);
             along.Normalize();
@@ -124,7 +165,7 @@ namespace GLX
                     return line.point1 + (along * i);
                 }
             }
-            return new Vector2(float.NaN, float.NaN);
+            return null;
         }
 
         /// <summary>

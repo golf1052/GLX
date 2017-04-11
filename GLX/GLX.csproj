@@ -49,6 +49,7 @@
     <Compile Include="FloatTweener.cs" />
     <Compile Include="GameState.cs" />
     <Compile Include="GameTimeWrapper.cs" />
+    <Compile Include="GLXException.cs" />
     <Compile Include="HelperMethods.cs" />
     <Compile Include="Line.cs" />
     <Compile Include="MenuState.cs" />

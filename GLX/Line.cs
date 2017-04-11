@@ -7,18 +7,48 @@ using Microsoft.Xna.Framework.Graphics;
 
 namespace GLX
 {
+    /// <summary>
+    /// Helps draw a line on the screen.
+    /// </summary>
     public class Line : SpriteBase
     {
         private Texture2D pixel;
+
+        /// <summary>
+        /// The first point of the line.
+        /// </summary>
         public Vector2 point1;
+
+        /// <summary>
+        /// The second point of the line.
+        /// </summary>
         public Vector2 point2;
+
+        /// <summary>
+        /// The thickness of the line.
+        /// </summary>
         public float thickness;
+
+        /// <summary>
+        /// How this line is defined.
+        /// </summary>
         public enum Type
         {
+            /// <summary>
+            /// point1 = point, point2 = point.
+            /// </summary>
             Point,
+
+            /// <summary>
+            /// point1 = origin, point2 = vector.
+            /// </summary>
             Vector
         }
 
+        /// <summary>
+        /// Creates a line.
+        /// </summary>
+        /// <param name="graphics">The graphics device manager.</param>
         public Line(GraphicsDeviceManager graphics)
         {
             pixel = new Texture2D(graphics.GraphicsDevice, 1, 1, false, SurfaceFormat.Color);
@@ -29,7 +59,7 @@ namespace GLX
         }
 
         /// <summary>
-        /// Define a line
+        /// Defines a line
         /// </summary>
         /// <param name="graphics">The graphics device manager</param>
         /// <param name="type">How you are defining the second point, point or vector</param>
@@ -55,18 +85,29 @@ namespace GLX
             this.thickness = thickness;
         }
 
+        /// <summary>
+        /// Updates the line.
+        /// </summary>
         public override void Update()
         {
             point1 += velocity;
             point2 += velocity;
         }
 
+        /// <summary>
+        /// Updates the line.
+        /// </summary>
+        /// <param name="gameTime">The game time this line is in.</param>
         public void Update(GameTimeWrapper gameTime)
         {
             point1 += velocity * (float)gameTime.GameSpeed;
             point2 += velocity * (float)gameTime.GameSpeed;
         }
 
+        /// <summary>
+        /// Draws the line.
+        /// </summary>
+        /// <param name="spriteBatch">A sprite batch.</param>
         public override void Draw(SpriteBatch spriteBatch)
         {
             rotation = (float)Math.Atan2(point2.Y - point1.Y, point2.X - point1.X);

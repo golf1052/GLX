@@ -3,13 +3,26 @@ using Microsoft.Xna.Framework;
 
 namespace GLX
 {
+    /// <summary>
+    /// Holds size data.
+    /// </summary>
     public struct Size : IEquatable<Size>
     {
         private static readonly Size zeroSize = new Size();
 
+        /// <summary>
+        /// The width.
+        /// </summary>
         public float Width;
+
+        /// <summary>
+        /// The height.
+        /// </summary>
         public float Height;
 
+        /// <summary>
+        /// A size of zero.
+        /// </summary>
         public static Size Zero
         {
             get
