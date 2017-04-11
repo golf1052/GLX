@@ -72,7 +72,8 @@
               
               <h1 id="GLX_GameTimeWrapper" data-uid="GLX.GameTimeWrapper">Class GameTimeWrapper
               </h1>
-              <div class="markdown level0 summary"></div>
+              <div class="markdown level0 summary"><p>Allows you to speed up or slow down the rate at which things happen in the game.</p>
+</div>
               <div class="markdown level0 conceptual"></div>
               <div class="inheritance">
                 <h5>Inheritance</h5>
@@ -110,6 +111,13 @@
               <div class="codewrapper">
                 <pre><code class="lang-csharp hljs">public class GameTimeWrapper : GameTime</code></pre>
               </div>
+              <h5 id="GLX_GameTimeWrapper_remarks"><strong>Remarks</strong></h5>
+              <div class="markdown level0 remarks"><p>This is probably the most important class in the library. This class helps you control the rate of the game.
+In XNA, games are usually set to run at 60 frames per second.
+If you want to slow down the game you would need to do everything in the game half as fast, 30 frames per second.
+You could just change the rate that frames are drawn but that just makes the game feel strange due to the low draw rate.
+This class allows you to manipulate the update rate of a game while keeping the draw rate at 60 FPS (or whatever rate your game runs at).</p>
+</div>
               <h3 id="constructors">Constructors
               </h3>
               <span class="small pull-right mobile-hide">
@@ -117,15 +125,16 @@
                 <a href="https://github.com/golf1052/GLX/new/master/apiSpec/new?filename=GLX_GameTimeWrapper__ctor_System_Action_GLX_GameTimeWrapper__Microsoft_Xna_Framework_Game_System_Decimal_.md&amp;value=---%0Auid%3A%20GLX.GameTimeWrapper.%23ctor(System.Action%7BGLX.GameTimeWrapper%7D%2CMicrosoft.Xna.Framework.Game%2CSystem.Decimal)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
               </span>
               <span class="small pull-right mobile-hide">
-                <a href="https://github.com/golf1052/GLX/blob/master/GLX/GameTimeWrapper.cs/#L85">View Source</a>
+                <a href="https://github.com/golf1052/GLX/blob/master/GLX/GameTimeWrapper.cs/#L142">View Source</a>
               </span>
               <a id="GLX_GameTimeWrapper__ctor_" data-uid="GLX.GameTimeWrapper.#ctor*"></a>
               <h4 id="GLX_GameTimeWrapper__ctor_System_Action_GLX_GameTimeWrapper__Microsoft_Xna_Framework_Game_System_Decimal_" data-uid="GLX.GameTimeWrapper.#ctor(System.Action{GLX.GameTimeWrapper},Microsoft.Xna.Framework.Game,System.Decimal)">GameTimeWrapper(Action&lt;GameTimeWrapper&gt;, Game, Decimal)</h4>
-              <div class="markdown level1 summary"></div>
+              <div class="markdown level1 summary"><p>Creates a new game time with a given update method, game class, and speed this time should run at.</p>
+</div>
               <div class="markdown level1 conceptual"></div>
               <h5 class="decalaration">Declaration</h5>
               <div class="codewrapper">
-                <pre><code class="lang-csharp hljs">public GameTimeWrapper(Action&lt;GameTimeWrapper&gt; time, Game game, decimal gameSpeed)</code></pre>
+                <pre><code class="lang-csharp hljs">public GameTimeWrapper(Action&lt;GameTimeWrapper&gt; updateMethod, Game game, decimal gameSpeed)</code></pre>
               </div>
               <h5 class="parameters">Parameters</h5>
               <table class="table table-bordered table-striped table-condensed">
@@ -139,18 +148,21 @@
                 <tbody>
                   <tr>
                     <td><span class="xref">System.Action</span>&lt;<a class="xref" href="GLX.GameTimeWrapper.html">GameTimeWrapper</a>&gt;</td>
-                    <td><span class="parametername">time</span></td>
-                    <td></td>
+                    <td><span class="parametername">updateMethod</span></td>
+                    <td><p>The update method</p>
+</td>
                   </tr>
                   <tr>
                     <td><span class="xref">Microsoft.Xna.Framework.Game</span></td>
                     <td><span class="parametername">game</span></td>
-                    <td></td>
+                    <td><p>The game class</p>
+</td>
                   </tr>
                   <tr>
                     <td><span class="xref">System.Decimal</span></td>
                     <td><span class="parametername">gameSpeed</span></td>
-                    <td></td>
+                    <td><p>The game speed</p>
+</td>
                   </tr>
                 </tbody>
               </table>
@@ -161,11 +173,13 @@
                 <a href="https://github.com/golf1052/GLX/new/master/apiSpec/new?filename=GLX_GameTimeWrapper_ActualGameSpeed.md&amp;value=---%0Auid%3A%20GLX.GameTimeWrapper.ActualGameSpeed%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
               </span>
               <span class="small pull-right mobile-hide">
-                <a href="https://github.com/golf1052/GLX/blob/master/GLX/GameTimeWrapper.cs/#L42">View Source</a>
+                <a href="https://github.com/golf1052/GLX/blob/master/GLX/GameTimeWrapper.cs/#L81">View Source</a>
               </span>
               <a id="GLX_GameTimeWrapper_ActualGameSpeed_" data-uid="GLX.GameTimeWrapper.ActualGameSpeed*"></a>
               <h4 id="GLX_GameTimeWrapper_ActualGameSpeed" data-uid="GLX.GameTimeWrapper.ActualGameSpeed">ActualGameSpeed</h4>
-              <div class="markdown level1 summary"></div>
+              <div class="markdown level1 summary"><p>The speed the game is actually running at. GameSpeed will always be between -1 and 1 due to the way update is handled.
+For more information read up on the <a class="xref" href="GLX.GameTimeWrapper.html#GLX_GameTimeWrapper_Update_Microsoft_Xna_Framework_GameTime_">Update(GameTime)</a> method.</p>
+</div>
               <div class="markdown level1 conceptual"></div>
               <h5 class="decalaration">Declaration</h5>
               <div class="codewrapper">
@@ -191,15 +205,16 @@
                 <a href="https://github.com/golf1052/GLX/new/master/apiSpec/new?filename=GLX_GameTimeWrapper_ElapsedGameTime.md&amp;value=---%0Auid%3A%20GLX.GameTimeWrapper.ElapsedGameTime%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
               </span>
               <span class="small pull-right mobile-hide">
-                <a href="https://github.com/golf1052/GLX/blob/master/GLX/GameTimeWrapper.cs/#L58">View Source</a>
+                <a href="https://github.com/golf1052/GLX/blob/master/GLX/GameTimeWrapper.cs/#L105">View Source</a>
               </span>
               <a id="GLX_GameTimeWrapper_ElapsedGameTime_" data-uid="GLX.GameTimeWrapper.ElapsedGameTime*"></a>
               <h4 id="GLX_GameTimeWrapper_ElapsedGameTime" data-uid="GLX.GameTimeWrapper.ElapsedGameTime">ElapsedGameTime</h4>
-              <div class="markdown level1 summary"></div>
+              <div class="markdown level1 summary"><p>From GameTime. How much time has passed since we last called update. Should always be the same if running a fixed update rate game.</p>
+</div>
               <div class="markdown level1 conceptual"></div>
               <h5 class="decalaration">Declaration</h5>
               <div class="codewrapper">
-                <pre><code class="lang-csharp hljs">public TimeSpan ElapsedGameTime { get; set; }</code></pre>
+                <pre><code class="lang-csharp hljs">public TimeSpan ElapsedGameTime { get; }</code></pre>
               </div>
               <h5 class="propertyValue">Property Value</h5>
               <table class="table table-bordered table-striped table-condensed">
@@ -221,11 +236,12 @@
                 <a href="https://github.com/golf1052/GLX/new/master/apiSpec/new?filename=GLX_GameTimeWrapper_GameSpeed.md&amp;value=---%0Auid%3A%20GLX.GameTimeWrapper.GameSpeed%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
               </span>
               <span class="small pull-right mobile-hide">
-                <a href="https://github.com/golf1052/GLX/blob/master/GLX/GameTimeWrapper.cs/#L28">View Source</a>
+                <a href="https://github.com/golf1052/GLX/blob/master/GLX/GameTimeWrapper.cs/#L59">View Source</a>
               </span>
               <a id="GLX_GameTimeWrapper_GameSpeed_" data-uid="GLX.GameTimeWrapper.GameSpeed*"></a>
               <h4 id="GLX_GameTimeWrapper_GameSpeed" data-uid="GLX.GameTimeWrapper.GameSpeed">GameSpeed</h4>
-              <div class="markdown level1 summary"></div>
+              <div class="markdown level1 summary"><p>This time world&#39;s time specified as a ratio.</p>
+</div>
               <div class="markdown level1 conceptual"></div>
               <h5 class="decalaration">Declaration</h5>
               <div class="codewrapper">
@@ -246,20 +262,27 @@
                   </tr>
                 </tbody>
               </table>
+              <h5 id="GLX_GameTimeWrapper_GameSpeed_remarks">Remarks</h5>
+              <div class="markdown level1 remarks"><p>This time world&#39;s time specified as a ratio.
+After setting a ratio we recalculate the _gameSpeed value
+Multiply desired ratio by systemSpeed then truncate that to a long to get gameSpeed
+Then get the new ratio by dividing new gameSpeed by the systemSpeed</p>
+</div>
               <span class="small pull-right mobile-hide">
                 <span class="divider">|</span>
                 <a href="https://github.com/golf1052/GLX/new/master/apiSpec/new?filename=GLX_GameTimeWrapper_IsRunningSlowly.md&amp;value=---%0Auid%3A%20GLX.GameTimeWrapper.IsRunningSlowly%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
               </span>
               <span class="small pull-right mobile-hide">
-                <a href="https://github.com/golf1052/GLX/blob/master/GLX/GameTimeWrapper.cs/#L71">View Source</a>
+                <a href="https://github.com/golf1052/GLX/blob/master/GLX/GameTimeWrapper.cs/#L122">View Source</a>
               </span>
               <a id="GLX_GameTimeWrapper_IsRunningSlowly_" data-uid="GLX.GameTimeWrapper.IsRunningSlowly*"></a>
               <h4 id="GLX_GameTimeWrapper_IsRunningSlowly" data-uid="GLX.GameTimeWrapper.IsRunningSlowly">IsRunningSlowly</h4>
-              <div class="markdown level1 summary"></div>
+              <div class="markdown level1 summary"><p>From GameTime. If we are runnin a fixed update rate game, are we calling update slower than we should be?</p>
+</div>
               <div class="markdown level1 conceptual"></div>
               <h5 class="decalaration">Declaration</h5>
               <div class="codewrapper">
-                <pre><code class="lang-csharp hljs">public bool IsRunningSlowly { get; set; }</code></pre>
+                <pre><code class="lang-csharp hljs">public bool IsRunningSlowly { get; }</code></pre>
               </div>
               <h5 class="propertyValue">Property Value</h5>
               <table class="table table-bordered table-striped table-condensed">
@@ -281,7 +304,7 @@
                 <a href="https://github.com/golf1052/GLX/new/master/apiSpec/new?filename=GLX_GameTimeWrapper_NormalUpdate.md&amp;value=---%0Auid%3A%20GLX.GameTimeWrapper.NormalUpdate%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
               </span>
               <span class="small pull-right mobile-hide">
-                <a href="https://github.com/golf1052/GLX/blob/master/GLX/GameTimeWrapper.cs/#L83">View Source</a>
+                <a href="https://github.com/golf1052/GLX/blob/master/GLX/GameTimeWrapper.cs/#L134">View Source</a>
               </span>
               <a id="GLX_GameTimeWrapper_NormalUpdate_" data-uid="GLX.GameTimeWrapper.NormalUpdate*"></a>
               <h4 id="GLX_GameTimeWrapper_NormalUpdate" data-uid="GLX.GameTimeWrapper.NormalUpdate">NormalUpdate</h4>
@@ -311,15 +334,16 @@
                 <a href="https://github.com/golf1052/GLX/new/master/apiSpec/new?filename=GLX_GameTimeWrapper_TotalGameTime.md&amp;value=---%0Auid%3A%20GLX.GameTimeWrapper.TotalGameTime%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
               </span>
               <span class="small pull-right mobile-hide">
-                <a href="https://github.com/golf1052/GLX/blob/master/GLX/GameTimeWrapper.cs/#L45">View Source</a>
+                <a href="https://github.com/golf1052/GLX/blob/master/GLX/GameTimeWrapper.cs/#L88">View Source</a>
               </span>
               <a id="GLX_GameTimeWrapper_TotalGameTime_" data-uid="GLX.GameTimeWrapper.TotalGameTime*"></a>
               <h4 id="GLX_GameTimeWrapper_TotalGameTime" data-uid="GLX.GameTimeWrapper.TotalGameTime">TotalGameTime</h4>
-              <div class="markdown level1 summary"></div>
+              <div class="markdown level1 summary"><p>From GameTime. How much time has passed since we started the game.</p>
+</div>
               <div class="markdown level1 conceptual"></div>
               <h5 class="decalaration">Declaration</h5>
               <div class="codewrapper">
-                <pre><code class="lang-csharp hljs">public TimeSpan TotalGameTime { get; set; }</code></pre>
+                <pre><code class="lang-csharp hljs">public TimeSpan TotalGameTime { get; }</code></pre>
               </div>
               <h5 class="propertyValue">Property Value</h5>
               <table class="table table-bordered table-striped table-condensed">
@@ -340,15 +364,20 @@
               </h3>
               <span class="small pull-right mobile-hide">
                 <span class="divider">|</span>
-                <a href="https://github.com/golf1052/GLX/new/master/apiSpec/new?filename=GLX_GameTimeWrapper_Update_Microsoft_Xna_Framework_GameTime_.md&amp;value=---%0Auid%3A%20GLX.GameTimeWrapper.Update(Microsoft.Xna.Framework.GameTime)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+                <a href="https://github.com/golf1052/GLX/blob/master/Documentation/apiSpec/GLX_GameTimeWrapper_Update_Microsoft_Xna_Framework_GameTime_.md/#L2">Improve this Doc</a>
               </span>
               <span class="small pull-right mobile-hide">
-                <a href="https://github.com/golf1052/GLX/blob/master/GLX/GameTimeWrapper.cs/#L98">View Source</a>
+                <a href="https://github.com/golf1052/GLX/blob/master/GLX/GameTimeWrapper.cs/#L159">View Source</a>
               </span>
               <a id="GLX_GameTimeWrapper_Update_" data-uid="GLX.GameTimeWrapper.Update*"></a>
               <h4 id="GLX_GameTimeWrapper_Update_Microsoft_Xna_Framework_GameTime_" data-uid="GLX.GameTimeWrapper.Update(Microsoft.Xna.Framework.GameTime)">Update(GameTime)</h4>
-              <div class="markdown level1 summary"></div>
-              <div class="markdown level1 conceptual"></div>
+              <div class="markdown level1 summary"><p>Updates the game time</p>
+</div>
+              <div class="markdown level1 conceptual"><p>Initially GameSpeed was reported at the speed the player set. However I ran into an issue with animations. If we moved more than one animation frame in an update we would have to skip frames. Displaying the right frame was not an issue. The real issue was the frame actions that were set on a frame. Say we had an animation with five frames. On frame 2 we tell the animation to start moving upwards 5 pixels. On frame 5 we tell the animation to stop moving upwards. On frames 2, 3, and 4 we would move upwards 5 pixels for a total of 15 pixels. If the game was running fast enough that we hit frame 2 and then skipped to frame 5 we would only move up 5 pixels. We would move up 15 pixels if we set frame 3 and 4 to also move up 5 pixels but it makes much more sense to have the sprite the animation is linked to handle moving upwards after we tell it to start moving upwards. If the sprite has no idea that we skipped frames then it would have no idea that it missed out on moving 10 pixels.</p>
+<p>To fix this issue if the game should be running faster than 1.0 then we run the update method attached to this game time multiple times until we hit our actual game speed. If we want the game to run at 3.5 times its normal rate we run the update method three times at a speed of 1.0 then one time at a speed of 0.5. Now when we run animations we will never skip frames unless the frame time for a sprite sheet is shorter than the usual update rate of the game (16.6667 milliseconds). If we go back to our example we will hit frame 2, 3, and 4 and all other update methods in the game time will run their appropriate things making sure we don&#39;t miss out on things.</p>
+<p>TotalGameTime and ElapsedGameTime are then modified to reflect how much time has passed in the game world. If the game is running at 0.5 then ElapsedGameTime will be 83333 ticks instead of 166667 ticks.</p>
+<p>Some things in a game may still need to know the real speed the game is running at so ActualGameSpeed will display the real speed of the game even if we are running faster than 1.0 (or slower than -1.0)</p>
+</div>
               <h5 class="decalaration">Declaration</h5>
               <div class="codewrapper">
                 <pre><code class="lang-csharp hljs">public void Update(GameTime gameTime)</code></pre>
@@ -366,7 +395,8 @@
                   <tr>
                     <td><span class="xref">Microsoft.Xna.Framework.GameTime</span></td>
                     <td><span class="parametername">gameTime</span></td>
-                    <td></td>
+                    <td><p>The XNA <span class="xref">Microsoft.Xna.Framework.GameTime</span></p>
+</td>
                   </tr>
                 </tbody>
               </table>
@@ -375,7 +405,7 @@
                 <a href="https://github.com/golf1052/GLX/new/master/apiSpec/new?filename=GLX_GameTimeWrapper_UpdateByIncrement_Microsoft_Xna_Framework_GameTime_.md&amp;value=---%0Auid%3A%20GLX.GameTimeWrapper.UpdateByIncrement(Microsoft.Xna.Framework.GameTime)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
               </span>
               <span class="small pull-right mobile-hide">
-                <a href="https://github.com/golf1052/GLX/blob/master/GLX/GameTimeWrapper.cs/#L139">View Source</a>
+                <a href="https://github.com/golf1052/GLX/blob/master/GLX/GameTimeWrapper.cs/#L200">View Source</a>
               </span>
               <a id="GLX_GameTimeWrapper_UpdateByIncrement_" data-uid="GLX.GameTimeWrapper.UpdateByIncrement*"></a>
               <h4 id="GLX_GameTimeWrapper_UpdateByIncrement_Microsoft_Xna_Framework_GameTime_" data-uid="GLX.GameTimeWrapper.UpdateByIncrement(Microsoft.Xna.Framework.GameTime)">UpdateByIncrement(GameTime)</h4>
@@ -413,7 +443,7 @@
                     <a href="https://github.com/golf1052/GLX/new/master/apiSpec/new?filename=GLX_GameTimeWrapper.md&amp;value=---%0Auid%3A%20GLX.GameTimeWrapper%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" class="contribution-link">Improve this Doc</a>
                   </li>
                   <li>
-                    <a href="https://github.com/golf1052/GLX/blob/master/GLX/GameTimeWrapper.cs/#L10" class="contribution-link">View Source</a>
+                    <a href="https://github.com/golf1052/GLX/blob/master/GLX/GameTimeWrapper.cs/#L20" class="contribution-link">View Source</a>
                   </li>
                 </ul>
               </div>

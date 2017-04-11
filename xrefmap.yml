@@ -1025,6 +1025,36 @@ references:
   commentId: Overload:GLX.GameTimeWrapper.UpdateByIncrement
   fullName: GLX.GameTimeWrapper.UpdateByIncrement
   nameWithType: GameTimeWrapper.UpdateByIncrement
+- uid: GLX.GLXException
+  name: GLXException
+  href: api/GLX.GLXException.html
+  commentId: T:GLX.GLXException
+  fullName: GLX.GLXException
+  nameWithType: GLXException
+- uid: GLX.GLXException.#ctor
+  name: GLXException()
+  href: api/GLX.GLXException.html#GLX_GLXException__ctor
+  commentId: M:GLX.GLXException.#ctor
+  fullName: GLX.GLXException.GLXException()
+  nameWithType: GLXException.GLXException()
+- uid: GLX.GLXException.#ctor(System.String)
+  name: GLXException(String)
+  href: api/GLX.GLXException.html#GLX_GLXException__ctor_System_String_
+  commentId: M:GLX.GLXException.#ctor(System.String)
+  fullName: GLX.GLXException.GLXException(System.String)
+  nameWithType: GLXException.GLXException(String)
+- uid: GLX.GLXException.#ctor(System.String,System.Exception)
+  name: GLXException(String, Exception)
+  href: api/GLX.GLXException.html#GLX_GLXException__ctor_System_String_System_Exception_
+  commentId: M:GLX.GLXException.#ctor(System.String,System.Exception)
+  fullName: GLX.GLXException.GLXException(System.String, System.Exception)
+  nameWithType: GLXException.GLXException(String, Exception)
+- uid: GLX.GLXException.#ctor*
+  name: GLXException
+  href: api/GLX.GLXException.html#GLX_GLXException__ctor_
+  commentId: Overload:GLX.GLXException.#ctor
+  fullName: GLX.GLXException.GLXException
+  nameWithType: GLXException.GLXException
 - uid: GLX.HelperMethods
   name: HelperMethods
   href: api/GLX.HelperMethods.html
@@ -1262,12 +1292,12 @@ references:
   commentId: T:GLX.MenuState
   fullName: GLX.MenuState
   nameWithType: MenuState
-- uid: GLX.MenuState.#ctor(System.String,Microsoft.Xna.Framework.GraphicsDeviceManager,Microsoft.Xna.Framework.Game,GLX.World)
-  name: MenuState(String, GraphicsDeviceManager, Game, World)
-  href: api/GLX.MenuState.html#GLX_MenuState__ctor_System_String_Microsoft_Xna_Framework_GraphicsDeviceManager_Microsoft_Xna_Framework_Game_GLX_World_
-  commentId: M:GLX.MenuState.#ctor(System.String,Microsoft.Xna.Framework.GraphicsDeviceManager,Microsoft.Xna.Framework.Game,GLX.World)
-  fullName: GLX.MenuState.MenuState(System.String, Microsoft.Xna.Framework.GraphicsDeviceManager, Microsoft.Xna.Framework.Game, GLX.World)
-  nameWithType: MenuState.MenuState(String, GraphicsDeviceManager, Game, World)
+- uid: GLX.MenuState.#ctor(System.String,Microsoft.Xna.Framework.GraphicsDeviceManager,GLX.World)
+  name: MenuState(String, GraphicsDeviceManager, World)
+  href: api/GLX.MenuState.html#GLX_MenuState__ctor_System_String_Microsoft_Xna_Framework_GraphicsDeviceManager_GLX_World_
+  commentId: M:GLX.MenuState.#ctor(System.String,Microsoft.Xna.Framework.GraphicsDeviceManager,GLX.World)
+  fullName: GLX.MenuState.MenuState(System.String, Microsoft.Xna.Framework.GraphicsDeviceManager, GLX.World)
+  nameWithType: MenuState.MenuState(String, GraphicsDeviceManager, World)
 - uid: GLX.MenuState.#ctor*
   name: MenuState
   href: api/GLX.MenuState.html#GLX_MenuState__ctor_
@@ -1358,12 +1388,18 @@ references:
   commentId: F:GLX.MenuState.menuItems
   fullName: GLX.MenuState.menuItems
   nameWithType: MenuState.menuItems
-- uid: GLX.MenuState.selectedColor
-  name: selectedColor
-  href: api/GLX.MenuState.html#GLX_MenuState_selectedColor
-  commentId: F:GLX.MenuState.selectedColor
-  fullName: GLX.MenuState.selectedColor
-  nameWithType: MenuState.selectedColor
+- uid: GLX.MenuState.SelectedColor
+  name: SelectedColor
+  href: api/GLX.MenuState.html#GLX_MenuState_SelectedColor
+  commentId: P:GLX.MenuState.SelectedColor
+  fullName: GLX.MenuState.SelectedColor
+  nameWithType: MenuState.SelectedColor
+- uid: GLX.MenuState.SelectedColor*
+  name: SelectedColor
+  href: api/GLX.MenuState.html#GLX_MenuState_SelectedColor_
+  commentId: Overload:GLX.MenuState.SelectedColor
+  fullName: GLX.MenuState.SelectedColor
+  nameWithType: MenuState.SelectedColor
 - uid: GLX.MenuState.SetMenuAction(System.String,System.Action)
   name: SetMenuAction(String, Action)
   href: api/GLX.MenuState.html#GLX_MenuState_SetMenuAction_System_String_System_Action_
@@ -1382,12 +1418,18 @@ references:
   commentId: F:GLX.MenuState.spacing
   fullName: GLX.MenuState.spacing
   nameWithType: MenuState.spacing
-- uid: GLX.MenuState.unselectedColor
-  name: unselectedColor
-  href: api/GLX.MenuState.html#GLX_MenuState_unselectedColor
-  commentId: F:GLX.MenuState.unselectedColor
-  fullName: GLX.MenuState.unselectedColor
-  nameWithType: MenuState.unselectedColor
+- uid: GLX.MenuState.UnselectedColor
+  name: UnselectedColor
+  href: api/GLX.MenuState.html#GLX_MenuState_UnselectedColor
+  commentId: P:GLX.MenuState.UnselectedColor
+  fullName: GLX.MenuState.UnselectedColor
+  nameWithType: MenuState.UnselectedColor
+- uid: GLX.MenuState.UnselectedColor*
+  name: UnselectedColor
+  href: api/GLX.MenuState.html#GLX_MenuState_UnselectedColor_
+  commentId: Overload:GLX.MenuState.UnselectedColor
+  fullName: GLX.MenuState.UnselectedColor
+  nameWithType: MenuState.UnselectedColor
 - uid: GLX.Particle
   name: Particle
   href: api/GLX.Particle.html
@@ -2525,6 +2567,12 @@ references:
   commentId: M:GLX.TextItem.Update
   fullName: GLX.TextItem.Update()
   nameWithType: TextItem.Update()
+- uid: GLX.TextItem.Update(GLX.GameTimeWrapper)
+  name: Update(GameTimeWrapper)
+  href: api/GLX.TextItem.html#GLX_TextItem_Update_GLX_GameTimeWrapper_
+  commentId: M:GLX.TextItem.Update(GLX.GameTimeWrapper)
+  fullName: GLX.TextItem.Update(GLX.GameTimeWrapper)
+  nameWithType: TextItem.Update(GameTimeWrapper)
 - uid: GLX.TextItem.Update*
   name: Update
   href: api/GLX.TextItem.html#GLX_TextItem_Update_
@@ -2972,18 +3020,18 @@ references:
   commentId: M:GLX.World.AddMenuState(GLX.MenuState)
   fullName: GLX.World.AddMenuState(GLX.MenuState)
   nameWithType: World.AddMenuState(MenuState)
-- uid: GLX.World.AddMenuState(System.String,Microsoft.Xna.Framework.Game)
-  name: AddMenuState(String, Game)
-  href: api/GLX.World.html#GLX_World_AddMenuState_System_String_Microsoft_Xna_Framework_Game_
-  commentId: M:GLX.World.AddMenuState(System.String,Microsoft.Xna.Framework.Game)
-  fullName: GLX.World.AddMenuState(System.String, Microsoft.Xna.Framework.Game)
-  nameWithType: World.AddMenuState(String, Game)
-- uid: GLX.World.AddMenuState(System.String,Microsoft.Xna.Framework.GraphicsDeviceManager,Microsoft.Xna.Framework.Game)
-  name: AddMenuState(String, GraphicsDeviceManager, Game)
-  href: api/GLX.World.html#GLX_World_AddMenuState_System_String_Microsoft_Xna_Framework_GraphicsDeviceManager_Microsoft_Xna_Framework_Game_
-  commentId: M:GLX.World.AddMenuState(System.String,Microsoft.Xna.Framework.GraphicsDeviceManager,Microsoft.Xna.Framework.Game)
-  fullName: GLX.World.AddMenuState(System.String, Microsoft.Xna.Framework.GraphicsDeviceManager, Microsoft.Xna.Framework.Game)
-  nameWithType: World.AddMenuState(String, GraphicsDeviceManager, Game)
+- uid: GLX.World.AddMenuState(System.String)
+  name: AddMenuState(String)
+  href: api/GLX.World.html#GLX_World_AddMenuState_System_String_
+  commentId: M:GLX.World.AddMenuState(System.String)
+  fullName: GLX.World.AddMenuState(System.String)
+  nameWithType: World.AddMenuState(String)
+- uid: GLX.World.AddMenuState(System.String,Microsoft.Xna.Framework.GraphicsDeviceManager)
+  name: AddMenuState(String, GraphicsDeviceManager)
+  href: api/GLX.World.html#GLX_World_AddMenuState_System_String_Microsoft_Xna_Framework_GraphicsDeviceManager_
+  commentId: M:GLX.World.AddMenuState(System.String,Microsoft.Xna.Framework.GraphicsDeviceManager)
+  fullName: GLX.World.AddMenuState(System.String, Microsoft.Xna.Framework.GraphicsDeviceManager)
+  nameWithType: World.AddMenuState(String, GraphicsDeviceManager)
 - uid: GLX.World.AddMenuState*
   name: AddMenuState
   href: api/GLX.World.html#GLX_World_AddMenuState_

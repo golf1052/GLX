@@ -72,7 +72,8 @@
               
               <h1 id="GLX_MenuState" data-uid="GLX.MenuState">Class MenuState
               </h1>
-              <div class="markdown level0 summary"></div>
+              <div class="markdown level0 summary"><p>Holds information about a menu state. Inherits from <a class="xref" href="GLX.GameState.html">GameState</a></p>
+</div>
               <div class="markdown level0 conceptual"></div>
               <div class="inheritance">
                 <h5>Inheritance</h5>
@@ -128,22 +129,28 @@
               <div class="codewrapper">
                 <pre><code class="lang-csharp hljs">public class MenuState : GameState</code></pre>
               </div>
+              <h5 id="GLX_MenuState_remarks"><strong>Remarks</strong></h5>
+              <div class="markdown level0 remarks"><p>There is some information about MenuState in the <a class="xref" href="GLX.GameState.html">GameState</a> documentation file.
+Typically menus have text that takes the user to a new place in the game whether that is another menu or actual game play.
+MenuState provides extra functionality to handle selecting menu items.</p>
+</div>
               <h3 id="constructors">Constructors
               </h3>
               <span class="small pull-right mobile-hide">
                 <span class="divider">|</span>
-                <a href="https://github.com/golf1052/GLX/new/master/apiSpec/new?filename=GLX_MenuState__ctor_System_String_Microsoft_Xna_Framework_GraphicsDeviceManager_Microsoft_Xna_Framework_Game_GLX_World_.md&amp;value=---%0Auid%3A%20GLX.MenuState.%23ctor(System.String%2CMicrosoft.Xna.Framework.GraphicsDeviceManager%2CMicrosoft.Xna.Framework.Game%2CGLX.World)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+                <a href="https://github.com/golf1052/GLX/new/master/apiSpec/new?filename=GLX_MenuState__ctor_System_String_Microsoft_Xna_Framework_GraphicsDeviceManager_GLX_World_.md&amp;value=---%0Auid%3A%20GLX.MenuState.%23ctor(System.String%2CMicrosoft.Xna.Framework.GraphicsDeviceManager%2CGLX.World)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
               </span>
               <span class="small pull-right mobile-hide">
-                <a href="https://github.com/golf1052/GLX/blob/master/GLX/MenuState.cs/#L59">View Source</a>
+                <a href="https://github.com/golf1052/GLX/blob/master/GLX/MenuState.cs/#L109">View Source</a>
               </span>
               <a id="GLX_MenuState__ctor_" data-uid="GLX.MenuState.#ctor*"></a>
-              <h4 id="GLX_MenuState__ctor_System_String_Microsoft_Xna_Framework_GraphicsDeviceManager_Microsoft_Xna_Framework_Game_GLX_World_" data-uid="GLX.MenuState.#ctor(System.String,Microsoft.Xna.Framework.GraphicsDeviceManager,Microsoft.Xna.Framework.Game,GLX.World)">MenuState(String, GraphicsDeviceManager, Game, World)</h4>
-              <div class="markdown level1 summary"></div>
+              <h4 id="GLX_MenuState__ctor_System_String_Microsoft_Xna_Framework_GraphicsDeviceManager_GLX_World_" data-uid="GLX.MenuState.#ctor(System.String,Microsoft.Xna.Framework.GraphicsDeviceManager,GLX.World)">MenuState(String, GraphicsDeviceManager, World)</h4>
+              <div class="markdown level1 summary"><p>Creates a new menu state. Unlike <a class="xref" href="GLX.GameState.html">GameState</a>, menu states come with their own game time because menus typically run at normal speed.</p>
+</div>
               <div class="markdown level1 conceptual"></div>
               <h5 class="decalaration">Declaration</h5>
               <div class="codewrapper">
-                <pre><code class="lang-csharp hljs">public MenuState(string name, GraphicsDeviceManager graphics, Game game, World world)</code></pre>
+                <pre><code class="lang-csharp hljs">public MenuState(string name, GraphicsDeviceManager graphics, World world)</code></pre>
               </div>
               <h5 class="parameters">Parameters</h5>
               <table class="table table-bordered table-striped table-condensed">
@@ -158,22 +165,20 @@
                   <tr>
                     <td><span class="xref">System.String</span></td>
                     <td><span class="parametername">name</span></td>
-                    <td></td>
+                    <td><p>The name of the menu state.</p>
+</td>
                   </tr>
                   <tr>
                     <td><span class="xref">Microsoft.Xna.Framework.GraphicsDeviceManager</span></td>
                     <td><span class="parametername">graphics</span></td>
-                    <td></td>
-                  </tr>
-                  <tr>
-                    <td><span class="xref">Microsoft.Xna.Framework.Game</span></td>
-                    <td><span class="parametername">game</span></td>
-                    <td></td>
+                    <td><p>The graphics device manager.</p>
+</td>
                   </tr>
                   <tr>
                     <td><a class="xref" href="GLX.World.html">World</a></td>
                     <td><span class="parametername">world</span></td>
-                    <td></td>
+                    <td><p>The world</p>
+</td>
                   </tr>
                 </tbody>
               </table>
@@ -184,10 +189,11 @@
                 <a href="https://github.com/golf1052/GLX/new/master/apiSpec/new?filename=GLX_MenuState_initialPosition.md&amp;value=---%0Auid%3A%20GLX.MenuState.initialPosition%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
               </span>
               <span class="small pull-right mobile-hide">
-                <a href="https://github.com/golf1052/GLX/blob/master/GLX/MenuState.cs/#L48">View Source</a>
+                <a href="https://github.com/golf1052/GLX/blob/master/GLX/MenuState.cs/#L80">View Source</a>
               </span>
               <h4 id="GLX_MenuState_initialPosition" data-uid="GLX.MenuState.initialPosition">initialPosition</h4>
-              <div class="markdown level1 summary"></div>
+              <div class="markdown level1 summary"><p>The position where text should start to be drawn.</p>
+</div>
               <div class="markdown level1 conceptual"></div>
               <h5 class="decalaration">Declaration</h5>
               <div class="codewrapper">
@@ -213,10 +219,11 @@
                 <a href="https://github.com/golf1052/GLX/new/master/apiSpec/new?filename=GLX_MenuState_menuDirection.md&amp;value=---%0Auid%3A%20GLX.MenuState.menuDirection%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
               </span>
               <span class="small pull-right mobile-hide">
-                <a href="https://github.com/golf1052/GLX/blob/master/GLX/MenuState.cs/#L57">View Source</a>
+                <a href="https://github.com/golf1052/GLX/blob/master/GLX/MenuState.cs/#L101">View Source</a>
               </span>
               <h4 id="GLX_MenuState_menuDirection" data-uid="GLX.MenuState.menuDirection">menuDirection</h4>
-              <div class="markdown level1 summary"></div>
+              <div class="markdown level1 summary"><p>The direction the menu should go, either left to right or top to bottom.</p>
+</div>
               <div class="markdown level1 conceptual"></div>
               <h5 class="decalaration">Declaration</h5>
               <div class="codewrapper">
@@ -242,10 +249,11 @@
                 <a href="https://github.com/golf1052/GLX/new/master/apiSpec/new?filename=GLX_MenuState_menuItems.md&amp;value=---%0Auid%3A%20GLX.MenuState.menuItems%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
               </span>
               <span class="small pull-right mobile-hide">
-                <a href="https://github.com/golf1052/GLX/blob/master/GLX/MenuState.cs/#L14">View Source</a>
+                <a href="https://github.com/golf1052/GLX/blob/master/GLX/MenuState.cs/#L25">View Source</a>
               </span>
               <h4 id="GLX_MenuState_menuItems" data-uid="GLX.MenuState.menuItems">menuItems</h4>
-              <div class="markdown level1 summary"></div>
+              <div class="markdown level1 summary"><p>The list of menu items.</p>
+</div>
               <div class="markdown level1 conceptual"></div>
               <h5 class="decalaration">Declaration</h5>
               <div class="codewrapper">
@@ -268,42 +276,14 @@
               </table>
               <span class="small pull-right mobile-hide">
                 <span class="divider">|</span>
-                <a href="https://github.com/golf1052/GLX/new/master/apiSpec/new?filename=GLX_MenuState_selectedColor.md&amp;value=---%0Auid%3A%20GLX.MenuState.selectedColor%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
-              </span>
-              <span class="small pull-right mobile-hide">
-                <a href="https://github.com/golf1052/GLX/blob/master/GLX/MenuState.cs/#L17">View Source</a>
-              </span>
-              <h4 id="GLX_MenuState_selectedColor" data-uid="GLX.MenuState.selectedColor">selectedColor</h4>
-              <div class="markdown level1 summary"></div>
-              <div class="markdown level1 conceptual"></div>
-              <h5 class="decalaration">Declaration</h5>
-              <div class="codewrapper">
-                <pre><code class="lang-csharp hljs">public Color selectedColor</code></pre>
-              </div>
-              <h5 class="fieldValue">Field Value</h5>
-              <table class="table table-bordered table-striped table-condensed">
-                <thead>
-                  <tr>
-                    <th>Type</th>
-                    <th>Description</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  <tr>
-                    <td><span class="xref">Microsoft.Xna.Framework.Color</span></td>
-                    <td></td>
-                  </tr>
-                </tbody>
-              </table>
-              <span class="small pull-right mobile-hide">
-                <span class="divider">|</span>
                 <a href="https://github.com/golf1052/GLX/new/master/apiSpec/new?filename=GLX_MenuState_spacing.md&amp;value=---%0Auid%3A%20GLX.MenuState.spacing%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
               </span>
               <span class="small pull-right mobile-hide">
-                <a href="https://github.com/golf1052/GLX/blob/master/GLX/MenuState.cs/#L49">View Source</a>
+                <a href="https://github.com/golf1052/GLX/blob/master/GLX/MenuState.cs/#L85">View Source</a>
               </span>
               <h4 id="GLX_MenuState_spacing" data-uid="GLX.MenuState.spacing">spacing</h4>
-              <div class="markdown level1 summary"></div>
+              <div class="markdown level1 summary"><p>The spacing between menu items.</p>
+</div>
               <div class="markdown level1 conceptual"></div>
               <h5 class="decalaration">Declaration</h5>
               <div class="codewrapper">
@@ -324,35 +304,6 @@
                   </tr>
                 </tbody>
               </table>
-              <span class="small pull-right mobile-hide">
-                <span class="divider">|</span>
-                <a href="https://github.com/golf1052/GLX/new/master/apiSpec/new?filename=GLX_MenuState_unselectedColor.md&amp;value=---%0Auid%3A%20GLX.MenuState.unselectedColor%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
-              </span>
-              <span class="small pull-right mobile-hide">
-                <a href="https://github.com/golf1052/GLX/blob/master/GLX/MenuState.cs/#L16">View Source</a>
-              </span>
-              <h4 id="GLX_MenuState_unselectedColor" data-uid="GLX.MenuState.unselectedColor">unselectedColor</h4>
-              <div class="markdown level1 summary"></div>
-              <div class="markdown level1 conceptual"></div>
-              <h5 class="decalaration">Declaration</h5>
-              <div class="codewrapper">
-                <pre><code class="lang-csharp hljs">public Color unselectedColor</code></pre>
-              </div>
-              <h5 class="fieldValue">Field Value</h5>
-              <table class="table table-bordered table-striped table-condensed">
-                <thead>
-                  <tr>
-                    <th>Type</th>
-                    <th>Description</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  <tr>
-                    <td><span class="xref">Microsoft.Xna.Framework.Color</span></td>
-                    <td></td>
-                  </tr>
-                </tbody>
-              </table>
               <h3 id="properties">Properties
               </h3>
               <span class="small pull-right mobile-hide">
@@ -360,11 +311,12 @@
                 <a href="https://github.com/golf1052/GLX/new/master/apiSpec/new?filename=GLX_MenuState_CurrentSelection.md&amp;value=---%0Auid%3A%20GLX.MenuState.CurrentSelection%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
               </span>
               <span class="small pull-right mobile-hide">
-                <a href="https://github.com/golf1052/GLX/blob/master/GLX/MenuState.cs/#L19">View Source</a>
+                <a href="https://github.com/golf1052/GLX/blob/master/GLX/MenuState.cs/#L44">View Source</a>
               </span>
               <a id="GLX_MenuState_CurrentSelection_" data-uid="GLX.MenuState.CurrentSelection*"></a>
               <h4 id="GLX_MenuState_CurrentSelection" data-uid="GLX.MenuState.CurrentSelection">CurrentSelection</h4>
-              <div class="markdown level1 summary"></div>
+              <div class="markdown level1 summary"><p>Get or set the currently selected menu item index.</p>
+</div>
               <div class="markdown level1 conceptual"></div>
               <h5 class="decalaration">Declaration</h5>
               <div class="codewrapper">
@@ -390,11 +342,12 @@
                 <a href="https://github.com/golf1052/GLX/new/master/apiSpec/new?filename=GLX_MenuState_MenuFont.md&amp;value=---%0Auid%3A%20GLX.MenuState.MenuFont%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
               </span>
               <span class="small pull-right mobile-hide">
-                <a href="https://github.com/golf1052/GLX/blob/master/GLX/MenuState.cs/#L47">View Source</a>
+                <a href="https://github.com/golf1052/GLX/blob/master/GLX/MenuState.cs/#L75">View Source</a>
               </span>
               <a id="GLX_MenuState_MenuFont_" data-uid="GLX.MenuState.MenuFont*"></a>
               <h4 id="GLX_MenuState_MenuFont" data-uid="GLX.MenuState.MenuFont">MenuFont</h4>
-              <div class="markdown level1 summary"></div>
+              <div class="markdown level1 summary"><p>The font that should be used when drawing text.</p>
+</div>
               <div class="markdown level1 conceptual"></div>
               <h5 class="decalaration">Declaration</h5>
               <div class="codewrapper">
@@ -415,6 +368,68 @@
                   </tr>
                 </tbody>
               </table>
+              <span class="small pull-right mobile-hide">
+                <span class="divider">|</span>
+                <a href="https://github.com/golf1052/GLX/new/master/apiSpec/new?filename=GLX_MenuState_SelectedColor.md&amp;value=---%0Auid%3A%20GLX.MenuState.SelectedColor%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+              </span>
+              <span class="small pull-right mobile-hide">
+                <a href="https://github.com/golf1052/GLX/blob/master/GLX/MenuState.cs/#L37">View Source</a>
+              </span>
+              <a id="GLX_MenuState_SelectedColor_" data-uid="GLX.MenuState.SelectedColor*"></a>
+              <h4 id="GLX_MenuState_SelectedColor" data-uid="GLX.MenuState.SelectedColor">SelectedColor</h4>
+              <div class="markdown level1 summary"><p>The color a menu item should be when it is selected.</p>
+</div>
+              <div class="markdown level1 conceptual"></div>
+              <h5 class="decalaration">Declaration</h5>
+              <div class="codewrapper">
+                <pre><code class="lang-csharp hljs">public Color SelectedColor { get; set; }</code></pre>
+              </div>
+              <h5 class="propertyValue">Property Value</h5>
+              <table class="table table-bordered table-striped table-condensed">
+                <thead>
+                  <tr>
+                    <th>Type</th>
+                    <th>Description</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td><span class="xref">Microsoft.Xna.Framework.Color</span></td>
+                    <td></td>
+                  </tr>
+                </tbody>
+              </table>
+              <span class="small pull-right mobile-hide">
+                <span class="divider">|</span>
+                <a href="https://github.com/golf1052/GLX/new/master/apiSpec/new?filename=GLX_MenuState_UnselectedColor.md&amp;value=---%0Auid%3A%20GLX.MenuState.UnselectedColor%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+              </span>
+              <span class="small pull-right mobile-hide">
+                <a href="https://github.com/golf1052/GLX/blob/master/GLX/MenuState.cs/#L32">View Source</a>
+              </span>
+              <a id="GLX_MenuState_UnselectedColor_" data-uid="GLX.MenuState.UnselectedColor*"></a>
+              <h4 id="GLX_MenuState_UnselectedColor" data-uid="GLX.MenuState.UnselectedColor">UnselectedColor</h4>
+              <div class="markdown level1 summary"><p>The color a menu item should be when it is not selected.</p>
+</div>
+              <div class="markdown level1 conceptual"></div>
+              <h5 class="decalaration">Declaration</h5>
+              <div class="codewrapper">
+                <pre><code class="lang-csharp hljs">public Color UnselectedColor { get; set; }</code></pre>
+              </div>
+              <h5 class="propertyValue">Property Value</h5>
+              <table class="table table-bordered table-striped table-condensed">
+                <thead>
+                  <tr>
+                    <th>Type</th>
+                    <th>Description</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td><span class="xref">Microsoft.Xna.Framework.Color</span></td>
+                    <td></td>
+                  </tr>
+                </tbody>
+              </table>
               <h3 id="methods">Methods
               </h3>
               <span class="small pull-right mobile-hide">
@@ -422,11 +437,12 @@
                 <a href="https://github.com/golf1052/GLX/new/master/apiSpec/new?filename=GLX_MenuState_AddMenuItem_System_String_.md&amp;value=---%0Auid%3A%20GLX.MenuState.AddMenuItem(System.String)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
               </span>
               <span class="small pull-right mobile-hide">
-                <a href="https://github.com/golf1052/GLX/blob/master/GLX/MenuState.cs/#L72">View Source</a>
+                <a href="https://github.com/golf1052/GLX/blob/master/GLX/MenuState.cs/#L126">View Source</a>
               </span>
               <a id="GLX_MenuState_AddMenuItem_" data-uid="GLX.MenuState.AddMenuItem*"></a>
               <h4 id="GLX_MenuState_AddMenuItem_System_String_" data-uid="GLX.MenuState.AddMenuItem(System.String)">AddMenuItem(String)</h4>
-              <div class="markdown level1 summary"></div>
+              <div class="markdown level1 summary"><p>Adds a new menu item to the list of menu items where the given string is what the menu item will display.</p>
+</div>
               <div class="markdown level1 conceptual"></div>
               <h5 class="decalaration">Declaration</h5>
               <div class="codewrapper">
@@ -445,7 +461,8 @@
                   <tr>
                     <td><span class="xref">System.String</span></td>
                     <td><span class="parametername">spriteText</span></td>
-                    <td></td>
+                    <td><p>The text of the menu item.</p>
+</td>
                   </tr>
                 </tbody>
               </table>
@@ -454,11 +471,12 @@
                 <a href="https://github.com/golf1052/GLX/new/master/apiSpec/new?filename=GLX_MenuState_DoAction.md&amp;value=---%0Auid%3A%20GLX.MenuState.DoAction%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
               </span>
               <span class="small pull-right mobile-hide">
-                <a href="https://github.com/golf1052/GLX/blob/master/GLX/MenuState.cs/#L95">View Source</a>
+                <a href="https://github.com/golf1052/GLX/blob/master/GLX/MenuState.cs/#L158">View Source</a>
               </span>
               <a id="GLX_MenuState_DoAction_" data-uid="GLX.MenuState.DoAction*"></a>
               <h4 id="GLX_MenuState_DoAction" data-uid="GLX.MenuState.DoAction">DoAction()</h4>
-              <div class="markdown level1 summary"></div>
+              <div class="markdown level1 summary"><p>Invokes the action on the currently selected menu item (if there is an action).</p>
+</div>
               <div class="markdown level1 conceptual"></div>
               <h5 class="decalaration">Declaration</h5>
               <div class="codewrapper">
@@ -469,11 +487,13 @@
                 <a href="https://github.com/golf1052/GLX/new/master/apiSpec/new?filename=GLX_MenuState_SetMenuAction_System_String_System_Action_.md&amp;value=---%0Auid%3A%20GLX.MenuState.SetMenuAction(System.String%2CSystem.Action)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
               </span>
               <span class="small pull-right mobile-hide">
-                <a href="https://github.com/golf1052/GLX/blob/master/GLX/MenuState.cs/#L83">View Source</a>
+                <a href="https://github.com/golf1052/GLX/blob/master/GLX/MenuState.cs/#L143">View Source</a>
               </span>
               <a id="GLX_MenuState_SetMenuAction_" data-uid="GLX.MenuState.SetMenuAction*"></a>
               <h4 id="GLX_MenuState_SetMenuAction_System_String_System_Action_" data-uid="GLX.MenuState.SetMenuAction(System.String,System.Action)">SetMenuAction(String, Action)</h4>
-              <div class="markdown level1 summary"></div>
+              <div class="markdown level1 summary"><p>Sets an action on a menu item.
+This is used so that the menu items can cause actions to happen like switching to a new menu or launching into gameplay.</p>
+</div>
               <div class="markdown level1 conceptual"></div>
               <h5 class="decalaration">Declaration</h5>
               <div class="codewrapper">
@@ -492,12 +512,14 @@
                   <tr>
                     <td><span class="xref">System.String</span></td>
                     <td><span class="parametername">text</span></td>
-                    <td></td>
+                    <td><p>The menu item to set the action on.</p>
+</td>
                   </tr>
                   <tr>
                     <td><span class="xref">System.Action</span></td>
                     <td><span class="parametername">action</span></td>
-                    <td></td>
+                    <td><p>The action.</p>
+</td>
                   </tr>
                 </tbody>
               </table>
@@ -512,7 +534,7 @@
                     <a href="https://github.com/golf1052/GLX/new/master/apiSpec/new?filename=GLX_MenuState.md&amp;value=---%0Auid%3A%20GLX.MenuState%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" class="contribution-link">Improve this Doc</a>
                   </li>
                   <li>
-                    <a href="https://github.com/golf1052/GLX/blob/master/GLX/MenuState.cs/#L12" class="contribution-link">View Source</a>
+                    <a href="https://github.com/golf1052/GLX/blob/master/GLX/MenuState.cs/#L20" class="contribution-link">View Source</a>
                   </li>
                 </ul>
               </div>

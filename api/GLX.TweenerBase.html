@@ -72,7 +72,8 @@
               
               <h1 id="GLX_TweenerBase" data-uid="GLX.TweenerBase">Class TweenerBase
               </h1>
-              <div class="markdown level0 summary"></div>
+              <div class="markdown level0 summary"><p>The base class for interpolation between two values.</p>
+</div>
               <div class="markdown level0 conceptual"></div>
               <div class="inheritance">
                 <h5>Inheritance</h5>
@@ -112,6 +113,11 @@
               <div class="codewrapper">
                 <pre><code class="lang-csharp hljs">public abstract class TweenerBase</code></pre>
               </div>
+              <h5 id="GLX_TweenerBase_remarks"><strong>Remarks</strong></h5>
+              <div class="markdown level0 remarks"><p>There are three classes that currently implement this base class.
+<a class="xref" href="GLX.FloatTweener.html">FloatTweener</a>, <a class="xref" href="GLX.Vector2Tweener.html">Vector2Tweener</a>, and <a class="xref" href="GLX.ColorTweener.html">ColorTweener</a>.
+These classes contain an update function that calls a interpolation function on their respective float fields.</p>
+</div>
               <h3 id="constructors">Constructors
               </h3>
               <span class="small pull-right mobile-hide">
@@ -119,11 +125,12 @@
                 <a href="https://github.com/golf1052/GLX/new/master/apiSpec/new?filename=GLX_TweenerBase__ctor.md&amp;value=---%0Auid%3A%20GLX.TweenerBase.%23ctor%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
               </span>
               <span class="small pull-right mobile-hide">
-                <a href="https://github.com/golf1052/GLX/blob/master/GLX/TweenerBase.cs/#L20">View Source</a>
+                <a href="https://github.com/golf1052/GLX/blob/master/GLX/TweenerBase.cs/#L47">View Source</a>
               </span>
               <a id="GLX_TweenerBase__ctor_" data-uid="GLX.TweenerBase.#ctor*"></a>
               <h4 id="GLX_TweenerBase__ctor" data-uid="GLX.TweenerBase.#ctor">TweenerBase()</h4>
-              <div class="markdown level1 summary"></div>
+              <div class="markdown level1 summary"><p>Sets up the tweener.</p>
+</div>
               <div class="markdown level1 conceptual"></div>
               <h5 class="decalaration">Declaration</h5>
               <div class="codewrapper">
@@ -136,10 +143,11 @@
                 <a href="https://github.com/golf1052/GLX/new/master/apiSpec/new?filename=GLX_TweenerBase_smoothingActive.md&amp;value=---%0Auid%3A%20GLX.TweenerBase.smoothingActive%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
               </span>
               <span class="small pull-right mobile-hide">
-                <a href="https://github.com/golf1052/GLX/blob/master/GLX/TweenerBase.cs/#L8">View Source</a>
+                <a href="https://github.com/golf1052/GLX/blob/master/GLX/TweenerBase.cs/#L19">View Source</a>
               </span>
               <h4 id="GLX_TweenerBase_smoothingActive" data-uid="GLX.TweenerBase.smoothingActive">smoothingActive</h4>
-              <div class="markdown level1 summary"></div>
+              <div class="markdown level1 summary"><p>If smoothing is active.</p>
+</div>
               <div class="markdown level1 conceptual"></div>
               <h5 class="decalaration">Declaration</h5>
               <div class="codewrapper">
@@ -165,10 +173,11 @@
                 <a href="https://github.com/golf1052/GLX/new/master/apiSpec/new?filename=GLX_TweenerBase_smoothingRate.md&amp;value=---%0Auid%3A%20GLX.TweenerBase.smoothingRate%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
               </span>
               <span class="small pull-right mobile-hide">
-                <a href="https://github.com/golf1052/GLX/blob/master/GLX/TweenerBase.cs/#L17">View Source</a>
+                <a href="https://github.com/golf1052/GLX/blob/master/GLX/TweenerBase.cs/#L40">View Source</a>
               </span>
               <h4 id="GLX_TweenerBase_smoothingRate" data-uid="GLX.TweenerBase.smoothingRate">smoothingRate</h4>
-              <div class="markdown level1 summary"></div>
+              <div class="markdown level1 summary"><p>The rate we should smooth at.</p>
+</div>
               <div class="markdown level1 conceptual"></div>
               <h5 class="decalaration">Declaration</h5>
               <div class="codewrapper">
@@ -194,10 +203,11 @@
                 <a href="https://github.com/golf1052/GLX/new/master/apiSpec/new?filename=GLX_TweenerBase_smoothingType.md&amp;value=---%0Auid%3A%20GLX.TweenerBase.smoothingType%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
               </span>
               <span class="small pull-right mobile-hide">
-                <a href="https://github.com/golf1052/GLX/blob/master/GLX/TweenerBase.cs/#L16">View Source</a>
+                <a href="https://github.com/golf1052/GLX/blob/master/GLX/TweenerBase.cs/#L35">View Source</a>
               </span>
               <h4 id="GLX_TweenerBase_smoothingType" data-uid="GLX.TweenerBase.smoothingType">smoothingType</h4>
-              <div class="markdown level1 summary"></div>
+              <div class="markdown level1 summary"><p>The smoothing type we should use.</p>
+</div>
               <div class="markdown level1 conceptual"></div>
               <h5 class="decalaration">Declaration</h5>
               <div class="codewrapper">
@@ -223,7 +233,7 @@
                 <a href="https://github.com/golf1052/GLX/new/master/apiSpec/new?filename=GLX_TweenerBase_smoothingValue.md&amp;value=---%0Auid%3A%20GLX.TweenerBase.smoothingValue%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
               </span>
               <span class="small pull-right mobile-hide">
-                <a href="https://github.com/golf1052/GLX/blob/master/GLX/TweenerBase.cs/#L18">View Source</a>
+                <a href="https://github.com/golf1052/GLX/blob/master/GLX/TweenerBase.cs/#L42">View Source</a>
               </span>
               <h4 id="GLX_TweenerBase_smoothingValue" data-uid="GLX.TweenerBase.smoothingValue">smoothingValue</h4>
               <div class="markdown level1 summary"></div>
@@ -254,11 +264,12 @@
                 <a href="https://github.com/golf1052/GLX/new/master/apiSpec/new?filename=GLX_TweenerBase_Linear_System_Single_System_Single_System_Single_.md&amp;value=---%0Auid%3A%20GLX.TweenerBase.Linear(System.Single%2CSystem.Single%2CSystem.Single)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
               </span>
               <span class="small pull-right mobile-hide">
-                <a href="https://github.com/golf1052/GLX/blob/master/GLX/TweenerBase.cs/#L51">View Source</a>
+                <a href="https://github.com/golf1052/GLX/blob/master/GLX/TweenerBase.cs/#L116">View Source</a>
               </span>
               <a id="GLX_TweenerBase_Linear_" data-uid="GLX.TweenerBase.Linear*"></a>
               <h4 id="GLX_TweenerBase_Linear_System_Single_System_Single_System_Single_" data-uid="GLX.TweenerBase.Linear(System.Single,System.Single,System.Single)">Linear(Single, Single, Single)</h4>
-              <div class="markdown level1 summary"></div>
+              <div class="markdown level1 summary"><p>Linear interpolation.</p>
+</div>
               <div class="markdown level1 conceptual"></div>
               <h5 class="decalaration">Declaration</h5>
               <div class="codewrapper">
@@ -277,17 +288,20 @@
                   <tr>
                     <td><span class="xref">System.Single</span></td>
                     <td><span class="parametername">startingValue</span></td>
-                    <td></td>
+                    <td><p>The starting value.</p>
+</td>
                   </tr>
                   <tr>
                     <td><span class="xref">System.Single</span></td>
                     <td><span class="parametername">targetValue</span></td>
-                    <td></td>
+                    <td><p>The target value.</p>
+</td>
                   </tr>
                   <tr>
                     <td><span class="xref">System.Single</span></td>
                     <td><span class="parametername">amount</span></td>
-                    <td></td>
+                    <td><p>The amount we&#39;ve tweened. Between 0 and 1.</p>
+</td>
                   </tr>
                 </tbody>
               </table>
@@ -302,7 +316,8 @@
                 <tbody>
                   <tr>
                     <td><span class="xref">System.Single</span></td>
-                    <td></td>
+                    <td><p>The output value.</p>
+</td>
                   </tr>
                 </tbody>
               </table>
@@ -311,11 +326,12 @@
                 <a href="https://github.com/golf1052/GLX/new/master/apiSpec/new?filename=GLX_TweenerBase_Smoothstep_System_Single_System_Single_System_Single_.md&amp;value=---%0Auid%3A%20GLX.TweenerBase.Smoothstep(System.Single%2CSystem.Single%2CSystem.Single)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
               </span>
               <span class="small pull-right mobile-hide">
-                <a href="https://github.com/golf1052/GLX/blob/master/GLX/TweenerBase.cs/#L56">View Source</a>
+                <a href="https://github.com/golf1052/GLX/blob/master/GLX/TweenerBase.cs/#L128">View Source</a>
               </span>
               <a id="GLX_TweenerBase_Smoothstep_" data-uid="GLX.TweenerBase.Smoothstep*"></a>
               <h4 id="GLX_TweenerBase_Smoothstep_System_Single_System_Single_System_Single_" data-uid="GLX.TweenerBase.Smoothstep(System.Single,System.Single,System.Single)">Smoothstep(Single, Single, Single)</h4>
-              <div class="markdown level1 summary"></div>
+              <div class="markdown level1 summary"><p>Smoothstep interpolation.</p>
+</div>
               <div class="markdown level1 conceptual"></div>
               <h5 class="decalaration">Declaration</h5>
               <div class="codewrapper">
@@ -334,17 +350,20 @@
                   <tr>
                     <td><span class="xref">System.Single</span></td>
                     <td><span class="parametername">startingValue</span></td>
-                    <td></td>
+                    <td><p>The starting value.</p>
+</td>
                   </tr>
                   <tr>
                     <td><span class="xref">System.Single</span></td>
                     <td><span class="parametername">targetValue</span></td>
-                    <td></td>
+                    <td><p>The target value.</p>
+</td>
                   </tr>
                   <tr>
                     <td><span class="xref">System.Single</span></td>
                     <td><span class="parametername">amount</span></td>
-                    <td></td>
+                    <td><p>The amount we&#39;ve tweened. Between 0 and 1.</p>
+</td>
                   </tr>
                 </tbody>
               </table>
@@ -359,7 +378,8 @@
                 <tbody>
                   <tr>
                     <td><span class="xref">System.Single</span></td>
-                    <td></td>
+                    <td><p>The output value.</p>
+</td>
                   </tr>
                 </tbody>
               </table>
@@ -368,11 +388,12 @@
                 <a href="https://github.com/golf1052/GLX/new/master/apiSpec/new?filename=GLX_TweenerBase_TweenerWrapper_Microsoft_Xna_Framework_Color_Microsoft_Xna_Framework_Color_System_Single_System_Func_System_Single_System_Single_System_Single_System_Single__.md&amp;value=---%0Auid%3A%20GLX.TweenerBase.TweenerWrapper(Microsoft.Xna.Framework.Color%2CMicrosoft.Xna.Framework.Color%2CSystem.Single%2CSystem.Func%7BSystem.Single%2CSystem.Single%2CSystem.Single%2CSystem.Single%7D)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
               </span>
               <span class="small pull-right mobile-hide">
-                <a href="https://github.com/golf1052/GLX/blob/master/GLX/TweenerBase.cs/#L43">View Source</a>
+                <a href="https://github.com/golf1052/GLX/blob/master/GLX/TweenerBase.cs/#L101">View Source</a>
               </span>
               <a id="GLX_TweenerBase_TweenerWrapper_" data-uid="GLX.TweenerBase.TweenerWrapper*"></a>
               <h4 id="GLX_TweenerBase_TweenerWrapper_Microsoft_Xna_Framework_Color_Microsoft_Xna_Framework_Color_System_Single_System_Func_System_Single_System_Single_System_Single_System_Single__" data-uid="GLX.TweenerBase.TweenerWrapper(Microsoft.Xna.Framework.Color,Microsoft.Xna.Framework.Color,System.Single,System.Func{System.Single,System.Single,System.Single,System.Single})">TweenerWrapper(Color, Color, Single, Func&lt;Single, Single, Single, Single&gt;)</h4>
-              <div class="markdown level1 summary"></div>
+              <div class="markdown level1 summary"><p>Interpolation wrapper.</p>
+</div>
               <div class="markdown level1 conceptual"></div>
               <h5 class="decalaration">Declaration</h5>
               <div class="codewrapper">
@@ -391,22 +412,26 @@
                   <tr>
                     <td><span class="xref">Microsoft.Xna.Framework.Color</span></td>
                     <td><span class="parametername">startingValue</span></td>
-                    <td></td>
+                    <td><p>The starting value.</p>
+</td>
                   </tr>
                   <tr>
                     <td><span class="xref">Microsoft.Xna.Framework.Color</span></td>
                     <td><span class="parametername">targetValue</span></td>
-                    <td></td>
+                    <td><p>The target value.</p>
+</td>
                   </tr>
                   <tr>
                     <td><span class="xref">System.Single</span></td>
                     <td><span class="parametername">amount</span></td>
-                    <td></td>
+                    <td><p>The amount we&#39;ve tweened. Between 0 and 1.</p>
+</td>
                   </tr>
                   <tr>
                     <td><span class="xref">System.Func</span>&lt;<span class="xref">System.Single</span>, <span class="xref">System.Single</span>, <span class="xref">System.Single</span>, <span class="xref">System.Single</span>&gt;</td>
                     <td><span class="parametername">tweenerFunction</span></td>
-                    <td></td>
+                    <td><p>The tweener function.</p>
+</td>
                   </tr>
                 </tbody>
               </table>
@@ -421,7 +446,8 @@
                 <tbody>
                   <tr>
                     <td><span class="xref">Microsoft.Xna.Framework.Color</span></td>
-                    <td></td>
+                    <td><p>The output value.</p>
+</td>
                   </tr>
                 </tbody>
               </table>
@@ -430,11 +456,12 @@
                 <a href="https://github.com/golf1052/GLX/new/master/apiSpec/new?filename=GLX_TweenerBase_TweenerWrapper_Microsoft_Xna_Framework_Vector2_Microsoft_Xna_Framework_Vector2_System_Single_System_Func_System_Single_System_Single_System_Single_System_Single__.md&amp;value=---%0Auid%3A%20GLX.TweenerBase.TweenerWrapper(Microsoft.Xna.Framework.Vector2%2CMicrosoft.Xna.Framework.Vector2%2CSystem.Single%2CSystem.Func%7BSystem.Single%2CSystem.Single%2CSystem.Single%2CSystem.Single%7D)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
               </span>
               <span class="small pull-right mobile-hide">
-                <a href="https://github.com/golf1052/GLX/blob/master/GLX/TweenerBase.cs/#L37">View Source</a>
+                <a href="https://github.com/golf1052/GLX/blob/master/GLX/TweenerBase.cs/#L87">View Source</a>
               </span>
               <a id="GLX_TweenerBase_TweenerWrapper_" data-uid="GLX.TweenerBase.TweenerWrapper*"></a>
               <h4 id="GLX_TweenerBase_TweenerWrapper_Microsoft_Xna_Framework_Vector2_Microsoft_Xna_Framework_Vector2_System_Single_System_Func_System_Single_System_Single_System_Single_System_Single__" data-uid="GLX.TweenerBase.TweenerWrapper(Microsoft.Xna.Framework.Vector2,Microsoft.Xna.Framework.Vector2,System.Single,System.Func{System.Single,System.Single,System.Single,System.Single})">TweenerWrapper(Vector2, Vector2, Single, Func&lt;Single, Single, Single, Single&gt;)</h4>
-              <div class="markdown level1 summary"></div>
+              <div class="markdown level1 summary"><p>Interpolation wrapper.</p>
+</div>
               <div class="markdown level1 conceptual"></div>
               <h5 class="decalaration">Declaration</h5>
               <div class="codewrapper">
@@ -453,22 +480,26 @@
                   <tr>
                     <td><span class="xref">Microsoft.Xna.Framework.Vector2</span></td>
                     <td><span class="parametername">startingValue</span></td>
-                    <td></td>
+                    <td><p>The starting value.</p>
+</td>
                   </tr>
                   <tr>
                     <td><span class="xref">Microsoft.Xna.Framework.Vector2</span></td>
                     <td><span class="parametername">targetValue</span></td>
-                    <td></td>
+                    <td><p>The target value.</p>
+</td>
                   </tr>
                   <tr>
                     <td><span class="xref">System.Single</span></td>
                     <td><span class="parametername">amount</span></td>
-                    <td></td>
+                    <td><p>The amount we&#39;ve tweened. Between 0 and 1.</p>
+</td>
                   </tr>
                   <tr>
                     <td><span class="xref">System.Func</span>&lt;<span class="xref">System.Single</span>, <span class="xref">System.Single</span>, <span class="xref">System.Single</span>, <span class="xref">System.Single</span>&gt;</td>
                     <td><span class="parametername">tweenerFunction</span></td>
-                    <td></td>
+                    <td><p>The tweener function.</p>
+</td>
                   </tr>
                 </tbody>
               </table>
@@ -483,7 +514,8 @@
                 <tbody>
                   <tr>
                     <td><span class="xref">Microsoft.Xna.Framework.Vector2</span></td>
-                    <td></td>
+                    <td><p>The output value.</p>
+</td>
                   </tr>
                 </tbody>
               </table>
@@ -492,11 +524,12 @@
                 <a href="https://github.com/golf1052/GLX/new/master/apiSpec/new?filename=GLX_TweenerBase_TweenerWrapper_System_Single_System_Single_System_Single_System_Func_System_Single_System_Single_System_Single_System_Single__.md&amp;value=---%0Auid%3A%20GLX.TweenerBase.TweenerWrapper(System.Single%2CSystem.Single%2CSystem.Single%2CSystem.Func%7BSystem.Single%2CSystem.Single%2CSystem.Single%2CSystem.Single%7D)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
               </span>
               <span class="small pull-right mobile-hide">
-                <a href="https://github.com/golf1052/GLX/blob/master/GLX/TweenerBase.cs/#L32">View Source</a>
+                <a href="https://github.com/golf1052/GLX/blob/master/GLX/TweenerBase.cs/#L74">View Source</a>
               </span>
               <a id="GLX_TweenerBase_TweenerWrapper_" data-uid="GLX.TweenerBase.TweenerWrapper*"></a>
               <h4 id="GLX_TweenerBase_TweenerWrapper_System_Single_System_Single_System_Single_System_Func_System_Single_System_Single_System_Single_System_Single__" data-uid="GLX.TweenerBase.TweenerWrapper(System.Single,System.Single,System.Single,System.Func{System.Single,System.Single,System.Single,System.Single})">TweenerWrapper(Single, Single, Single, Func&lt;Single, Single, Single, Single&gt;)</h4>
-              <div class="markdown level1 summary"></div>
+              <div class="markdown level1 summary"><p>Interpolation wrapper.</p>
+</div>
               <div class="markdown level1 conceptual"></div>
               <h5 class="decalaration">Declaration</h5>
               <div class="codewrapper">
@@ -515,22 +548,26 @@
                   <tr>
                     <td><span class="xref">System.Single</span></td>
                     <td><span class="parametername">startingValue</span></td>
-                    <td></td>
+                    <td><p>The starting value.</p>
+</td>
                   </tr>
                   <tr>
                     <td><span class="xref">System.Single</span></td>
                     <td><span class="parametername">targetValue</span></td>
-                    <td></td>
+                    <td><p>The target value.</p>
+</td>
                   </tr>
                   <tr>
                     <td><span class="xref">System.Single</span></td>
                     <td><span class="parametername">amount</span></td>
-                    <td></td>
+                    <td><p>The amount we&#39;ve tweened. Between 0 and 1.</p>
+</td>
                   </tr>
                   <tr>
                     <td><span class="xref">System.Func</span>&lt;<span class="xref">System.Single</span>, <span class="xref">System.Single</span>, <span class="xref">System.Single</span>, <span class="xref">System.Single</span>&gt;</td>
                     <td><span class="parametername">tweenerFunction</span></td>
-                    <td></td>
+                    <td><p>The tweener function.</p>
+</td>
                   </tr>
                 </tbody>
               </table>
@@ -545,7 +582,8 @@
                 <tbody>
                   <tr>
                     <td><span class="xref">System.Single</span></td>
-                    <td></td>
+                    <td><p>The output value.</p>
+</td>
                   </tr>
                 </tbody>
               </table>
@@ -554,11 +592,12 @@
                 <a href="https://github.com/golf1052/GLX/new/master/apiSpec/new?filename=GLX_TweenerBase_Update.md&amp;value=---%0Auid%3A%20GLX.TweenerBase.Update%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
               </span>
               <span class="small pull-right mobile-hide">
-                <a href="https://github.com/golf1052/GLX/blob/master/GLX/TweenerBase.cs/#L28">View Source</a>
+                <a href="https://github.com/golf1052/GLX/blob/master/GLX/TweenerBase.cs/#L58">View Source</a>
               </span>
               <a id="GLX_TweenerBase_Update_" data-uid="GLX.TweenerBase.Update*"></a>
               <h4 id="GLX_TweenerBase_Update" data-uid="GLX.TweenerBase.Update">Update()</h4>
-              <div class="markdown level1 summary"></div>
+              <div class="markdown level1 summary"><p>Updates the tweener.</p>
+</div>
               <div class="markdown level1 conceptual"></div>
               <h5 class="decalaration">Declaration</h5>
               <div class="codewrapper">
@@ -569,11 +608,12 @@
                 <a href="https://github.com/golf1052/GLX/new/master/apiSpec/new?filename=GLX_TweenerBase_Update_GLX_GameTimeWrapper_.md&amp;value=---%0Auid%3A%20GLX.TweenerBase.Update(GLX.GameTimeWrapper)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
               </span>
               <span class="small pull-right mobile-hide">
-                <a href="https://github.com/golf1052/GLX/blob/master/GLX/TweenerBase.cs/#L30">View Source</a>
+                <a href="https://github.com/golf1052/GLX/blob/master/GLX/TweenerBase.cs/#L64">View Source</a>
               </span>
               <a id="GLX_TweenerBase_Update_" data-uid="GLX.TweenerBase.Update*"></a>
               <h4 id="GLX_TweenerBase_Update_GLX_GameTimeWrapper_" data-uid="GLX.TweenerBase.Update(GLX.GameTimeWrapper)">Update(GameTimeWrapper)</h4>
-              <div class="markdown level1 summary"></div>
+              <div class="markdown level1 summary"><p>Updates the tweener.</p>
+</div>
               <div class="markdown level1 conceptual"></div>
               <h5 class="decalaration">Declaration</h5>
               <div class="codewrapper">
@@ -592,7 +632,8 @@
                   <tr>
                     <td><a class="xref" href="GLX.GameTimeWrapper.html">GameTimeWrapper</a></td>
                     <td><span class="parametername">gameTime</span></td>
-                    <td></td>
+                    <td><p>The game time this tweener is in.</p>
+</td>
                   </tr>
                 </tbody>
               </table>
@@ -607,7 +648,7 @@
                     <a href="https://github.com/golf1052/GLX/new/master/apiSpec/new?filename=GLX_TweenerBase.md&amp;value=---%0Auid%3A%20GLX.TweenerBase%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" class="contribution-link">Improve this Doc</a>
                   </li>
                   <li>
-                    <a href="https://github.com/golf1052/GLX/blob/master/GLX/TweenerBase.cs/#L6" class="contribution-link">View Source</a>
+                    <a href="https://github.com/golf1052/GLX/blob/master/GLX/TweenerBase.cs/#L14" class="contribution-link">View Source</a>
                   </li>
                 </ul>
               </div>
