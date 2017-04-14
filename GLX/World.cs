@@ -54,7 +54,7 @@ namespace GLX
 
         private GameState currentGameState;
 
-        private Dictionary<string, Camera> cameras;
+        public Dictionary<string, Camera> Cameras { get; private set; }
         private string currentCameraName;
         public string CurrentCameraName
         {
@@ -64,10 +64,10 @@ namespace GLX
             }
             set
             {
-                if (cameras.ContainsKey(value))
+                if (Cameras.ContainsKey(value))
                 {
                     currentCameraName = value;
-                    CurrentCamera = cameras[CurrentCameraName];
+                    CurrentCamera = Cameras[CurrentCameraName];
                 }
             }
         }
@@ -88,23 +88,23 @@ namespace GLX
             menuStates = new Dictionary<string, MenuState>();
             activeMenuStates = new List<KeyValuePair<string, MenuState>>();
             thingsToDo = new List<Action>();
-            cameras = new Dictionary<string, Camera>();
+            Cameras = new Dictionary<string, Camera>();
 
             TextureManager = new ContentManager<Texture2D>(Content);
             FontManager = new ContentManager<SpriteFont>(Content);
             SoundManager = new ContentManager<SoundEffect>(Content);
             SongManager = new ContentManager<Song>(Content);
 
-            cameras.Add(Camera1Name, new Camera(virtualResolutionRenderer, Camera.CameraFocus.TopLeft));
+            Cameras.Add(Camera1Name, new Camera(virtualResolutionRenderer, Camera.CameraFocus.TopLeft));
             currentCameraName = Camera1Name;
-            CurrentCamera = cameras[Camera1Name];
+            CurrentCamera = Cameras[Camera1Name];
         }
 
         public void AddCamera(string name, Camera camera)
         {
-            if (!cameras.ContainsKey(name) && name != Camera1Name)
+            if (!Cameras.ContainsKey(name) && name != Camera1Name)
             {
-                cameras.Add(name, camera);
+                Cameras.Add(name, camera);
             }
         }
 
@@ -116,22 +116,22 @@ namespace GLX
             }
             else
             {
-                if (cameras.ContainsKey(name))
+                if (Cameras.ContainsKey(name))
                 {
                     if (CurrentCameraName == name)
                     {
                         CurrentCameraName = Camera1Name;
                     }
-                    cameras.Remove(name);
+                    Cameras.Remove(name);
                 }
             }
         }
 
         public void UpdateCamera(string name, GameTimeWrapper gameTime)
         {
-            if (cameras.ContainsKey(name))
+            if (Cameras.ContainsKey(name))
             {
-                cameras[name].Update(gameTime);
+                Cameras[name].Update(gameTime);
             }
         }
 

@@ -100,6 +100,9 @@ namespace GLX
         /// </summary>
         public Direction menuDirection;
 
+        private KeyboardState previousKeyboardState;
+        private GamePadState previousGamePadState;
+
         /// <summary>
         /// Creates a new menu state. Unlike <see cref="GameState"/>, menu states come with their own game time because menus typically run at normal speed.
         /// </summary>
@@ -117,6 +120,8 @@ namespace GLX
             SelectedColor = Color.Yellow;
             spacing = 10;
             menuDirection = Direction.TopToBottom;
+            previousKeyboardState = Keyboard.GetState();
+            previousGamePadState = GamePad.GetState(PlayerIndex.One);
         }
 
         /// <summary>
@@ -131,6 +136,19 @@ namespace GLX
             if (menuItems.Count == 1)
             {
                 menuItems[0].color = SelectedColor;
+            }
+        }
+
+        public void AddMenuItems(params string[] spriteTexts)
+        {
+            AddMenuItems(new List<string>(spriteTexts));
+        }
+
+        public void AddMenuItems(List<string> spriteTexts)
+        {
+            foreach (var text in spriteTexts)
+            {
+                AddMenuItem(text);
             }
         }
 
@@ -164,6 +182,45 @@ namespace GLX
                 // loops finish...
                 World.thingsToDo.Add(menuItemActions[menuItems[CurrentSelection].text]);
             }
+        }
+
+        public void UpdateMenuState()
+        {
+            KeyboardState keyboardState = Keyboard.GetState();
+            GamePadState gamePadState = GamePad.GetState(PlayerIndex.One);
+
+            if (keyboardState.IsKeyDownAndUp(Keys.Up, previousKeyboardState) ||
+                gamePadState.IsButtonDownAndUp(Buttons.DPadUp, previousGamePadState))
+            {
+                CurrentSelection--;
+            }
+
+            if (keyboardState.IsKeyDownAndUp(Keys.Down, previousKeyboardState) ||
+                gamePadState.IsButtonDownAndUp(Buttons.DPadDown, previousGamePadState))
+            {
+                CurrentSelection++;
+            }
+
+            if (gamePadState.ThumbSticks.Left.Y >= 0.5f &&
+                previousGamePadState.ThumbSticks.Left.Y < 0.5f)
+            {
+                CurrentSelection--;
+            }
+
+            if (gamePadState.ThumbSticks.Left.Y <= -0.5f &&
+                previousGamePadState.ThumbSticks.Left.Y > -0.5f)
+            {
+                CurrentSelection++;
+            }
+
+            if (keyboardState.IsKeyDownAndUp(Keys.Enter, previousKeyboardState) ||
+                gamePadState.IsButtonDownAndUp(Buttons.A, previousGamePadState))
+            {
+                DoAction();
+            }
+
+            previousKeyboardState = keyboardState;
+            previousGamePadState = gamePadState;
         }
 
         private void Draw()
