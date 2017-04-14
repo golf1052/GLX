@@ -4,6 +4,8 @@ using System.Linq;
 using System.Text;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
+using Microsoft.Xna.Framework.Audio;
+using Microsoft.Xna.Framework.Media;
 
 namespace GLX
 {
@@ -13,6 +15,11 @@ namespace GLX
     public sealed class World
     {
         public const string Camera1Name = "camera1";
+
+        public static ContentManager<Texture2D> TextureManager;
+        public static ContentManager<SpriteFont> FontManager;
+        public static ContentManager<SoundEffect> SoundManager;
+        public static ContentManager<Song> SongManager;
 
         private GraphicsDeviceManager graphics;
         private SpriteBatch spriteBatch;
@@ -70,7 +77,8 @@ namespace GLX
         /// Creates a new world.
         /// </summary>
         /// <param name="graphics">The graphics device manager.</param>
-        public World(GraphicsDeviceManager graphics)
+        /// <param name="Content">The main content manager</param>
+        public World(GraphicsDeviceManager graphics, Microsoft.Xna.Framework.Content.ContentManager Content)
         {
             this.graphics = graphics;
             spriteBatch = new SpriteBatch(graphics.GraphicsDevice);
@@ -81,6 +89,12 @@ namespace GLX
             activeMenuStates = new List<KeyValuePair<string, MenuState>>();
             thingsToDo = new List<Action>();
             cameras = new Dictionary<string, Camera>();
+
+            TextureManager = new ContentManager<Texture2D>(Content);
+            FontManager = new ContentManager<SpriteFont>(Content);
+            SoundManager = new ContentManager<SoundEffect>(Content);
+            SongManager = new ContentManager<Song>(Content);
+
             cameras.Add(Camera1Name, new Camera(virtualResolutionRenderer, Camera.CameraFocus.TopLeft));
             currentCameraName = Camera1Name;
             CurrentCamera = cameras[Camera1Name];
