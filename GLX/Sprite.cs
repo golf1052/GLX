@@ -182,24 +182,7 @@ namespace GLX
             }
             velocity += acceleration;
             position += velocity;
-            drawRect.X = (int)position.X;
-            drawRect.Y = (int)position.Y;
-            if (!usingDrawRect)
-            {
-                rectangle = new Rectangle((int)position.X, (int)position.Y, tex.Width, tex.Height);
-                spriteTransform = Matrix.CreateTranslation(new Vector3(-origin, 0.0f)) *
-                    Matrix.CreateScale(scale) * Matrix.CreateRotationZ(MathHelper.ToRadians(rotation)) *
-                    Matrix.CreateTranslation(new Vector3(position, 0.0f));
-                rectangle = CalculateBoundingRectangle(new Rectangle(0, 0, tex.Width, tex.Height), spriteTransform);
-            }
-            else
-            {
-                rectangle = new Rectangle((int)position.X, (int)position.Y, drawRect.Width, drawRect.Height);
-                spriteTransform = Matrix.CreateTranslation(new Vector3(-origin, 0.0f)) *
-                    Matrix.CreateScale(scale) * Matrix.CreateRotationZ(MathHelper.ToRadians(rotation)) *
-                    Matrix.CreateTranslation(new Vector3(position, 0.0f));
-                rectangle = CalculateBoundingRectangle(new Rectangle(0, 0, drawRect.Width, drawRect.Height), spriteTransform);
-            }
+            UpdateBoundingRectangle();
         }
 
         /// <summary>
@@ -214,6 +197,11 @@ namespace GLX
             }
             velocity += acceleration * (float)gameTime.GameSpeed;
             position += velocity * (float)gameTime.GameSpeed;
+            UpdateBoundingRectangle();
+        }
+
+        public void UpdateBoundingRectangle()
+        {
             drawRect.X = (int)position.X;
             drawRect.Y = (int)position.Y;
             if (!usingDrawRect)

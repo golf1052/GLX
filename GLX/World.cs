@@ -78,11 +78,21 @@ namespace GLX
         /// </summary>
         /// <param name="graphics">The graphics device manager.</param>
         /// <param name="Content">The main content manager</param>
-        public World(GraphicsDeviceManager graphics, Microsoft.Xna.Framework.Content.ContentManager Content)
+        public World(GraphicsDeviceManager graphics, Microsoft.Xna.Framework.Content.ContentManager Content) : this(graphics, new VirtualResolutionRenderer(graphics), Content)
+        {
+        }
+
+        /// <summary>
+        /// Creates a new world.
+        /// </summary>
+        /// <param name="graphics">The graphics device manager</param>
+        /// <param name="virtualResolutionRenderer">The custom virtual resolution renderer</param>
+        /// <param name="Content">The main content manager</param>
+        public World(GraphicsDeviceManager graphics, VirtualResolutionRenderer virtualResolutionRenderer, Microsoft.Xna.Framework.Content.ContentManager Content)
         {
             this.graphics = graphics;
             spriteBatch = new SpriteBatch(graphics.GraphicsDevice);
-            virtualResolutionRenderer = new VirtualResolutionRenderer(graphics);
+            this.virtualResolutionRenderer = virtualResolutionRenderer;
             gameStates = new Dictionary<string, GameState>();
             activeGameStates = new List<KeyValuePair<string, GameState>>();
             menuStates = new Dictionary<string, MenuState>();
