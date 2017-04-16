@@ -84,7 +84,7 @@ namespace GLX
         /// </summary>
         public float spacing;
 
-        private World world;
+        public World world;
 
         /// <summary>
         /// The directions menu items can be arranged.
