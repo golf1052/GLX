@@ -232,19 +232,47 @@ namespace GLX
                     long framesMoved = animations.elapsedTime / animations.currentSpriteSheet.frameTime;
                     for (int i = 0; i < framesMoved; i++)
                     {
-                        animations.currentFrame++;
-                        if (animations.currentFrame == animations.currentSpriteSheet.frameCount)
+                        if (!animations.CurrentAnimation.reverse)
                         {
-                            if (!animations.currentSpriteSheet.loop)
+                            animations.currentFrame++;
+                        }
+                        else
+                        {
+                            animations.currentFrame--;
+                        }
+
+                        if (!animations.CurrentAnimation.reverse)
+                        {
+                            if (animations.currentFrame == animations.currentSpriteSheet.frameCount)
                             {
-                                animations.active = false;
-                                animations.elapsedTime = 0;
-                                animations.currentFrame = 0;
-                                break;
+                                if (!animations.currentSpriteSheet.loop)
+                                {
+                                    animations.active = false;
+                                    animations.elapsedTime = 0;
+                                    animations.currentFrame = 0;
+                                    break;
+                                }
+                                else
+                                {
+                                    animations.currentFrame = 0;
+                                }
                             }
-                            else
+                        }
+                        else
+                        {
+                            if (animations.currentFrame == 0)
                             {
-                                animations.currentFrame = 0;
+                                if (!animations.CurrentAnimation.loop)
+                                {
+                                    animations.active = false;
+                                    animations.elapsedTime = 0;
+                                    animations.currentFrame = animations.CurrentAnimation.frameCount - 1;
+                                    break;
+                                }
+                                else
+                                {
+                                    animations.currentFrame = animations.CurrentAnimation.frameCount - 1;
+                                }
                             }
                         }
                         if (animations.currentFrame >= 0 && animations.currentFrame < animations.currentSpriteSheet.frameActions.Count)
@@ -286,29 +314,62 @@ namespace GLX
                         for (int i = 0; i < framesMoved; i++)
                         {
                             // For every frame we moved add one to our current frame
-                            animations.currentFrame++;
+                            if (!animations.CurrentAnimation.reverse)
+                            {
+                                animations.currentFrame++;
+                            }
+                            else
+                            {
+                                animations.currentFrame--;
+                            }
+
                             if (animations.runOneFrame)
                             {
                                 animations.runOneFrame = false;
                                 animations.active = false;
                             }
-                            if (animations.currentFrame == animations.currentSpriteSheet.frameCount)
+
+                            if (!animations.CurrentAnimation.reverse)
                             {
-                                // Then check if we hit the frame count, if we did and the animation should not
-                                // loop then stop the animation
-                                if (!animations.currentSpriteSheet.loop)
+                                if (animations.currentFrame == animations.currentSpriteSheet.frameCount)
                                 {
-                                    animations.active = false;
-                                    animations.elapsedTime = 0;
-                                    animations.currentFrame = 0;
-                                    break;
-                                }
-                                else
-                                {
-                                    // If we should loop just go back to the first frame
-                                    animations.currentFrame = 0;
+                                    // Then check if we hit the frame count, if we did and the animation should not
+                                    // loop then stop the animation
+                                    if (!animations.currentSpriteSheet.loop)
+                                    {
+                                        animations.active = false;
+                                        animations.elapsedTime = 0;
+                                        animations.currentFrame = 0;
+                                        break;
+                                    }
+                                    else
+                                    {
+                                        // If we should loop just go back to the first frame
+                                        animations.currentFrame = 0;
+                                    }
                                 }
                             }
+                            else
+                            {
+                                if (animations.currentFrame == 0)
+                                {
+                                    // Then check if we hit the frame count, if we did and the animation should not
+                                    // loop then stop the animation
+                                    if (!animations.currentSpriteSheet.loop)
+                                    {
+                                        animations.active = false;
+                                        animations.elapsedTime = 0;
+                                        animations.currentFrame = animations.CurrentAnimation.frameCount - 1;
+                                        break;
+                                    }
+                                    else
+                                    {
+                                        // If we should loop just go back to the first frame
+                                        animations.currentFrame = animations.CurrentAnimation.frameCount - 1;
+                                    }
+                                }
+                            }
+                            
                             if (animations.currentFrame >= 0 && animations.currentFrame < animations.currentSpriteSheet.frameActions.Count)
                             {
                                 // and then run all the animation actions we have for this frame
@@ -331,27 +392,58 @@ namespace GLX
                         for (int i = 0; i < framesMoved; i++)
                         {
                             // except we go backwards in frames
-                            animations.currentFrame--;
+                            if (!animations.CurrentAnimation.reverse)
+                            {
+                                animations.currentFrame--;
+                            }
+                            else
+                            {
+                                animations.currentFrame++;
+                            }
+
                             if (animations.runOneFrame)
                             {
                                 animations.runOneFrame = false;
                                 animations.active = false;
                             }
-                            if (animations.currentFrame == -1)
+
+                            if (!animations.CurrentAnimation.reverse)
                             {
-                                // and if we hit the first frame then check to see if we should loop
-                                if (!animations.currentSpriteSheet.loop)
+                                if (animations.currentFrame == -1)
                                 {
-                                    animations.active = false;
-                                    animations.elapsedTime = 0;
-                                    animations.currentFrame = 0;
-                                    break;
-                                }
-                                else
-                                {
-                                    animations.currentFrame = animations.currentSpriteSheet.frameCount - 1;
+                                    // and if we hit the first frame then check to see if we should loop
+                                    if (!animations.currentSpriteSheet.loop)
+                                    {
+                                        animations.active = false;
+                                        animations.elapsedTime = 0;
+                                        animations.currentFrame = 0;
+                                        break;
+                                    }
+                                    else
+                                    {
+                                        animations.currentFrame = animations.currentSpriteSheet.frameCount - 1;
+                                    }
                                 }
                             }
+                            else
+                            {
+                                if (animations.currentFrame == animations.CurrentAnimation.frameCount)
+                                {
+                                    // and if we hit the first frame then check to see if we should loop
+                                    if (!animations.currentSpriteSheet.loop)
+                                    {
+                                        animations.active = false;
+                                        animations.elapsedTime = 0;
+                                        animations.currentFrame = animations.CurrentAnimation.frameCount - 1;
+                                        break;
+                                    }
+                                    else
+                                    {
+                                        animations.currentFrame = 0;
+                                    }
+                                }
+                            }
+
                             if (animations.currentFrame >= 0 && animations.currentFrame < animations.currentSpriteSheet.reverseFrameActions.Count)
                             {
                                 foreach (Action action in animations.currentSpriteSheet.reverseFrameActions[animations.currentFrame])

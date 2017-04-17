@@ -153,7 +153,7 @@ namespace GLX
         /// <summary>
         /// Reset the animation to the beginning
         /// </summary>
-        private void ResetAnimation()
+        public void ResetAnimation()
         {
             active = true;
             runOneFrame = false;
@@ -161,29 +161,67 @@ namespace GLX
             {
                 spriteSheetInfo = CurrentAnimation.info;
             }
-            sourceRect = new Rectangle(0, 0, spriteSheetInfo.frameWidth, spriteSheetInfo.frameHeight);
-            elapsedTime = 0;
-
-            if (gameTime == null)
+            if (CurrentAnimation != null)
             {
-                elapsedTime = 0;
-                currentFrame = 0;
-            }
-            else
-            {
-                if (gameTime.GameSpeed > 0)
+                if (!CurrentAnimation.reverse)
                 {
-                    currentFrame = 0;
+                    sourceRect = new Rectangle(0, 0, spriteSheetInfo.frameWidth, spriteSheetInfo.frameHeight);
                 }
                 else
                 {
-                    if (currentSpriteSheet != null)
+                    sourceRect = new Rectangle(CurrentAnimation.tex.Width - spriteSheetInfo.frameWidth, 0, spriteSheetInfo.frameWidth, spriteSheetInfo.frameHeight);
+                }
+                elapsedTime = 0;
+
+                if (gameTime == null)
+                {
+                    elapsedTime = 0;
+                    if (!CurrentAnimation.reverse)
                     {
-                        currentFrame = currentSpriteSheet.frameCount - 1;
+                        currentFrame = 0;
                     }
                     else
                     {
-                        currentFrame = 0;
+                        currentFrame = CurrentAnimation.frameCount - 1;
+                    }
+                }
+                else
+                {
+                    if (gameTime.GameSpeed > 0)
+                    {
+                        if (!CurrentAnimation.reverse)
+                        {
+                            currentFrame = 0;
+                        }
+                        else
+                        {
+                            currentFrame = CurrentAnimation.frameCount - 1;
+                        }
+                    }
+                    else
+                    {
+                        if (currentSpriteSheet != null)
+                        {
+                            if (!CurrentAnimation.reverse)
+                            {
+                                currentFrame = currentSpriteSheet.frameCount - 1;
+                            }
+                            else
+                            {
+                                currentFrame = 0;
+                            }
+                        }
+                        else
+                        {
+                            if (!CurrentAnimation.reverse)
+                            {
+                                currentFrame = 0;
+                            }
+                            else
+                            {
+                                currentFrame = currentSpriteSheet.frameCount - 1;
+                            }
+                        }
                     }
                 }
             }
@@ -270,6 +308,40 @@ namespace GLX
                 direction,
                 frameTime,
                 loop);
+        }
+
+        /// <summary>
+        /// Creates a new sprite sheet
+        /// </summary>
+        /// <param name="spriteSheet">The texture the sprite sheet is referencing</param>
+        /// <param name="info">The sprite sheet info</param>
+        /// <param name="frameCount">The number of frames</param>
+        /// <param name="columns">The number of columns in the sprite sheet</param>
+        /// <param name="rows">The number of rows in the sprite sheet</param>
+        /// <param name="direction">The direction the sprite sheet goes in (either left to right or top to bottom)</param>
+        /// <param name="frameTime">The time between frames. In milliseconds.</param>
+        /// <param name="loop">If the animation should loop</param>
+        /// <param name="reverse">If the animation should be played in reverse</param>
+        /// <returns>A sprite sheet</returns>
+        public SpriteSheet AddSpriteSheet(Texture2D spriteSheet,
+            SpriteSheetInfo info,
+            int frameCount,
+            int columns,
+            int rows,
+            SpriteSheet.Direction direction,
+            long frameTime,
+            bool loop,
+            bool reverse)
+        {
+            return new SpriteSheet(spriteSheet,
+                info,
+                frameCount,
+                columns,
+                rows,
+                direction,
+                frameTime,
+                loop,
+                reverse);
         }
 
         /// <summary>
