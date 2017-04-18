@@ -103,6 +103,8 @@ namespace GLX
         private KeyboardState previousKeyboardState;
         private GamePadState previousGamePadState;
 
+        public bool Loading { get; set; }
+
         /// <summary>
         /// Creates a new menu state. Unlike <see cref="GameState"/>, menu states come with their own game time because menus typically run at normal speed.
         /// </summary>
@@ -213,11 +215,15 @@ namespace GLX
                 CurrentSelection++;
             }
 
-            if (keyboardState.IsKeyDownAndUp(Keys.Enter, previousKeyboardState) ||
-                gamePadState.IsButtonDownAndUp(Buttons.A, previousGamePadState))
+            if (!Loading)
             {
-                DoAction();
+                if (keyboardState.IsKeyDownAndUp(Keys.Enter, previousKeyboardState) ||
+                                gamePadState.IsButtonDownAndUp(Buttons.A, previousGamePadState))
+                {
+                    DoAction();
+                }
             }
+            Loading = false;
 
             previousKeyboardState = keyboardState;
             previousGamePadState = gamePadState;

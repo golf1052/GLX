@@ -304,6 +304,7 @@ namespace GLX
                     return;
                 }
             }
+            menuStates[name].Loading = true;
             activeMenuStates.Add(new KeyValuePair<string, MenuState>(name, menuStates[name]));
         }
 
