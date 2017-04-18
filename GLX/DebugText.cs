@@ -93,12 +93,12 @@ namespace GLX
             debugTexts.AddRange(items);
         }
 
-        public static void AddOther(string key, string text)
-        {
-            TextItem item = new TextItem(spriteFont, text);
-            otherDebugTexts.Add(item);
-            debugTexts.AddRange(otherDebugTexts);
-        }
+        //public static void AddOther(string key, string text)
+        //{
+        //    TextItem item = new TextItem(spriteFont, text);
+        //    otherDebugTexts.Add(item);
+        //    debugTexts.AddRange(otherDebugTexts);
+        //}
 
         /// <summary>
         /// Draws the debug texts

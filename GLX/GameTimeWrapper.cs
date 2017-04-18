@@ -213,7 +213,6 @@ namespace GLX
             ActualGameSpeed = realGameSpeedDecimal;
             if (updateLoops > 0)
             {
-                DebugText.AddOther(nameof(updateLoops), updateLoops.ToString());
                 //if (gameSpeedDecimal >= 0)
                 //{
                 //    gameSpeedDecimal = 1.0m;
