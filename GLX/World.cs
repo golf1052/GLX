@@ -305,6 +305,7 @@ namespace GLX
                 }
             }
             menuStates[name].Loading = true;
+            menuStates[name].CurrentSelection = 0;
             activeMenuStates.Add(new KeyValuePair<string, MenuState>(name, menuStates[name]));
         }
 

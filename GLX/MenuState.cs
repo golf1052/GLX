@@ -25,6 +25,7 @@ namespace GLX
         public List<TextItem> menuItems;
 
         private Dictionary<string, Action> menuItemActions;
+        public Action BackAction { get; set; }
 
         /// <summary>
         /// The color a menu item should be when it is not selected.
@@ -115,6 +116,7 @@ namespace GLX
         {
             menuItems = new List<TextItem>();
             menuItemActions = new Dictionary<string, Action>();
+            BackAction = null;
             currentSelection = 0;
             AddDraw(Draw);
             this.world = world;
@@ -175,15 +177,20 @@ namespace GLX
         /// <summary>
         /// Invokes the action on the currently selected menu item (if there is an action).
         /// </summary>
-        public void DoAction()
+        public void DoSelectedAction()
         {
             if (menuItemActions.ContainsKey(menuItems[CurrentSelection].text))
             {
                 // this is bad. if the action modifies the state list then trying to just directly invoke the
                 // action will throw an error. instead we have to defer the invocation until after the update
                 // loops finish...
-                World.thingsToDo.Add(menuItemActions[menuItems[CurrentSelection].text]);
+                DoAction(menuItemActions[menuItems[CurrentSelection].text]);
             }
+        }
+
+        private void DoAction(Action action)
+        {
+            World.thingsToDo.Add(action);
         }
 
         public void UpdateMenuState()
@@ -218,9 +225,18 @@ namespace GLX
             if (!Loading)
             {
                 if (keyboardState.IsKeyDownAndUp(Keys.Enter, previousKeyboardState) ||
-                                gamePadState.IsButtonDownAndUp(Buttons.A, previousGamePadState))
+                    gamePadState.IsButtonDownAndUp(Buttons.A, previousGamePadState))
                 {
-                    DoAction();
+                    DoSelectedAction();
+                }
+                else if (keyboardState.IsKeyDownAndUp(Keys.Escape, previousKeyboardState) ||
+                    keyboardState.IsKeyDownAndUp(Keys.Back, previousKeyboardState) ||
+                    gamePadState.IsButtonDownAndUp(Buttons.B, previousGamePadState))
+                {
+                    if (BackAction != null)
+                    {
+                        DoAction(BackAction);
+                    }
                 }
             }
             Loading = false;
