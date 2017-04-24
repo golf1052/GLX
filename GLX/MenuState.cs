@@ -136,6 +136,7 @@ namespace GLX
         {
             menuItems.Add(new TextItem(MenuFont, spriteText));
             menuItems.Last().color = UnselectedColor;
+            menuItems.Last().scale = 1.5f;
             menuItems.Last().Update();
             if (menuItems.Count == 1)
             {
