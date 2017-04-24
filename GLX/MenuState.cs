@@ -122,7 +122,7 @@ namespace GLX
             this.world = world;
             UnselectedColor = Color.Black;
             SelectedColor = Color.Yellow;
-            spacing = 10;
+            spacing = 25;
             menuDirection = Direction.TopToBottom;
             previousKeyboardState = Keyboard.GetState();
             previousGamePadState = GamePad.GetState(PlayerIndex.One);
