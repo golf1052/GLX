@@ -22,7 +22,8 @@ namespace GLX
         /// <summary>
         /// The list of menu items.
         /// </summary>
-        public List<TextItem> menuItems;
+        public List<MenuItem> menuItems;
+        private List<MenuItem> actionableMenuItems;
 
         private Dictionary<string, Action> menuItemActions;
         public Action BackAction { get; set; }
@@ -50,21 +51,21 @@ namespace GLX
             }
             set
             {
-                if (menuItems.Count > 0)
+                if (actionableMenuItems.Count > 0)
                 {
-                    if (value >= menuItems.Count)
+                    if (value >= actionableMenuItems.Count)
                     {
                         value = 0;
                     }
                     else if (value <= -1)
                     {
-                        value = menuItems.Count - 1;
+                        value = actionableMenuItems.Count - 1;
                     }
-                    foreach (var item in menuItems)
+                    foreach (var item in actionableMenuItems)
                     {
                         item.color = UnselectedColor;
                     }
-                    menuItems[value].color = SelectedColor;
+                    actionableMenuItems[value].color = SelectedColor;
                     currentSelection = value;
                 }
             }
@@ -114,7 +115,8 @@ namespace GLX
         /// <param name="world">The world</param>
         public MenuState(string name, GraphicsDeviceManager graphics, World world) : base(name, graphics)
         {
-            menuItems = new List<TextItem>();
+            menuItems = new List<MenuItem>();
+            actionableMenuItems = new List<MenuItem>();
             menuItemActions = new Dictionary<string, Action>();
             BackAction = null;
             currentSelection = 0;
@@ -132,15 +134,20 @@ namespace GLX
         /// Adds a new menu item to the list of menu items where the given string is what the menu item will display.
         /// </summary>
         /// <param name="spriteText">The text of the menu item.</param>
-        public void AddMenuItem(string spriteText = "")
+        public void AddMenuItem(string spriteText = "", bool canSelect = true)
         {
-            menuItems.Add(new TextItem(MenuFont, spriteText));
+            MenuItem menuItem = new MenuItem(MenuFont, spriteText, canSelect);
+            menuItems.Add(menuItem);
             menuItems.Last().color = UnselectedColor;
             menuItems.Last().scale = 1.5f;
             menuItems.Last().Update();
-            if (menuItems.Count == 1)
+            if (canSelect)
             {
-                menuItems[0].color = SelectedColor;
+                if (menuItems.Count == 1)
+                {
+                    menuItems[0].color = SelectedColor;
+                }
+                actionableMenuItems.Add(menuItem);
             }
         }
 
@@ -165,7 +172,7 @@ namespace GLX
         /// <param name="action">The action.</param>
         public void SetMenuAction(string text, Action action)
         {
-            foreach (TextItem item in menuItems)
+            foreach (TextItem item in actionableMenuItems)
             {
                 if (item.text == text)
                 {
@@ -180,12 +187,12 @@ namespace GLX
         /// </summary>
         public void DoSelectedAction()
         {
-            if (menuItemActions.ContainsKey(menuItems[CurrentSelection].text))
+            if (menuItemActions.ContainsKey(actionableMenuItems[CurrentSelection].text))
             {
                 // this is bad. if the action modifies the state list then trying to just directly invoke the
                 // action will throw an error. instead we have to defer the invocation until after the update
                 // loops finish...
-                DoAction(menuItemActions[menuItems[CurrentSelection].text]);
+                DoAction(menuItemActions[actionableMenuItems[CurrentSelection].text]);
             }
         }
 

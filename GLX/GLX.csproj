@@ -52,6 +52,7 @@
     <Compile Include="GLXException.cs" />
     <Compile Include="HelperMethods.cs" />
     <Compile Include="Line.cs" />
+    <Compile Include="MenuItem.cs" />
     <Compile Include="MenuState.cs" />
     <Compile Include="Particle.cs" />
     <Compile Include="ParticleHandler.cs" />
